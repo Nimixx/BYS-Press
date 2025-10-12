@@ -9,6 +9,8 @@
     "tests",
     "src",
     "md-docs",
+    "scripts",
+    "bundles",
     ".env",
     ".env.example",
     ".editorconfig",
@@ -27,9 +29,6 @@
     "svelte.config.js",
     "eslint.config.js",
     "bundle.config.json",
-    "README.md",
-    "AUDIT.md",
-    "SECURITY.md",
     "*.md"
   ],
   "outputDir": "./bundles"

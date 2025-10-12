@@ -6,6 +6,9 @@
 // Load Composer dependencies
 require_once __DIR__ . '/vendor/autoload.php';
 
+// Load security headers configuration
+require_once __DIR__ . '/inc/security-headers.php';
+
 // Initialize Timber
 Timber\Timber::init();
 

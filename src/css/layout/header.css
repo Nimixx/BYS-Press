@@ -1,0 +1,118 @@
+/**
+ * Site Header
+ *
+ * Semantic header with site branding and navigation
+ */
+
+.site-header {
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-header__container {
+  max-width: var(--container-max-width, 1200px);
+  margin: 0 auto;
+  padding: var(--spacing-md, 1rem) var(--spacing-lg, 1.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-lg, 1.5rem);
+}
+
+/**
+ * Site Branding
+ */
+.site-branding {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.site-branding__link {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.site-branding__link:hover {
+  opacity: 0.8;
+}
+
+.site-branding__name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.02em;
+}
+
+.site-branding__description {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+/**
+ * Site Navigation
+ */
+.site-navigation {
+  display: flex;
+  align-items: center;
+}
+
+.site-navigation__menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--spacing-md, 1rem);
+}
+
+.site-navigation__menu li {
+  margin: 0;
+}
+
+.site-navigation__menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.site-navigation__menu a:hover,
+.site-navigation__menu a:focus {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.site-navigation__menu .current-menu-item > a,
+.site-navigation__menu .current_page_item > a {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/**
+ * Responsive Design
+ */
+@media (max-width: 768px) {
+  .site-header__container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md, 1rem);
+  }
+
+  .site-navigation__menu {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .site-navigation__menu a {
+    width: 100%;
+  }
+}

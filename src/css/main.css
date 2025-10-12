@@ -35,9 +35,9 @@
 /* ============================================
    3. LAYOUT - Structural Patterns
    ============================================ */
-/* @import './layout/grid.css'; */
-/* @import './layout/header.css'; */
-/* @import './layout/footer.css'; */
+@import './layout/structure.css';
+@import './layout/header.css';
+@import './layout/footer.css';
 
 /* ============================================
    4. COMPONENTS - Semantic Components

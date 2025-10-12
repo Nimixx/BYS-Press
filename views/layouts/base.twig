@@ -10,11 +10,53 @@
 <body class="{{ body_class }}">
   {{ function('wp_body_open') }}
 
-  <div id="app">
+  {# Skip link for accessibility #}
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  {# Site Header #}
+  <header class="site-header" role="banner">
+    <div class="site-header__container">
+      {% block header %}
+        <div class="site-branding">
+          <a href="{{ site.url }}" class="site-branding__link" rel="home">
+            <span class="site-branding__name">{{ site.name }}</span>
+          </a>
+          {% if site.description %}
+            <p class="site-branding__description">{{ site.description }}</p>
+          {% endif %}
+        </div>
+
+        {# Primary Navigation #}
+        {% if function('has_nav_menu', 'primary') %}
+          <nav class="site-navigation" role="navigation" aria-label="Primary navigation">
+            {{ function('wp_nav_menu', {
+              'theme_location': 'primary',
+              'container': false,
+              'menu_class': 'site-navigation__menu'
+            }) }}
+          </nav>
+        {% endif %}
+      {% endblock %}
+    </div>
+  </header>
+
+  {# Main Content Area #}
+  <main id="main-content" class="site-main" role="main">
     {% block content %}
-      {# Content goes here #}
+      {# Page content goes here #}
     {% endblock %}
-  </div>
+  </main>
+
+  {# Site Footer #}
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__container">
+      {% block footer %}
+        <p class="site-footer__copyright">
+          &copy; {{ "now"|date("Y") }} {{ site.name }}. All rights reserved.
+        </p>
+      {% endblock %}
+    </div>
+  </footer>
 
   {{ function('wp_footer') }}
 </body>

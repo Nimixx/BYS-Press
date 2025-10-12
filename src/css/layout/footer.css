@@ -1,0 +1,59 @@
+/**
+ * Site Footer
+ *
+ * Semantic footer with copyright and optional navigation
+ */
+
+.site-footer {
+  margin-top: auto;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer__container {
+  max-width: var(--container-max-width, 1200px);
+  margin: 0 auto;
+  padding: var(--spacing-xl, 2rem) var(--spacing-lg, 1.5rem);
+  text-align: center;
+}
+
+.site-footer__copyright {
+  margin: 0;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/**
+ * Optional Footer Navigation
+ */
+.site-footer__navigation {
+  margin-bottom: var(--spacing-md, 1rem);
+}
+
+.site-footer__menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--spacing-md, 1rem);
+}
+
+.site-footer__menu li {
+  margin: 0;
+}
+
+.site-footer__menu a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.site-footer__menu a:hover,
+.site-footer__menu a:focus {
+  color: rgba(255, 255, 255, 1);
+}

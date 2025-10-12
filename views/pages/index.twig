@@ -1,15 +1,17 @@
 {% extends "layouts/base.twig" %}
 
 {% block content %}
-  <main class="main-content">
-    <h1>Hello</h1>
+  <div class="index-page">
+    <h1>Blog</h1>
 
     {% if posts %}
       <div class="posts">
         {% for post in posts %}
           <article class="post">
-            <h2>{{ post.title }}</h2>
-            <div class="post-content">
+            <h2 class="post__title">
+              <a href="{{ post.link }}">{{ post.title }}</a>
+            </h2>
+            <div class="post__content">
               {{ post.content }}
             </div>
           </article>
@@ -18,5 +20,5 @@
     {% else %}
       <p>No posts found.</p>
     {% endif %}
-  </main>
+  </div>
 {% endblock %}

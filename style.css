@@ -1,10 +1,54 @@
 /*
 Theme Name: Core Theme
-Theme URI: https://core-theme.test
+Theme URI: https://github.com/tadeasthelen/core-theme
 Author: Tadeas Thelen
-Description: A minimal custom WordPress theme
-Version: 1.0
+Author URI: https://tadeasthelen.com
+Description: A modern, secure WordPress theme built with Timber (Twig templating), Vite, TypeScript, and Svelte 5. Features comprehensive security headers, modular architecture, environment-aware configuration, and accessibility-first design. Perfect for developers who want a minimal, performant foundation with modern tooling.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.8
+Requires PHP: 8.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: core-theme
+Domain Path: /languages
+Tags: modern, minimal, timber, vite, typescript, svelte, security, accessibility, developer-friendly, flexible-header, custom-menu, translation-ready
+
+Core Theme - A modern WordPress development foundation
+====================================================
+
+Built With:
+- WordPress + Timber (Twig templating engine)
+- Vite for lightning-fast builds and HMR
+- TypeScript for type safety
+- Svelte 5 for reactive components
+- BEM methodology for CSS architecture
+- Comprehensive security headers with CSP
+- Environment-aware configuration
+- Accessibility-first HTML5 semantic structure
+
+Features:
+- Production-ready security implementation
+- Modular Twig template structure (layouts, pages, partials)
+- Modern CSS with custom properties
+- Hot module replacement in development
+- Optimized production builds
+- WordPress theme support (menus, thumbnails, feeds, custom logo)
+- Skip navigation for accessibility
+- REST API security hardening
+- File editing protection
+
+For Development:
+npm install       - Install dependencies
+npm run dev       - Start development server with HMR
+npm run build     - Build for production
+npm run preview   - Preview production build
+
+Requirements:
+- PHP 8.1 or higher
+- WordPress 6.0 or higher
+- Node.js 18+ and npm
+- Timber plugin or Composer autoload
+
+Documentation: https://github.com/tadeasthelen/core-theme
 */

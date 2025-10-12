@@ -110,3 +110,28 @@
   color: var(--color-text-tertiary);
   font-weight: var(--font-weight-light);
 }
+
+/* Element: front-page__image-wrapper
+   ========================================================================== */
+
+.front-page__image-wrapper {
+  max-width: var(--container-md);
+  margin: var(--space-12) auto 0;
+}
+
+/* Element: front-page__image
+   ========================================================================== */
+
+.front-page__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  border: var(--border-width-1) solid var(--color-border);
+  transition: border-color var(--transition-base) var(--ease-out);
+}
+
+.front-page__image:hover {
+  border-color: var(--color-border-hover);
+}

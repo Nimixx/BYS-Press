@@ -27,3 +27,11 @@ yarn-error.log*
 # Temporary files
 *.tmp
 *.temp
+
+# Test coverage
+coverage/
+.nyc_output/
+.phpunit.cache/
+
+# Test results
+.vitest/

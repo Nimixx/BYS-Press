@@ -8,25 +8,44 @@ Before installing the theme, ensure your WordPress installation meets the follow
 
 - **WordPress Version**: 5.9 or higher
 - **PHP Version**: 8.0 or higher
-- **Required Plugin**: [Timber](https://wordpress.org/plugins/timber-library/) (version 2.0 or higher)
+- **Composer**: Required for dependency management (Timber library)
+- **Server Access**: SSH or FTP access to run Composer commands
 
 ## Installation Steps
 
-### Step 1: Install Timber Plugin
+### Step 1: Install Composer Dependencies
 
-The Core Theme requires the Timber plugin to function properly.
+The Core Theme uses Composer to manage its PHP dependencies, including the Timber library. You have two options:
 
-**Option A: Install via WordPress Admin Panel**
-1. Log in to your WordPress admin panel
-2. Navigate to **Plugins** → **Add New**
-3. Search for "Timber"
-4. Click **Install Now** on the "Timber" plugin by Upstatement
-5. Click **Activate** after installation completes
+**Option A: Install Dependencies After Upload (Recommended)**
 
-**Option B: Install via WP-CLI**
-```bash
-wp plugin install timber-library --activate
-```
+If you have SSH access to your server:
+
+1. First, upload the theme (see Step 2)
+2. SSH into your server
+3. Navigate to the theme directory:
+   ```bash
+   cd /path/to/wp-content/themes/core-theme
+   ```
+4. Install production dependencies:
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   ```
+
+**Option B: Pre-Install Dependencies Locally**
+
+If you don't have Composer on your server or prefer to prepare the theme locally:
+
+1. Extract the theme ZIP on your local machine
+2. Open a terminal in the extracted `core-theme` directory
+3. Run Composer:
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   ```
+4. Re-zip the entire `core-theme` folder (now including the `vendor` directory)
+5. Upload this complete package to your server
+
+**Note**: The `vendor` directory contains all PHP dependencies including Timber and is required for the theme to function.
 
 ### Step 2: Upload the Theme
 
@@ -53,7 +72,8 @@ wp theme install /path/to/core-theme_XXXXXXXX_XXXXXX.zip
 ### Step 3: Activate the Theme
 
 **Before activating**, ensure that:
-- ✅ Timber plugin is installed and activated
+- ✅ Composer dependencies are installed (including Timber library)
+- ✅ The `vendor` directory exists in the theme folder
 - ✅ Your WordPress version meets the minimum requirements
 - ✅ Your PHP version is 8.0 or higher
 
@@ -98,15 +118,19 @@ The Core Theme includes:
 
 If you encounter a white screen or fatal error after activation:
 
-1. **Check Timber Plugin**: Ensure Timber is installed and activated
-2. **Check PHP Version**: Verify your server is running PHP 8.0 or higher
-3. **Enable Debug Mode**: Add these lines to `wp-config.php`:
+1. **Check Composer Dependencies**: The most common issue is missing dependencies
+   - Verify the `vendor` directory exists in the theme folder
+   - Check that `vendor/autoload.php` file exists
+   - If missing, run: `composer install --no-dev --optimize-autoloader`
+2. **Check Timber Installation**: Ensure Timber library is in `vendor/timber/timber`
+3. **Check PHP Version**: Verify your server is running PHP 8.0 or higher
+4. **Enable Debug Mode**: Add these lines to `wp-config.php`:
    ```php
    define('WP_DEBUG', true);
    define('WP_DEBUG_LOG', true);
    define('WP_DEBUG_DISPLAY', false);
    ```
-4. **Check Error Logs**: Review `/wp-content/debug.log` for specific error messages
+5. **Check Error Logs**: Review `/wp-content/debug.log` for specific error messages
 
 ### Theme Not Displaying Correctly
 

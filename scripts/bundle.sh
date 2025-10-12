@@ -84,3 +84,16 @@ LATEST_LINK="$THEME_DIR/$OUTPUT_DIR/${THEME_NAME}_latest.zip"
 rm -f "$LATEST_LINK"
 ln -s "$ZIP_NAME" "$LATEST_LINK"
 echo -e "Latest: ${GREEN}$OUTPUT_DIR/${THEME_NAME}_latest.zip${NC}"
+
+# Copy installation instructions next to the bundle
+if [ -f "$THEME_DIR/INSTALL.md" ]; then
+    INSTALL_NAME="${THEME_NAME}_${TIMESTAMP}_INSTALL.md"
+    cp "$THEME_DIR/INSTALL.md" "$THEME_DIR/$OUTPUT_DIR/$INSTALL_NAME"
+
+    # Also create a latest symlink for the install guide
+    LATEST_INSTALL="$THEME_DIR/$OUTPUT_DIR/${THEME_NAME}_INSTALL.md"
+    rm -f "$LATEST_INSTALL"
+    ln -s "$INSTALL_NAME" "$LATEST_INSTALL"
+
+    echo -e "Install Guide: ${GREEN}$OUTPUT_DIR/$INSTALL_NAME${NC}"
+fi

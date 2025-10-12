@@ -5,6 +5,7 @@
  * Main class that initializes all theme components
  *
  * @package CoreTheme
+ * @since 1.0.0
  */
 
 namespace CoreTheme;
@@ -42,6 +43,7 @@ class Theme
     /**
      * Constructor with dependency injection
      *
+     * @since 1.0.0
      * @param ThemeSetup|null $themeSetup
      * @param Assets|null $assets
      * @param Security|null $security
@@ -63,6 +65,9 @@ class Theme
      * Initialize the theme
      *
      * Boots up all theme components
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function boot(): void
     {
@@ -82,6 +87,7 @@ class Theme
     /**
      * Get theme setup instance
      *
+     * @since 1.0.0
      * @return ThemeSetup
      */
     public function getThemeSetup(): ThemeSetup
@@ -92,6 +98,7 @@ class Theme
     /**
      * Get assets instance
      *
+     * @since 1.0.0
      * @return Assets
      */
     public function getAssets(): Assets
@@ -102,6 +109,7 @@ class Theme
     /**
      * Get security instance
      *
+     * @since 1.0.0
      * @return Security
      */
     public function getSecurity(): Security
@@ -112,6 +120,7 @@ class Theme
     /**
      * Get Timber config instance
      *
+     * @since 1.0.0
      * @return TimberConfig
      */
     public function getTimberConfig(): TimberConfig

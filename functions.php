@@ -24,6 +24,7 @@ $coreTheme->boot();
  *
  * Provides global access to the theme instance for extending functionality
  *
+ * @since 1.0.0
  * @return CoreTheme\Theme
  */
 function core_theme(): CoreTheme\Theme

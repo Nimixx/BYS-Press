@@ -1,6 +1,11 @@
 <?php
 /**
  * Front Page Template
+ *
+ * This template is used for the front page of the site
+ *
+ * @package CoreTheme
+ * @since 1.0.0
  */
 
 $context = Timber::context();

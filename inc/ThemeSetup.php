@@ -5,6 +5,7 @@
  * Handles theme configuration, supports, and menus
  *
  * @package CoreTheme
+ * @since 1.0.0
  */
 
 namespace CoreTheme;
@@ -13,6 +14,9 @@ class ThemeSetup
 {
     /**
      * Initialize theme setup
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function init(): void
     {
@@ -21,6 +25,9 @@ class ThemeSetup
 
     /**
      * Theme setup configuration
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function setup(): void
     {
@@ -30,6 +37,9 @@ class ThemeSetup
 
     /**
      * Add theme supports
+     *
+     * @since 1.0.0
+     * @return void
      */
     private function addThemeSupports(): void
     {
@@ -50,6 +60,9 @@ class ThemeSetup
 
     /**
      * Register navigation menus
+     *
+     * @since 1.0.0
+     * @return void
      */
     private function registerMenus(): void
     {

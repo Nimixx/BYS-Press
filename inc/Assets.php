@@ -5,6 +5,7 @@
  * Handles enqueueing of theme assets (scripts and styles) with performance optimizations
  *
  * @package CoreTheme
+ * @since 1.0.0
  */
 
 namespace CoreTheme;
@@ -58,6 +59,7 @@ class Assets
     /**
      * Constructor
      *
+     * @since 1.0.0
      * @param string|null $themeDir Optional theme directory path
      */
     public function __construct(?string $themeDir = null)
@@ -67,6 +69,9 @@ class Assets
 
     /**
      * Initialize asset enqueueing
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function init(): void
     {
@@ -83,6 +88,9 @@ class Assets
 
     /**
      * Enqueue theme assets
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function enqueueAssets(): void
     {
@@ -100,6 +108,7 @@ class Assets
     /**
      * Optimize script tags with defer/async attributes
      *
+     * @since 1.0.0
      * @param string $tag Script tag HTML
      * @param string $handle Script handle
      * @return string Modified script tag
@@ -122,6 +131,7 @@ class Assets
     /**
      * Optimize style tags
      *
+     * @since 1.0.0
      * @param string $tag Style tag HTML
      * @param string $handle Style handle
      * @return string Modified style tag
@@ -141,6 +151,9 @@ class Assets
 
     /**
      * Inline critical CSS
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function inlineCriticalCss(): void
     {
@@ -159,6 +172,9 @@ class Assets
 
     /**
      * Add resource hints (preload, prefetch, preconnect)
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function addResourceHints(): void
     {
@@ -179,6 +195,7 @@ class Assets
     /**
      * Add font preconnect hints
      *
+     * @since 1.0.0
      * @param array $urls Resource hint URLs
      * @param string $relation_type Type of resource hint
      * @return array Modified URLs
@@ -202,6 +219,7 @@ class Assets
     /**
      * Set critical CSS content
      *
+     * @since 1.0.0
      * @param string $css Critical CSS content
      * @return self
      */
@@ -214,6 +232,7 @@ class Assets
     /**
      * Add script to be deferred
      *
+     * @since 1.0.0
      * @param string $handle Script handle
      * @return self
      */
@@ -226,6 +245,7 @@ class Assets
     /**
      * Add script to be loaded async
      *
+     * @since 1.0.0
      * @param string $handle Script handle
      * @return self
      */
@@ -238,6 +258,7 @@ class Assets
     /**
      * Add resource to preload
      *
+     * @since 1.0.0
      * @param string $url Resource URL
      * @param string $type Resource type (script, style, font, image)
      * @param array $options Additional options (as, crossorigin)
@@ -255,6 +276,7 @@ class Assets
     /**
      * Enable or disable font optimization
      *
+     * @since 1.0.0
      * @param bool $enable
      * @return self
      */
@@ -267,6 +289,7 @@ class Assets
     /**
      * Get theme directory path
      *
+     * @since 1.0.0
      * @return string
      */
     public function getThemeDir(): string
@@ -277,6 +300,7 @@ class Assets
     /**
      * Get deferred scripts
      *
+     * @since 1.0.0
      * @return array
      */
     public function getDeferredScripts(): array
@@ -287,6 +311,7 @@ class Assets
     /**
      * Get async scripts
      *
+     * @since 1.0.0
      * @return array
      */
     public function getAsyncScripts(): array

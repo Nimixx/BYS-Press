@@ -5,6 +5,7 @@
  * Handles security headers and security-related configurations
  *
  * @package CoreTheme
+ * @since 1.0.0
  */
 
 namespace CoreTheme;
@@ -34,6 +35,9 @@ class Security
 
     /**
      * Initialize security features
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function init(): void
     {
@@ -54,6 +58,9 @@ class Security
 
     /**
      * Generate CSP nonce
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function generateNonce(): void
     {
@@ -65,6 +72,7 @@ class Security
     /**
      * Get CSP nonce
      *
+     * @since 1.0.0
      * @return string
      */
     public function getNonce(): string
@@ -78,6 +86,7 @@ class Security
     /**
      * Add nonce attribute to script tags
      *
+     * @since 1.0.0
      * @param string $tag
      * @param string $handle
      * @return string
@@ -95,6 +104,7 @@ class Security
     /**
      * Add nonce attribute to style tags
      *
+     * @since 1.0.0
      * @param string $tag
      * @param string $handle
      * @return string
@@ -112,6 +122,7 @@ class Security
     /**
      * Add allowed script domain
      *
+     * @since 1.0.0
      * @param string $domain
      * @return self
      */
@@ -124,6 +135,7 @@ class Security
     /**
      * Add allowed style domain
      *
+     * @since 1.0.0
      * @param string $domain
      * @return self
      */
@@ -136,6 +148,7 @@ class Security
     /**
      * Check if we're in production environment
      *
+     * @since 1.0.0
      * @return bool
      */
     public function isProduction(): bool
@@ -165,6 +178,9 @@ class Security
 
     /**
      * Send security headers
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function sendSecurityHeaders(): void
     {
@@ -186,6 +202,9 @@ class Security
 
     /**
      * Send basic security headers
+     *
+     * @since 1.0.0
+     * @return void
      */
     private function sendBasicSecurityHeaders(): void
     {
@@ -204,6 +223,9 @@ class Security
 
     /**
      * Send Permissions-Policy header
+     *
+     * @since 1.0.0
+     * @return void
      */
     private function sendPermissionsPolicy(): void
     {
@@ -224,6 +246,9 @@ class Security
 
     /**
      * Send Content-Security-Policy header
+     *
+     * @since 1.0.0
+     * @return void
      */
     private function sendContentSecurityPolicy(): void
     {
@@ -263,6 +288,9 @@ class Security
 
     /**
      * Send Strict-Transport-Security header
+     *
+     * @since 1.0.0
+     * @return void
      */
     private function sendHSTSHeader(): void
     {
@@ -274,6 +302,9 @@ class Security
 
     /**
      * Configure REST API security
+     *
+     * @since 1.0.0
+     * @return void
      */
     private function configureRestApiSecurity(): void
     {
@@ -296,6 +327,9 @@ class Security
 
     /**
      * Disable file editing in WordPress admin
+     *
+     * @since 1.0.0
+     * @return void
      */
     private function disableFileEditing(): void
     {
@@ -306,6 +340,9 @@ class Security
 
     /**
      * Enable XML-RPC blocking (optional)
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function disableXmlRpc(): void
     {

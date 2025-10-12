@@ -5,6 +5,7 @@
  * Handles Timber initialization and configuration
  *
  * @package CoreTheme
+ * @since 1.0.0
  */
 
 namespace CoreTheme;
@@ -31,6 +32,7 @@ class TimberConfig
     /**
      * Constructor
      *
+     * @since 1.0.0
      * @param array $viewsDirs Optional views directories
      * @param Security|null $security Optional security instance
      */
@@ -42,6 +44,9 @@ class TimberConfig
 
     /**
      * Initialize Timber
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function init(): void
     {
@@ -54,6 +59,7 @@ class TimberConfig
     /**
      * Add data to Timber context
      *
+     * @since 1.0.0
      * @param array $context
      * @return array
      */
@@ -72,6 +78,7 @@ class TimberConfig
     /**
      * Get views directories
      *
+     * @since 1.0.0
      * @return array
      */
     public function getViewsDirs(): array
@@ -82,6 +89,7 @@ class TimberConfig
     /**
      * Set views directories
      *
+     * @since 1.0.0
      * @param array $dirs
      * @return void
      */

@@ -69,6 +69,14 @@ Core Theme was designed with a clear philosophy:
 - ESLint for code quality
 - Prettier for consistent formatting
 
+### Error Handling & Reliability
+- Centralized error handler utility with severity levels
+- ErrorBoundary component for Svelte applications
+- Global error and promise rejection handlers
+- Development-friendly error logging
+- Production-ready error tracking integration
+- User-friendly error messages and fallback UI
+
 ### Performance Optimizations
 - Optimized Vite builds with code splitting
 - Lazy loading for images and components
@@ -231,7 +239,8 @@ core-theme/
 │   ├── ENV_USAGE.md      # Environment configuration
 │   ├── TESTING.md        # Testing guide
 │   ├── PERFORMANCE.md    # Performance optimization
-│   └── CUSTOMIZE.md      # Customization tutorial
+│   ├── CUSTOMIZE.md      # Customization tutorial
+│   └── ERROR_HANDLING.md # Error handling guide
 ├── public/               # Public static assets
 ├── vendor/               # PHP dependencies (Composer)
 ├── node_modules/         # Node dependencies (npm)
@@ -332,6 +341,18 @@ See [md-docs/TESTING.md](md-docs/TESTING.md) for comprehensive testing guide.
 Want to add new pages, styles, functionality, or integrate libraries?
 
 See [md-docs/CUSTOMIZE.md](md-docs/CUSTOMIZE.md) for a complete customization tutorial.
+
+## Error Handling
+
+Core Theme includes a robust error handling system:
+
+- Centralized error handler with severity levels
+- ErrorBoundary component for Svelte
+- Global error and promise rejection handlers
+- Development vs production error logging
+- Integration ready for error tracking services (Sentry, etc.)
+
+See [md-docs/ERROR_HANDLING.md](md-docs/ERROR_HANDLING.md) for the complete error handling guide.
 
 ## Performance
 

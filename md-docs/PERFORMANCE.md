@@ -155,6 +155,137 @@ add_action('core_theme_booted', function($theme) {
 
 **Implementation:** `inc/Assets.php:163-177`
 
+## Timber Template Caching
+
+### Overview
+
+Timber caching significantly improves performance by caching compiled Twig templates, reducing the overhead of template parsing and compilation on each request.
+
+**Caching is automatically configured:**
+- **Development (WP_DEBUG = true)**: Cache disabled for live template changes
+- **Production (WP_DEBUG = false)**: Cache enabled automatically
+
+**Implementation:** `inc/TimberConfig.php:85-111`
+
+### How Timber Caching Works
+
+Timber 2.x uses a simplified boolean cache setting:
+
+- **Enabled (`true`)**: Timber automatically uses WordPress object cache if available (Redis, Memcached), otherwise falls back to WordPress transients
+- **Disabled (`false`)**: No caching, templates are compiled on every request
+
+The cache implementation is automatic - when enabled, Timber intelligently chooses the best available caching mechanism based on your WordPress setup.
+
+### Customizing Cache Configuration
+
+#### Disable Caching Programmatically
+
+```php
+add_action('core_theme_booted', function($theme) {
+    $timberConfig = $theme->getTimberConfig();
+    $timberConfig->setCacheEnabled(false);
+});
+```
+
+
+### Clearing Cache
+
+#### Clear All Timber Cache
+
+```php
+// Clear cached templates
+$timberConfig = core_theme()->getTimberConfig();
+$timberConfig->clearCache();
+```
+
+#### Clear Compiled Twig Cache
+
+```php
+// Clear compiled Twig templates from cache directory
+$timberConfig = core_theme()->getTimberConfig();
+$timberConfig->clearTwigCache();
+```
+
+#### Clear Cache on Theme Updates
+
+```php
+// Automatically clear cache when theme is updated
+add_action('after_switch_theme', function() {
+    $timberConfig = core_theme()->getTimberConfig();
+    $timberConfig->clearCache();
+    $timberConfig->clearTwigCache();
+});
+```
+
+### Cache Performance Impact
+
+**Without Timber Cache:**
+- Templates parsed and compiled on every request
+- ~50-200ms additional overhead per request
+- Higher CPU usage
+
+**With Timber Cache:**
+- Templates compiled once, cached
+- ~5-20ms overhead per request
+- Significantly lower CPU usage
+- Better for high-traffic sites
+
+### Best Practices
+
+1. **Always enable cache in production**
+   - Ensure `WP_DEBUG` is `false` in production
+   - The theme handles this automatically
+
+2. **Use object cache for high-traffic sites**
+   - Install Redis or Memcached
+   - Install a WordPress object cache plugin
+   - Theme automatically uses object cache when available
+
+3. **Clear cache after template changes**
+   ```php
+   // In functions.php or a custom plugin
+   if (is_admin() && isset($_GET['clear_timber_cache'])) {
+       core_theme()->getTimberConfig()->clearCache();
+       wp_redirect(admin_url());
+       exit;
+   }
+   ```
+
+4. **Monitor cache effectiveness**
+   - Use Query Monitor plugin to see cache hits/misses
+   - Profile with and without cache to measure improvement
+
+### Recommended Object Cache Setup
+
+For optimal performance, set up a persistent object cache:
+
+#### Redis with WordPress
+
+1. Install Redis:
+```bash
+# Ubuntu/Debian
+sudo apt install redis-server
+
+# macOS
+brew install redis
+brew services start redis
+```
+
+2. Install object cache plugin:
+```bash
+cd wp-content
+wget https://raw.githubusercontent.com/rhubarbgroup/redis-cache/master/includes/object-cache.php
+```
+
+3. Configure in `wp-config.php`:
+```php
+define('WP_REDIS_HOST', '127.0.0.1');
+define('WP_REDIS_PORT', 6379);
+define('WP_CACHE', true);
+```
+
+The theme will automatically detect and use Redis for Timber caching.
+
 ## Performance Checklist
 
 ### ✅ Already Implemented
@@ -165,6 +296,8 @@ add_action('core_theme_booted', function($theme) {
 - [x] Font preconnect hints
 - [x] Resource preloading API
 - [x] Scripts in footer by default
+- [x] Timber template caching (auto-configured)
+- [x] Environment-aware cache settings
 
 ### 🎯 Best Practices to Follow
 
@@ -176,6 +309,8 @@ add_action('core_theme_booted', function($theme) {
 - [ ] Enable HTTP/2 or HTTP/3
 - [ ] Configure server-side caching
 - [ ] Use a CDN for static assets
+- [ ] Set up object cache (Redis/Memcached) for high-traffic sites
+- [ ] Monitor Timber cache effectiveness with Query Monitor
 
 ## Measuring Performance
 

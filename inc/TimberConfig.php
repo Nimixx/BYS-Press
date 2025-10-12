@@ -30,6 +30,13 @@ class TimberConfig
     private ?Security $security = null;
 
     /**
+     * Enable Timber cache
+     *
+     * @var bool
+     */
+    private bool $enableCache = true;
+
+    /**
      * Constructor
      *
      * @since 1.0.0
@@ -53,7 +60,36 @@ class TimberConfig
         Timber::init();
         Timber::$dirname = $this->viewsDirs;
 
+        // Configure caching
+        $this->configureCaching();
+
         add_filter('timber/context', [$this, 'addToContext']);
+    }
+
+    /**
+     * Configure Timber caching
+     *
+     * Timber caching improves performance by caching compiled Twig templates.
+     * Cache is disabled in development mode (WP_DEBUG) and enabled in production.
+     *
+     * Timber 2.x uses a simple boolean cache setting. When enabled, Timber will
+     * cache compiled templates using WordPress transients/object cache if available.
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    private function configureCaching(): void
+    {
+        // Disable cache in development/debug mode
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            Timber::$cache = false;
+            return;
+        }
+
+        // Enable or disable cache based on configuration
+        // When true, Timber automatically uses WordPress object cache if available,
+        // otherwise falls back to transients
+        Timber::$cache = $this->enableCache;
     }
 
     /**
@@ -97,5 +133,44 @@ class TimberConfig
     {
         $this->viewsDirs = $dirs;
         Timber::$dirname = $dirs;
+    }
+
+    /**
+     * Enable or disable Timber cache
+     *
+     * @since 1.0.0
+     * @param bool $enable
+     * @return self
+     */
+    public function setCacheEnabled(bool $enable): self
+    {
+        $this->enableCache = $enable;
+        return $this;
+    }
+
+    /**
+     * Clear Timber cache
+     *
+     * Clears all cached Twig templates
+     *
+     * @since 1.0.0
+     * @return bool True on success, false on failure
+     */
+    public function clearCache(): bool
+    {
+        return Timber::clear_cache_timber();
+    }
+
+    /**
+     * Clear Twig cache
+     *
+     * Clears compiled Twig templates from cache directory
+     *
+     * @since 1.0.0
+     * @return bool True on success, false on failure
+     */
+    public function clearTwigCache(): bool
+    {
+        return Timber::clear_cache_twig();
     }
 }

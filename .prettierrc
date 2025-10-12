@@ -12,6 +12,7 @@
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
   "jsxSingleQuote": false,
+  "plugins": ["prettier-plugin-svelte"],
   "overrides": [
     {
       "files": "*.php",
@@ -19,6 +20,12 @@
         "parser": "php",
         "printWidth": 120,
         "tabWidth": 4
+      }
+    },
+    {
+      "files": "*.svelte",
+      "options": {
+        "parser": "svelte"
       }
     }
   ]

@@ -1,0 +1,9 @@
+{
+    "name": "core-theme/wordpress-theme",
+    "description": "Modern WordPress theme with Timber and Vite",
+    "type": "project",
+    "require": {
+        "timber/timber": "^2.3",
+        "kucrut/vite-for-wp": "^0.12.0"
+    }
+}

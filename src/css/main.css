@@ -1,120 +1,68 @@
-/* Main Stylesheet */
+/**
+ * Main Stylesheet
+ *
+ * Minimal CSS framework built on design tokens and base styles.
+ * This framework provides a foundation without prescriptive utility classes.
+ *
+ * Philosophy:
+ * - Use CSS custom properties (variables) for consistent design
+ * - Write semantic, component-based CSS
+ * - Avoid utility class proliferation
+ * - Keep specificity low and maintainable
+ *
+ * Import Order:
+ * 1. Abstracts  - Design tokens (colors, spacing, typography)
+ * 2. Base       - Reset and foundational typography
+ * 3. Layout     - Layout patterns (header, footer, grid)
+ * 4. Components - Semantic component styles
+ * 5. Pages      - Page-specific styles
+ * 6. Themes     - Theme variations
+ * 7. Utilities  - Minimal essential utilities (.sr-only)
+ * 8. Vendors    - Third-party CSS
+ */
 
-/* Reset & Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ============================================
+   1. ABSTRACTS - Design Tokens
+   ============================================ */
+@import './abstracts/tokens.css';
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  line-height: 1.6;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-  color: #ffffff;
-}
+/* ============================================
+   2. BASE - Minimal Reset & Typography
+   ============================================ */
+@import './base/reset.css';
+@import './base/typography.css';
 
-/* Front Page Styles */
-.front-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 2rem;
-  background: linear-gradient(135deg, #0f0f1e 0%, #1e1e3f 50%, #16213e 100%);
-  position: relative;
-  overflow: hidden;
-}
+/* ============================================
+   3. LAYOUT - Structural Patterns
+   ============================================ */
+/* @import './layout/grid.css'; */
+/* @import './layout/header.css'; */
+/* @import './layout/footer.css'; */
 
-.front-page::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(138, 43, 226, 0.1) 0%,
-    rgba(0, 0, 0, 0) 50%
-  );
-}
+/* ============================================
+   4. COMPONENTS - Semantic Components
+   ============================================ */
+/* @import './components/button.css'; */
+/* @import './components/card.css'; */
+/* @import './components/form.css'; */
 
-.front-page__content {
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
+/* ============================================
+   5. PAGES - Page-Specific Styles
+   ============================================ */
+@import './pages/front-page.css';
 
-.front-page__title {
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  font-weight: 800;
-  margin: 0 0 2rem 0;
-  background: linear-gradient(
-    135deg,
-    #667eea 0%,
-    #764ba2 25%,
-    #f093fb 50%,
-    #4facfe 75%,
-    #00f2fe 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
-}
+/* ============================================
+   6. THEMES - Theme Variations
+   ============================================ */
+/* @import './themes/dark.css'; */
+/* @import './themes/light.css'; */
 
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+/* ============================================
+   7. UTILITIES - Essential Only
+   ============================================ */
+@import './utilities/utilities.css';
 
-.front-page__description {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.front-page__description-text {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 1rem 0;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-}
-
-.front-page__tech-stack {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  font-weight: 600;
-}
-
-.tech-item {
-  color: #ffffff;
-  transition: all 0.3s ease;
-}
-
-.tech-item:hover {
-  color: #667eea;
-  transform: translateY(-2px);
-}
-
-.tech-separator {
-  color: rgba(255, 255, 255, 0.3);
-  font-weight: 300;
-}
+/* ============================================
+   8. VENDORS - Third-Party CSS
+   ============================================ */
+/* @import './vendors/normalize.css'; */

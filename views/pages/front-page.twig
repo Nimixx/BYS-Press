@@ -9,7 +9,7 @@
         <p class="front-page__description-text">{{ description }}</p>
         <div class="front-page__tech-stack">
           {% for tech in tech_stack %}
-            <span class="tech-item">{{ tech }}</span>{% if not loop.last %} <span class="tech-separator">/</span> {% endif %}
+            <span class="front-page__tech-item">{{ tech }}</span>{% if not loop.last %}<span class="front-page__tech-separator"> / </span>{% endif %}
           {% endfor %}
         </div>
       </div>

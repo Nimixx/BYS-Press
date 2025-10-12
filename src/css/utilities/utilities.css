@@ -1,7 +1,7 @@
 /**
  * Utilities
  *
- * Essential utility class for accessibility.
+ * Essential utility classes for accessibility and error handling.
  */
 
 /* ============================================
@@ -9,7 +9,8 @@
    Hides content visually but keeps it accessible to screen readers
    ============================================ */
 
-.sr-only {
+.sr-only,
+.visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -19,4 +20,20 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* ============================================
+   Component Error (Development Only)
+   Used when component fails to mount in development
+   ============================================ */
+
+.component-error {
+  padding: var(--spacing-md, 1.5rem);
+  background: var(--color-error-bg, #fef2f2);
+  border: 2px solid var(--color-error-border, #fecaca);
+  border-radius: var(--border-radius-md, 8px);
+  color: var(--color-error-text, #991b1b);
+  font-family: var(--font-family-sans, system-ui, -apple-system, sans-serif);
+  font-size: var(--font-size-sm, 0.875rem);
+  line-height: 1.5;
 }

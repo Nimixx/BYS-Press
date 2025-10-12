@@ -604,38 +604,106 @@ Svelte 5 components add reactive functionality to your theme.
 </style>
 ```
 
-### Step 2: Mount the Component
+### Step 2: Register the Component
 
-**File**: `src/js/components/mountContactForm.ts`
+Core Theme uses a centralized component registry system for better code splitting and maintainability.
+
+**File**: `src/js/config/components.ts`
 
 ```typescript
-import ContactForm from '../components/ContactForm.svelte';
+import ContactForm from '../../components/ContactForm.svelte';
+import { pageConditions } from './components'; // Import existing helpers
 
-export function mountContactForm(): void {
-  const target = document.getElementById('contact-form-mount');
-
-  if (target) {
-    new ContactForm({
-      target,
-    });
-  }
+// Add to componentRegistry array
+{
+  component: ContactForm,
+  elementId: 'contact-form-mount',
+  name: 'ContactForm',
+  condition: () => pageConditions.hasBodyClass('page-template-contact'),
 }
 ```
 
-### Step 3: Import and Initialize
+**That's it!** The component will be automatically mounted when the page loads.
 
-**File**: `src/js/main.ts`
+#### Component Configuration Options
 
 ```typescript
-import { mountContactForm } from './components/mountContactForm';
-
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  mountContactForm();
-});
+interface ComponentConfig {
+  /** Svelte component to mount */
+  component: Component;
+  /** DOM element ID to mount to */
+  elementId: string;
+  /** Component name for error tracking */
+  name: string;
+  /** Whether this component is required on the page */
+  required?: boolean;
+  /** Condition function to check if component should mount */
+  condition?: () => boolean;
+  /** Custom props to pass to the component */
+  props?: Record<string, any>;
+}
 ```
 
-### Step 4: Add Mount Point in Twig
+#### Examples
+
+**Basic component (always tries to mount):**
+```typescript
+{
+  component: MyComponent,
+  elementId: 'my-component',
+  name: 'MyComponent',
+}
+```
+
+**Required component (warns if mount point missing):**
+```typescript
+{
+  component: Header,
+  elementId: 'site-header',
+  name: 'Header',
+  required: true,
+}
+```
+
+**Conditional component (only mounts if condition met):**
+```typescript
+{
+  component: BlogSidebar,
+  elementId: 'blog-sidebar',
+  name: 'BlogSidebar',
+  condition: () => pageConditions.isSinglePost(),
+}
+```
+
+**Component with props:**
+```typescript
+{
+  component: ProductCard,
+  elementId: 'product-card',
+  name: 'ProductCard',
+  props: { productId: 123, theme: 'dark' },
+}
+```
+
+### Step 3: Lazy Loading (Optional)
+
+For larger components that should only be loaded when needed:
+
+**File**: `src/js/config/components.ts`
+
+```typescript
+// Add to lazyComponentRegistry array
+{
+  elementId: 'data-visualization',
+  name: 'DataVisualization',
+  loader: () => import('../../components/DataVisualization.svelte'),
+  condition: () => pageConditions.hasBodyClass('page-dashboard'),
+}
+```
+
+Lazy-loaded components are not bundled in the main JS file, improving initial page load performance.
+
+### Step 3: Add Mount Point in Twig
 
 **File**: `views/pages/contact.twig`
 

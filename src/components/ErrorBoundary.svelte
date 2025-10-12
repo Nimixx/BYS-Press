@@ -5,6 +5,8 @@
    * A reusable error boundary for Svelte components that catches and handles
    * errors gracefully, preventing the entire app from crashing
    *
+   * Security: Only shows detailed errors in development environment
+   *
    * Usage:
    * <ErrorBoundary componentName="MyComponent">
    *   <MyComponent />
@@ -25,7 +27,7 @@
     componentName?: string;
     /** Custom fallback UI (function that returns a component) */
     fallback?: (error: Error, reset: () => void) => any;
-    /** Whether to show error details in production */
+    /** Whether to show error details (only works in development) */
     showDetails?: boolean;
     /** Error severity level */
     severity?: ErrorSeverity;
@@ -48,6 +50,9 @@
   let hasError = $state(false);
   let error = $state<Error | null>(null);
   let errorCount = $state(0);
+
+  // Environment detection
+  const isDevelopment = import.meta.env.DEV;
 
   /**
    * Handle caught errors
@@ -108,18 +113,20 @@
   });
 
   // Derived values
-  const isProduction = import.meta.env.PROD;
   const userFriendlyMessage = $derived(
     error ? getUserFriendlyErrorMessage(error) : '',
   );
+
+  // Security: Only show error UI in development, hide in production
+  const shouldShowErrorUI = $derived(isDevelopment);
 </script>
 
 {#if hasError && error}
   {#if fallback}
     <!-- Custom fallback UI -->
     {@render fallback(error, reset)}
-  {:else}
-    <!-- Default fallback UI -->
+  {:else if shouldShowErrorUI}
+    <!-- Default fallback UI - only shown in development -->
     <div class="error-boundary">
       <div class="error-boundary__content">
         <div class="error-boundary__icon" role="img" aria-label="Error">
@@ -145,7 +152,7 @@
           {userFriendlyMessage}
         </p>
 
-        {#if (!isProduction || showDetails) && error}
+        {#if showDetails && error}
           <details class="error-boundary__details">
             <summary>Error Details</summary>
             <div class="error-boundary__error-info">
@@ -162,6 +169,11 @@
           Try Again
         </button>
       </div>
+    </div>
+  {:else}
+    <!-- Production: Show nothing for security (error is logged to tracking service) -->
+    <div class="error-boundary error-boundary--production" role="alert" aria-live="assertive">
+      <span class="visually-hidden">An error occurred. Please refresh the page.</span>
     </div>
   {/if}
 {:else}
@@ -273,4 +285,11 @@
     outline: 2px solid #dc2626;
     outline-offset: 2px;
   }
+
+  /* Production error state - minimal footprint for security */
+  .error-boundary--production {
+    display: none; /* Completely hidden in production */
+  }
+
+  /* Note: .visually-hidden is defined globally in utilities.css */
 </style>

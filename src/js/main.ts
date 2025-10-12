@@ -1,104 +1,64 @@
-// Main TypeScript Entry Point
+/**
+ * Main TypeScript Entry Point
+ *
+ * This file initializes the theme, sets up error handlers,
+ * and mounts all Svelte components based on the component registry.
+ *
+ * To add new components:
+ * 1. Import your component in src/js/config/components.ts
+ * 2. Add it to the componentRegistry array with configuration
+ * 3. Components will be automatically mounted on page load
+ */
+
+// Import styles
 import '../css/main.css';
-import { mount } from 'svelte';
-import Counter from '../components/Counter.svelte';
-import ErrorBoundary from '../components/ErrorBoundary.svelte';
+
+// Import configuration
 import { debugLog, THEME_CONFIG, isDevelopment } from './config';
-import {
-  setupGlobalErrorHandlers,
-  handleComponentError,
-  logWarning,
-  ErrorSeverity,
-} from './utils/errorHandler';
+import { componentRegistry, lazyComponentRegistry } from './config/components';
 
-// Set up global error handlers
-setupGlobalErrorHandlers();
-
-// Log theme initialization (only in development)
-if (isDevelopment) {
-  debugLog('Core Theme loaded!', {
-    version: THEME_CONFIG.version,
-    mode: import.meta.env.MODE,
-    dev: import.meta.env.DEV,
-  });
-}
+// Import utilities
+import { setupGlobalErrorHandlers } from './utils/errorHandler';
+import { mountComponents, mountComponentLazy } from './utils/componentMount';
 
 /**
- * Mount a Svelte component with error boundary
- *
- * @param Component - Svelte component to mount
- * @param elementId - DOM element ID to mount to
- * @param componentName - Name for error tracking
+ * Initialize theme
  */
-function mountWithErrorBoundary(
-  Component: any,
-  elementId: string,
-  componentName: string,
-): void {
-  const element = document.getElementById(elementId);
+function initTheme(): void {
+  // Set up global error handlers
+  setupGlobalErrorHandlers();
 
-  if (!element) {
-    // Only warn if we expect the element to exist
-    if (shouldWarnAboutMissingElement(elementId)) {
-      logWarning(`Mount point #${elementId} not found`, {
-        componentName,
-        action: 'Component Mount',
-      });
-    }
-    return;
-  }
-
-  try {
-    // Mount component wrapped in ErrorBoundary
-    mount(ErrorBoundary, {
-      target: element,
-      props: {
-        componentName,
-        children: () => {
-          return mount(Component, { target: element });
-        },
-      },
+  // Log theme initialization (only in development)
+  if (isDevelopment) {
+    debugLog('Core Theme loaded!', {
+      version: THEME_CONFIG.version,
+      mode: import.meta.env.MODE,
+      dev: import.meta.env.DEV,
     });
+  }
 
-    debugLog(`${componentName} mounted successfully`);
-  } catch (error) {
-    handleComponentError(
-      error as Error,
+  // Mount all registered components
+  mountComponents(componentRegistry);
+
+  // Mount lazy-loaded components
+  for (const lazyConfig of lazyComponentRegistry) {
+    mountComponentLazy(
       {
-        componentName,
-        action: 'Mount Component',
-        metadata: { elementId },
+        elementId: lazyConfig.elementId,
+        name: lazyConfig.name,
+        condition: lazyConfig.condition,
+        required: lazyConfig.required,
+        props: lazyConfig.props,
       },
-      ErrorSeverity.HIGH,
+      lazyConfig.loader,
     );
-
-    // Show user-friendly error in the mount point
-    element.innerHTML = `
-      <div style="padding: 1rem; background: #fef2f2; border: 2px solid #fecaca; border-radius: 8px; color: #991b1b;">
-        <strong>Failed to load component.</strong>
-        <p style="margin: 0.5rem 0 0 0;">Please refresh the page or contact support if the problem persists.</p>
-      </div>
-    `;
   }
 }
 
-/**
- * Check if we should warn about missing element
- *
- * @param elementId - Element ID
- */
-function shouldWarnAboutMissingElement(elementId: string): boolean {
-  // Add logic to check if element is expected on current page
-  const pageClasses = document.body.classList;
-
-  if (elementId === 'svelte-counter' && pageClasses.contains('page-template-front-page')) {
-    return true;
-  }
-
-  // Add more conditions as needed
-  return false;
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTheme);
+} else {
+  initTheme();
 }
-
-// Mount components
-mountWithErrorBoundary(Counter, 'svelte-counter', 'Counter');
 

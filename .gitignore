@@ -4,6 +4,7 @@ vendor/
 
 # Build output
 dist/
+bundles/
 
 # Editor files
 .DS_Store

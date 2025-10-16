@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import { v4wp } from '@kucrut/vite-for-wp';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   plugins: [
-    svelte(),
+    vue(),
     v4wp({
       input: 'src/js/main.ts',
       outDir: 'dist',

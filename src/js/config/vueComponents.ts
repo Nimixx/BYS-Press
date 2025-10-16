@@ -1,14 +1,14 @@
 /**
- * Component Registry
+ * Vue Component Registry
  *
- * Central configuration for all Svelte components and their mount points.
- * Add new components here to automatically mount them on the appropriate pages.
+ * Central configuration for all Vue components and their mount points.
+ * Add new Vue components here to automatically mount them on the appropriate pages.
  *
- * @module config/components
+ * @module config/vueComponents
  */
 
-import type { ComponentConfig } from '../utils/componentMount';
-import Counter from '../../components/Counter.svelte';
+import type { VueComponentConfig } from '../utils/vueComponentMount';
+import Counter from '../../components/Counter.vue';
 
 /**
  * Page condition helpers
@@ -56,9 +56,9 @@ export const pageConditions = {
 };
 
 /**
- * Component registry
+ * Vue Component registry
  *
- * Define all your Svelte components here with their mount configurations.
+ * Define all your Vue components here with their mount configurations.
  *
  * Example configurations:
  *
@@ -93,17 +93,17 @@ export const pageConditions = {
  *      props: { productId: 123, theme: 'dark' },
  *    }
  */
-export const componentRegistry: ComponentConfig[] = [
+export const vueComponentRegistry: VueComponentConfig[] = [
   // Counter Component (Front Page)
   {
     component: Counter,
-    elementId: 'svelte-counter',
-    name: 'Counter',
-    required: false, // Only warn if on front page (handled in componentMount.ts)
-    condition: () => pageConditions.elementExists('svelte-counter'),
+    elementId: 'vue-counter',
+    name: 'VueCounter',
+    required: false,
+    condition: () => pageConditions.elementExists('vue-counter'),
   },
 
-  // Add more components here as your theme grows
+  // Add more Vue components here as your theme grows
   // Example:
   // {
   //   component: Navigation,
@@ -121,7 +121,7 @@ export const componentRegistry: ComponentConfig[] = [
 ];
 
 /**
- * Lazy-loaded component registry
+ * Lazy-loaded Vue component registry
  *
  * For larger components that should only be loaded when needed.
  * These components are not bundled in the main JS file.
@@ -130,11 +130,11 @@ export const componentRegistry: ComponentConfig[] = [
  * {
  *   elementId: 'heavy-chart',
  *   name: 'ChartComponent',
- *   loader: () => import('../../components/Chart.svelte'),
+ *   loader: () => import('../../components/Chart.vue'),
  *   condition: () => pageConditions.hasBodyClass('page-analytics'),
  * }
  */
-export const lazyComponentRegistry: Array<{
+export const lazyVueComponentRegistry: Array<{
   elementId: string;
   name: string;
   loader: () => Promise<any>;
@@ -142,12 +142,12 @@ export const lazyComponentRegistry: Array<{
   required?: boolean;
   props?: Record<string, any>;
 }> = [
-  // Add lazy-loaded components here
+  // Add lazy-loaded Vue components here
   // Example:
   // {
   //   elementId: 'data-visualization',
   //   name: 'DataVisualization',
-  //   loader: () => import('../../components/DataVisualization.svelte'),
+  //   loader: () => import('../../components/DataVisualization.vue'),
   //   condition: () => pageConditions.hasBodyClass('page-dashboard'),
   // },
 ];

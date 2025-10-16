@@ -1,24 +1,22 @@
 /**
- * Component Mounting Utilities
+ * Vue Component Mounting Utilities
  *
- * Provides utilities for mounting Svelte components with error boundaries
- * and proper error handling
+ * Provides utilities for mounting Vue components with error handling
+ * Compatible with the existing component mounting system
  *
- * @module utils/componentMount
+ * @module utils/vueComponentMount
  */
 
-import { mount } from 'svelte';
-import type { Component } from 'svelte';
-import ErrorBoundary from '../../components/ErrorBoundary.svelte';
+import { createApp, type Component as VueComponent, type App } from 'vue';
 import { handleComponentError, logWarning, ErrorSeverity } from './errorHandler';
 import { debugLog, isDevelopment } from '../config';
 
 /**
- * Component mount configuration
+ * Vue component mount configuration
  */
-export interface ComponentConfig {
-  /** Svelte component to mount */
-  component: Component;
+export interface VueComponentConfig {
+  /** Vue component to mount */
+  component: VueComponent;
   /** DOM element ID to mount to */
   elementId: string;
   /** Component name for error tracking */
@@ -30,6 +28,11 @@ export interface ComponentConfig {
   /** Custom props to pass to the component */
   props?: Record<string, any>;
 }
+
+/**
+ * Stored Vue app instances for cleanup
+ */
+const vueApps: Map<string, App> = new Map();
 
 /**
  * Check if we should warn about missing element
@@ -51,7 +54,7 @@ function shouldWarnAboutMissingElement(
 
   // Example: Counter is required on front page
   if (
-    elementId === 'svelte-counter' &&
+    elementId === 'vue-counter' &&
     pageClasses.contains('page-template-front-page')
   ) {
     return true;
@@ -62,12 +65,12 @@ function shouldWarnAboutMissingElement(
 }
 
 /**
- * Mount a Svelte component with error boundary
+ * Mount a Vue component
  *
  * @param config - Component configuration
  * @returns True if mounted successfully, false otherwise
  */
-export function mountComponent(config: ComponentConfig): boolean {
+export function mountVueComponent(config: VueComponentConfig): boolean {
   const { component, elementId, name, required = false, condition, props = {} } = config;
 
   // Check condition if provided
@@ -83,35 +86,30 @@ export function mountComponent(config: ComponentConfig): boolean {
     if (shouldWarnAboutMissingElement(elementId, required)) {
       logWarning(`Mount point #${elementId} not found`, {
         componentName: name,
-        action: 'Component Mount',
+        action: 'Vue Component Mount',
       });
     }
     return false;
   }
 
   try {
-    // Mount component wrapped in ErrorBoundary
-    mount(ErrorBoundary, {
-      target: element,
-      props: {
-        componentName: name,
-        children: () => {
-          return mount(component, {
-            target: element,
-            props,
-          });
-        },
-      },
-    });
+    // Create Vue app instance
+    const app = createApp(component, props);
 
-    debugLog(`${name} mounted successfully`);
+    // Mount the app
+    app.mount(element);
+
+    // Store app instance for potential cleanup
+    vueApps.set(elementId, app);
+
+    debugLog(`${name} mounted successfully (Vue)`);
     return true;
   } catch (error) {
     handleComponentError(
       error as Error,
       {
         componentName: name,
-        action: 'Mount Component',
+        action: 'Mount Vue Component',
         metadata: { elementId },
       },
       ErrorSeverity.HIGH,
@@ -129,13 +127,13 @@ export function mountComponent(config: ComponentConfig): boolean {
 }
 
 /**
- * Mount multiple components from configuration array
+ * Mount multiple Vue components from configuration array
  *
- * @param configs - Array of component configurations
+ * @param configs - Array of Vue component configurations
  * @returns Object with mount results
  */
-export function mountComponents(
-  configs: ComponentConfig[],
+export function mountVueComponents(
+  configs: VueComponentConfig[],
 ): { mounted: number; failed: number; skipped: number } {
   const results = {
     mounted: 0,
@@ -144,7 +142,7 @@ export function mountComponents(
   };
 
   for (const config of configs) {
-    const result = mountComponent(config);
+    const result = mountVueComponent(config);
 
     if (result === false) {
       // Check if it was skipped (condition not met) or failed
@@ -159,12 +157,12 @@ export function mountComponents(
     }
   }
 
-  debugLog('Component mounting complete', results);
+  debugLog('Vue component mounting complete', results);
   return results;
 }
 
 /**
- * Lazy load and mount a component
+ * Lazy load and mount a Vue component
  *
  * Useful for code splitting - components are loaded only when needed
  *
@@ -172,13 +170,13 @@ export function mountComponents(
  * @param loader - Function that returns a promise resolving to the component
  * @returns Promise that resolves to mount result
  */
-export async function mountComponentLazy(
-  config: Omit<ComponentConfig, 'component'>,
-  loader: () => Promise<{ default: Component }>,
+export async function mountVueComponentLazy(
+  config: Omit<VueComponentConfig, 'component'>,
+  loader: () => Promise<{ default: VueComponent }>,
 ): Promise<boolean> {
   try {
     const module = await loader();
-    return mountComponent({
+    return mountVueComponent({
       ...config,
       component: module.default,
     });
@@ -187,11 +185,67 @@ export async function mountComponentLazy(
       error as Error,
       {
         componentName: config.name,
-        action: 'Lazy Load Component',
+        action: 'Lazy Load Vue Component',
         metadata: { elementId: config.elementId },
       },
       ErrorSeverity.HIGH,
     );
     return false;
   }
+}
+
+/**
+ * Unmount a Vue component by element ID
+ *
+ * @param elementId - The element ID where the component is mounted
+ * @returns True if unmounted successfully, false otherwise
+ */
+export function unmountVueComponent(elementId: string): boolean {
+  const app = vueApps.get(elementId);
+
+  if (!app) {
+    debugLog(`No Vue app found for element #${elementId}`);
+    return false;
+  }
+
+  try {
+    app.unmount();
+    vueApps.delete(elementId);
+    debugLog(`Vue component unmounted from #${elementId}`);
+    return true;
+  } catch (error) {
+    handleComponentError(
+      error as Error,
+      {
+        componentName: elementId,
+        action: 'Unmount Vue Component',
+        metadata: { elementId },
+      },
+      ErrorSeverity.MEDIUM,
+    );
+    return false;
+  }
+}
+
+/**
+ * Unmount all Vue components
+ */
+export function unmountAllVueComponents(): void {
+  vueApps.forEach((app, elementId) => {
+    try {
+      app.unmount();
+      debugLog(`Vue component unmounted from #${elementId}`);
+    } catch (error) {
+      handleComponentError(
+        error as Error,
+        {
+          componentName: elementId,
+          action: 'Unmount All Vue Components',
+          metadata: { elementId },
+        },
+        ErrorSeverity.LOW,
+      );
+    }
+  });
+  vueApps.clear();
 }

@@ -2,11 +2,11 @@
  * Main TypeScript Entry Point
  *
  * This file initializes the theme, sets up error handlers,
- * and mounts all Svelte components based on the component registry.
+ * and mounts all Vue components based on the component registry.
  *
  * To add new components:
- * 1. Import your component in src/js/config/components.ts
- * 2. Add it to the componentRegistry array with configuration
+ * 1. Import your component in src/js/config/vueComponents.ts
+ * 2. Add it to the vueComponentRegistry array with configuration
  * 3. Components will be automatically mounted on page load
  */
 
@@ -15,11 +15,11 @@ import '../css/main.css';
 
 // Import configuration
 import { debugLog, THEME_CONFIG, isDevelopment } from './config';
-import { componentRegistry, lazyComponentRegistry } from './config/components';
+import { vueComponentRegistry, lazyVueComponentRegistry } from './config/vueComponents';
 
 // Import utilities
 import { setupGlobalErrorHandlers } from './utils/errorHandler';
-import { mountComponents, mountComponentLazy } from './utils/componentMount';
+import { mountVueComponents, mountVueComponentLazy } from './utils/vueComponentMount';
 
 /**
  * Initialize theme
@@ -37,12 +37,12 @@ function initTheme(): void {
     });
   }
 
-  // Mount all registered components
-  mountComponents(componentRegistry);
+  // Mount all registered Vue components
+  mountVueComponents(vueComponentRegistry);
 
-  // Mount lazy-loaded components
-  for (const lazyConfig of lazyComponentRegistry) {
-    mountComponentLazy(
+  // Mount lazy-loaded Vue components
+  for (const lazyConfig of lazyVueComponentRegistry) {
+    void mountVueComponentLazy(
       {
         elementId: lazyConfig.elementId,
         name: lazyConfig.name,

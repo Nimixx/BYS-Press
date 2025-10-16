@@ -1,8 +1,6 @@
 import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import sveltePlugin from 'eslint-plugin-svelte';
-import svelteParser from 'svelte-eslint-parser';
 import prettierConfig from 'eslint-config-prettier';
 
 export default [
@@ -57,27 +55,6 @@ export default [
     files: ['**/*.d.ts'],
     rules: {
       '@typescript-eslint/triple-slash-reference': 'off',
-    },
-  },
-
-  // Svelte files
-  {
-    files: ['**/*.svelte'],
-    languageOptions: {
-      parser: svelteParser,
-      parserOptions: {
-        parser: tsParser,
-        project: './tsconfig.json',
-        extraFileExtensions: ['.svelte'],
-      },
-    },
-    plugins: {
-      svelte: sveltePlugin,
-    },
-    rules: {
-      ...sveltePlugin.configs.recommended.rules,
-      'svelte/no-unused-svelte-ignore': 'warn',
-      'svelte/valid-compile': 'error',
     },
   },
 

@@ -129,14 +129,18 @@ Restricts access to sensitive browser APIs:
 - Prevents editing theme/plugin files from WordPress admin
 - Reduces attack surface if admin account is compromised
 
-### Optional: XML-RPC Blocking
+### XML-RPC Protection
 
-To disable XML-RPC (prevents DDoS and brute force attacks):
+XML-RPC is **disabled by default** to prevent:
+- Brute force attacks via xmlrpc.php
+- DDoS amplification attacks
+- Pingback spam
+
+If you need XML-RPC (e.g., for Jetpack, mobile apps, or legacy integrations), you can re-enable it:
 
 ```php
-add_action('core_theme_booted', function($theme) {
-    $theme->getSecurity()->disableXmlRpc();
-});
+// In functions.php or a custom plugin
+remove_filter('xmlrpc_enabled', '__return_false');
 ```
 
 ## Environment Detection

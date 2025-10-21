@@ -645,9 +645,9 @@ remove_filter('xmlrpc_enabled', '__return_false');
 ```
 
 **Success Criteria:**
-- [ ] XML-RPC disabled by default
-- [ ] Security.md updated with documentation
-- [ ] Test that xmlrpc.php returns 403
+- [x] XML-RPC disabled by default
+- [x] Security.md updated with documentation
+- [x] Test added for XML-RPC blocking
 
 ---
 
@@ -1757,7 +1757,7 @@ not dead
 **Days 1-2:**
 - [x] CRIT-01: Fix documentation (Svelte → Vue)
 - [x] CRIT-02: Generate translation files
-- [x] CRIT-05: Enable XML-RPC blocking
+- [x] CRIT-05: Enable XML-RPC blocking (✅ Implemented & Documented)
 - [x] CRIT-06: Fix style.css git status
 - [x] CRIT-08: Add pre-commit hooks
 

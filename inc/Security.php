@@ -54,6 +54,7 @@ class Security
 
         $this->configureRestApiSecurity();
         $this->disableFileEditing();
+        $this->disableXmlRpc();
     }
 
     /**

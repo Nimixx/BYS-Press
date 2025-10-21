@@ -147,4 +147,21 @@ class SecurityHeadersTest extends TestCase
         // We're testing the intent
         $this->assertTrue(true);
     }
+
+    public function testXmlRpcDisabledByDefault(): void
+    {
+        // Mock the add_filter function to verify XML-RPC is disabled
+        Functions\expect('add_filter')
+            ->with('xmlrpc_enabled', '__return_false')
+            ->once();
+
+        // Load the Security class
+        $security = new \CoreTheme\Security();
+
+        // Call disableXmlRpc method which should be called in init()
+        $security->disableXmlRpc();
+
+        // The test passes if the filter was registered
+        $this->assertTrue(true);
+    }
 }

@@ -11,23 +11,14 @@ import { createApp, type Component as VueComponent, type App } from 'vue';
 import { handleComponentError, logWarning, ErrorSeverity } from './errorHandler';
 import { debugLog, isDevelopment } from '../config';
 
+// Import types from central location
+import type { ComponentConfig } from '../../types/components';
+
 /**
- * Vue component mount configuration
+ * @deprecated Use ComponentConfig from '../../types/components' instead
+ * Kept for backward compatibility
  */
-export interface VueComponentConfig {
-  /** Vue component to mount */
-  component: VueComponent;
-  /** DOM element ID to mount to */
-  elementId: string;
-  /** Component name for error tracking */
-  name: string;
-  /** Whether this component is required on the page */
-  required?: boolean;
-  /** Condition function to check if component should mount */
-  condition?: () => boolean;
-  /** Custom props to pass to the component */
-  props?: Record<string, any>;
-}
+export type VueComponentConfig = ComponentConfig;
 
 /**
  * Stored Vue app instances for cleanup
@@ -70,7 +61,7 @@ function shouldWarnAboutMissingElement(
  * @param config - Component configuration
  * @returns True if mounted successfully, false otherwise
  */
-export function mountVueComponent(config: VueComponentConfig): boolean {
+export function mountVueComponent(config: ComponentConfig): boolean {
   const { component, elementId, name, required = false, condition, props = {} } = config;
 
   // Check condition if provided
@@ -133,7 +124,7 @@ export function mountVueComponent(config: VueComponentConfig): boolean {
  * @returns Object with mount results
  */
 export function mountVueComponents(
-  configs: VueComponentConfig[],
+  configs: ComponentConfig[],
 ): { mounted: number; failed: number; skipped: number } {
   const results = {
     mounted: 0,
@@ -171,7 +162,7 @@ export function mountVueComponents(
  * @returns Promise that resolves to mount result
  */
 export async function mountVueComponentLazy(
-  config: Omit<VueComponentConfig, 'component'>,
+  config: Omit<ComponentConfig, 'component'>,
   loader: () => Promise<{ default: VueComponent }>,
 ): Promise<boolean> {
   try {

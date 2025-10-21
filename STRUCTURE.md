@@ -43,17 +43,34 @@ inc/
 
 ### `/src/` - Frontend Source Code
 
-Modern frontend stack with TypeScript, Vue 3, and modular CSS.
+Modern frontend stack with TypeScript, Vue 3, composables, and modular CSS.
 
 ```
 src/
-├── components/                 # Vue 3 components
-│   └── Counter.vue            # Example component
-├── js/                        # TypeScript/JavaScript
+├── components/                 # Vue 3 components (organized by type)
+│   ├── Counter.vue            # Main counter component
+│   ├── Counter.test.ts        # Component tests
+│   ├── README.md              # Component guide
+│   ├── examples/              # Example/demo components
+│   │   └── AdvancedCounter.vue
+│   ├── forms/                 # Form components (future)
+│   ├── layout/                # Layout components (future)
+│   └── ui/                    # Reusable UI components (future)
+├── composables/               # Reusable composition functions
+│   ├── index.ts              # Central export
+│   ├── useCounter.ts         # Counter logic composable
+│   ├── useCounter.test.ts    # Composable tests
+│   └── README.md             # Composables guide
+├── types/                     # TypeScript type definitions
+│   ├── index.ts              # Central type exports
+│   ├── counter.ts            # Counter-related types
+│   ├── components.ts         # Component system types
+│   └── README.md             # Types guide
+├── js/                        # TypeScript/JavaScript utilities
 │   ├── main.ts               # Frontend entry point
 │   ├── config.ts             # App configuration
 │   ├── config/
-│   │   └── vueComponents.ts  # Component registry
+│   │   └── vueComponents.ts  # Component registry (eager + lazy)
 │   └── utils/
 │       ├── errorHandler.ts   # Global error handling
 │       └── vueComponentMount.ts # Component mounting logic
@@ -82,9 +99,12 @@ src/
 ```
 
 **Architecture Patterns:**
-- **Component Registry**: All Vue components registered in `vueComponents.ts`
-- **Auto-mounting**: Components mount based on element ID presence
-- **Lazy Loading**: Support for code-split components
+- **Component Registry**: Eager and lazy-loaded components in `vueComponents.ts`
+- **Composables**: Reusable logic with Vue Composition API
+- **Type Safety**: Centralized TypeScript types for all components
+- **Code Splitting**: Automatic lazy loading for performance
+- **Auto-mounting**: Components mount based on element ID and conditions
+- **Testing**: Co-located tests with comprehensive coverage
 - **CSS Organization**: ITCSS-inspired architecture with clear separation
 
 ### `/views/` - Twig Templates

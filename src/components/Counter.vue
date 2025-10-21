@@ -1,17 +1,33 @@
 <template>
   <div class="counter">
-    <h2 class="counter__title">Interactive Counter</h2>
+    <h2 v-if="label" class="counter__title">{{ label }}</h2>
     <div class="counter__display">
       <span class="counter__value">{{ count }}</span>
     </div>
     <div class="counter__buttons">
-      <button class="counter__button counter__button--decrement" @click="decrement">
+      <button
+        class="counter__button counter__button--decrement"
+        :disabled="disabled || !canDecrement"
+        :aria-label="t('decrement')"
+        @click="handleDecrement"
+      >
         -
       </button>
-      <button class="counter__button counter__button--reset" @click="reset">
-        Reset
+      <button
+        v-if="showReset"
+        class="counter__button counter__button--reset"
+        :disabled="disabled"
+        :aria-label="t('reset')"
+        @click="handleReset"
+      >
+        {{ t('reset') }}
       </button>
-      <button class="counter__button counter__button--increment" @click="increment">
+      <button
+        class="counter__button counter__button--increment"
+        :disabled="disabled || !canIncrement"
+        :aria-label="t('increment')"
+        @click="handleIncrement"
+      >
         +
       </button>
     </div>
@@ -19,20 +35,89 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+/**
+ * Counter Component
+ *
+ * Interactive counter with customizable min/max values and step.
+ * Uses the useCounter composable for state management.
+ *
+ * @example
+ * ```vue
+ * <Counter
+ *   :initialValue="10"
+ *   :min="0"
+ *   :max="100"
+ *   :step="5"
+ *   label="Product Quantity"
+ *   showReset
+ * />
+ * ```
+ */
+import { useCounter } from '../composables/useCounter';
+import type { CounterProps, CounterEmits } from '../types/counter';
 
-const count = ref(0);
+// Props with defaults
+const props = withDefaults(defineProps<CounterProps>(), {
+  initialValue: 0,
+  min: -Infinity,
+  max: Infinity,
+  step: 1,
+  label: 'Interactive Counter',
+  showReset: true,
+  disabled: false,
+});
 
-function increment() {
-  count.value++;
+// Emits
+const emit = defineEmits<CounterEmits>();
+
+// Use counter composable with all features
+const {
+  count,
+  canIncrement,
+  canDecrement,
+  increment,
+  decrement,
+  reset,
+} = useCounter(props.initialValue, {
+  min: props.min,
+  max: props.max,
+  step: props.step,
+  onIncrement: (value) => emit('increment', value),
+  onDecrement: (value) => emit('decrement', value),
+  onReset: (value) => emit('reset', value),
+  onChange: (value) => {
+    emit('update:modelValue', value);
+    emit('change', value);
+  },
+});
+
+// Event handlers
+function handleIncrement() {
+  if (!props.disabled) {
+    increment();
+  }
 }
 
-function decrement() {
-  count.value--;
+function handleDecrement() {
+  if (!props.disabled) {
+    decrement();
+  }
 }
 
-function reset() {
-  count.value = 0;
+function handleReset() {
+  if (!props.disabled) {
+    reset();
+  }
+}
+
+// Simple i18n helper (can be replaced with actual i18n library)
+function t(key: string): string {
+  const translations: Record<string, string> = {
+    increment: 'Increment',
+    decrement: 'Decrement',
+    reset: 'Reset',
+  };
+  return translations[key] || key;
 }
 </script>
 

@@ -4,16 +4,23 @@
  * Central configuration for all Vue components and their mount points.
  * Add new Vue components here to automatically mount them on the appropriate pages.
  *
+ * Structure:
+ * - Eager-loaded components: Imported directly, bundled in main chunk
+ * - Lazy-loaded components: Imported via dynamic import(), code-split automatically
+ *
  * @module config/vueComponents
  */
 
-import type { VueComponentConfig } from '../utils/vueComponentMount';
-import Counter from '../../components/Counter.vue';
+import type { ComponentConfig, LazyComponentConfig } from '../../types/components';
+
+// Eager imports - critical components bundled in main chunk
+// (Counter removed - using AdvancedCounter instead)
 
 /**
  * Page condition helpers
  *
- * Reusable functions to check page context
+ * Reusable functions to check page context and element presence.
+ * Used by component registry to determine when to mount components.
  */
 export const pageConditions = {
   /**
@@ -56,55 +63,27 @@ export const pageConditions = {
 };
 
 /**
- * Vue Component registry
+ * Eager-loaded Vue Component Registry
  *
- * Define all your Vue components here with their mount configurations.
+ * Components that are critical and should be loaded immediately.
+ * These are bundled in the main JavaScript chunk.
  *
- * Example configurations:
+ * Use for:
+ * - Above-the-fold components
+ * - Critical UI elements (header, navigation)
+ * - Components used on every page
  *
- * 1. Basic component (always tries to mount):
- *    {
- *      component: MyComponent,
- *      elementId: 'my-component',
- *      name: 'MyComponent',
- *    }
- *
- * 2. Required component (warns if mount point missing):
- *    {
- *      component: Header,
- *      elementId: 'site-header',
- *      name: 'Header',
- *      required: true,
- *    }
- *
- * 3. Conditional component (only mounts if condition met):
- *    {
- *      component: BlogSidebar,
- *      elementId: 'blog-sidebar',
- *      name: 'BlogSidebar',
- *      condition: () => pageConditions.isSinglePost(),
- *    }
- *
- * 4. Component with props:
- *    {
- *      component: ProductCard,
- *      elementId: 'product-card',
- *      name: 'ProductCard',
- *      props: { productId: 123, theme: 'dark' },
- *    }
+ * Configuration options:
+ * - component: The Vue component (imported at top)
+ * - elementId: DOM element ID to mount to
+ * - name: Component name for debugging
+ * - required: Warn if mount point missing (optional)
+ * - condition: Function to check if should mount (optional)
+ * - props: Props to pass to component (optional)
  */
-export const vueComponentRegistry: VueComponentConfig[] = [
-  // Counter Component (Front Page)
-  {
-    component: Counter,
-    elementId: 'vue-counter',
-    name: 'VueCounter',
-    required: false,
-    condition: () => pageConditions.elementExists('vue-counter'),
-  },
-
-  // Add more Vue components here as your theme grows
-  // Example:
+export const vueComponentRegistry: ComponentConfig[] = [
+  // Add more eager-loaded components here
+  // Example - Site navigation (critical, always needed):
   // {
   //   component: Navigation,
   //   elementId: 'main-navigation',
@@ -112,42 +91,81 @@ export const vueComponentRegistry: VueComponentConfig[] = [
   //   required: true,
   // },
   //
+  // Example - Header component (critical, above fold):
   // {
-  //   component: ContactForm,
-  //   elementId: 'contact-form',
-  //   name: 'ContactForm',
-  //   condition: () => pageConditions.hasBodyClass('page-template-contact'),
+  //   component: SiteHeader,
+  //   elementId: 'site-header',
+  //   name: 'SiteHeader',
+  //   required: true,
   // },
 ];
 
 /**
- * Lazy-loaded Vue component registry
+ * Lazy-loaded Vue Component Registry
  *
- * For larger components that should only be loaded when needed.
- * These components are not bundled in the main JS file.
+ * Components that are code-split and loaded on-demand.
+ * These create separate JavaScript chunks that load only when needed.
  *
- * Example:
- * {
- *   elementId: 'heavy-chart',
- *   name: 'ChartComponent',
- *   loader: () => import('../../components/Chart.vue'),
- *   condition: () => pageConditions.hasBodyClass('page-analytics'),
- * }
+ * Use for:
+ * - Large, complex components
+ * - Components used only on specific pages
+ * - Below-the-fold interactive elements
+ * - Components with heavy dependencies
+ *
+ * Benefits:
+ * - Smaller initial bundle size
+ * - Faster page load
+ * - Better performance on pages that don't use these components
+ *
+ * Configuration options:
+ * - elementId: DOM element ID to mount to
+ * - name: Component name for debugging
+ * - loader: Dynamic import function
+ * - condition: Function to check if should mount (optional)
+ * - required: Warn if mount point missing (optional)
+ * - props: Props to pass to component (optional)
  */
-export const lazyVueComponentRegistry: Array<{
-  elementId: string;
-  name: string;
-  loader: () => Promise<any>;
-  condition?: () => boolean;
-  required?: boolean;
-  props?: Record<string, any>;
-}> = [
-  // Add lazy-loaded Vue components here
-  // Example:
+export const lazyVueComponentRegistry: LazyComponentConfig[] = [
+  // Advanced Counter - Main interactive counter component
+  {
+    elementId: 'vue-counter',
+    name: 'AdvancedCounter',
+    loader: () => import('../../components/examples/AdvancedCounter.vue'),
+    condition: () => pageConditions.elementExists('vue-counter'),
+    props: {
+      title: 'Interactive Counter',
+      initialValue: 50,
+      min: 0,
+      max: 100,
+      step: 5,
+    },
+  },
+
+  // Add more lazy-loaded components here
+  //
+  // Example - Contact form (only on contact page):
   // {
-  //   elementId: 'data-visualization',
-  //   name: 'DataVisualization',
-  //   loader: () => import('../../components/DataVisualization.vue'),
-  //   condition: () => pageConditions.hasBodyClass('page-dashboard'),
+  //   elementId: 'contact-form',
+  //   name: 'ContactForm',
+  //   loader: () => import('../../components/forms/ContactForm.vue'),
+  //   condition: () => pageConditions.hasBodyClass('page-template-contact'),
+  // },
+  //
+  // Example - Image gallery (heavy component with dependencies):
+  // {
+  //   elementId: 'photo-gallery',
+  //   name: 'PhotoGallery',
+  //   loader: () => import('../../components/gallery/PhotoGallery.vue'),
+  //   condition: () => pageConditions.hasBodyClass('page-template-gallery'),
+  //   props: { layout: 'masonry', columns: 3 },
+  // },
+  //
+  // Example - Data visualization (complex chart library):
+  // {
+  //   elementId: 'analytics-dashboard',
+  //   name: 'AnalyticsDashboard',
+  //   loader: () => import('../../components/analytics/Dashboard.vue'),
+  //   condition: () => pageConditions.hasBodyClass('page-analytics'),
+  //   required: true,
   // },
 ];

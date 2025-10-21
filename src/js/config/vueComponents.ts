@@ -14,7 +14,7 @@
 import type { ComponentConfig, LazyComponentConfig } from '../../types/components';
 
 // Eager imports - critical components bundled in main chunk
-// (Counter removed - using AdvancedCounter instead)
+import AdvancedCounter from '../../components/examples/AdvancedCounter.vue';
 
 /**
  * Page condition helpers
@@ -82,20 +82,28 @@ export const pageConditions = {
  * - props: Props to pass to component (optional)
  */
 export const vueComponentRegistry: ComponentConfig[] = [
+  // Eager-loaded AdvancedCounter - Loads immediately with main bundle
+  {
+    component: AdvancedCounter,
+    elementId: 'counter-eager',
+    name: 'AdvancedCounterEager',
+    required: false,
+    condition: () => pageConditions.elementExists('counter-eager'),
+    props: {
+      title: 'Eager Counter (Main Bundle)',
+      initialValue: 0,
+      min: 0,
+      max: 50,
+      step: 1,
+    },
+  },
+
   // Add more eager-loaded components here
   // Example - Site navigation (critical, always needed):
   // {
   //   component: Navigation,
   //   elementId: 'main-navigation',
   //   name: 'Navigation',
-  //   required: true,
-  // },
-  //
-  // Example - Header component (critical, above fold):
-  // {
-  //   component: SiteHeader,
-  //   elementId: 'site-header',
-  //   name: 'SiteHeader',
   //   required: true,
   // },
 ];
@@ -126,20 +134,7 @@ export const vueComponentRegistry: ComponentConfig[] = [
  * - props: Props to pass to component (optional)
  */
 export const lazyVueComponentRegistry: LazyComponentConfig[] = [
-  // Advanced Counter - Main interactive counter component
-  {
-    elementId: 'vue-counter',
-    name: 'AdvancedCounter',
-    loader: () => import('../../components/examples/AdvancedCounter.vue'),
-    condition: () => pageConditions.elementExists('vue-counter'),
-    props: {
-      title: 'Interactive Counter',
-      initialValue: 50,
-      min: 0,
-      max: 100,
-      step: 5,
-    },
-  },
+  // Lazy-loaded AdvancedCounter - Code-split, loads on demand
 
   // Add more lazy-loaded components here
   //

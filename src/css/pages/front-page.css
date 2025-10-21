@@ -111,6 +111,66 @@
   font-weight: var(--font-weight-light);
 }
 
+/* Element: front-page__section-title
+   ========================================================================== */
+
+.front-page__section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-6);
+}
+
+/* Element: front-page__counters
+   ========================================================================== */
+
+.front-page__counters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: var(--container-md);
+  margin: 0 auto;
+  margin-top: var(--space-8);
+}
+
+/* Element: front-page__counter-section
+   ========================================================================== */
+
+.front-page__counter-section {
+  padding: var(--space-6);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+}
+
+.front-page__counter-section:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Element: front-page__counter-label
+   ========================================================================== */
+
+.front-page__counter-label {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+/* Element: front-page__counter-description
+   ========================================================================== */
+
+.front-page__counter-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-6);
+  line-height: var(--line-height-relaxed);
+}
+
 /* Element: front-page__image-wrapper
    ========================================================================== */
 

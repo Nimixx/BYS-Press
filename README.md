@@ -6,7 +6,7 @@ A modern, secure WordPress theme built with professional development practices a
 
 Core Theme was designed with a clear philosophy:
 
-**Developer Experience First**: Modern tooling shouldn't be a luxury. This theme brings Vite's lightning-fast HMR, TypeScript's type safety, and Svelte's reactive components to WordPress development.
+**Developer Experience First**: Modern tooling shouldn't be a luxury. This theme brings Vite's lightning-fast HMR, TypeScript's type safety, and Vue's progressive framework to WordPress development.
 
 **Security by Default**: Security isn't an afterthought. Core Theme implements comprehensive security headers, Content Security Policy, REST API hardening, and WordPress security best practices out of the box.
 
@@ -27,7 +27,7 @@ Core Theme was designed with a clear philosophy:
 ### Frontend
 - **Vite** (7.x) - Next-generation frontend tooling with instant HMR
 - **TypeScript** (5.x) - Type safety across JavaScript codebase
-- **Svelte 5** - Reactive UI components with modern runes API
+- **Vue 3** - Progressive JavaScript framework with Composition API
 - **CSS Custom Properties** - Modern CSS with BEM methodology
 
 ### Development & Testing
@@ -42,7 +42,7 @@ Core Theme was designed with a clear philosophy:
 ### Modern Development Workflow
 - Hot Module Replacement (HMR) for instant updates during development
 - TypeScript for type-safe JavaScript development
-- Svelte 5 components with reactive state management
+- Vue 3 components with Composition API and reactive state management
 - Vite for optimized production builds
 - Environment-aware configuration with .env support
 
@@ -64,14 +64,14 @@ Core Theme was designed with a clear philosophy:
 ### Code Quality & Testing
 - PHPUnit tests for PHP components
 - Vitest tests for JavaScript/TypeScript code
-- Svelte component testing with Testing Library
+- Vue component testing with Testing Library
 - Code coverage reporting
 - ESLint for code quality
 - Prettier for consistent formatting
 
 ### Error Handling & Reliability
 - Centralized error handler utility with severity levels
-- ErrorBoundary component for Svelte applications
+- ErrorBoundary component for Vue applications
 - Global error and promise rejection handlers
 - Development-friendly error logging
 - Production-ready error tracking integration
@@ -184,12 +184,12 @@ composer test:coverage # Generate PHP coverage report
    - Edit PHP files in `inc/` for backend logic
    - Edit Twig templates in `views/` for markup
    - Edit TypeScript/JavaScript in `src/js/`
-   - Edit Svelte components in `src/components/`
+   - Edit Vue components in `src/components/`
    - Edit CSS in `src/css/`
 
 3. **See changes instantly**
    - PHP and Twig changes: Refresh the browser
-   - JavaScript/CSS/Svelte changes: Updates instantly via HMR
+   - JavaScript/CSS/Vue changes: Updates instantly via HMR
 
 4. **Write tests**
    - Add Vitest tests for JavaScript/TypeScript in `src/`
@@ -215,8 +215,8 @@ core-theme/
 │   ├── js/               # TypeScript/JavaScript
 │   │   ├── main.ts       # Main entry point
 │   │   └── utils/        # Utility functions
-│   ├── components/       # Svelte components
-│   │   └── Counter.svelte
+│   ├── components/       # Vue components
+│   │   └── Counter.vue
 │   ├── css/              # CSS modules
 │   │   ├── base/         # Reset, variables, typography
 │   │   ├── components/   # Component styles
@@ -281,7 +281,7 @@ All classes are in the `CoreTheme\` namespace and autoloaded via Composer.
 ### Frontend Architecture
 
 - **Entry Point**: `src/js/main.ts` imports all necessary modules
-- **Components**: Svelte 5 components in `src/components/`
+- **Components**: Vue 3 components in `src/components/`
 - **Styles**: Modular CSS with BEM methodology
 - **Build Tool**: Vite compiles everything into `dist/`
 
@@ -347,7 +347,7 @@ See [md-docs/CUSTOMIZE.md](md-docs/CUSTOMIZE.md) for a complete customization tu
 Core Theme includes a robust error handling system:
 
 - Centralized error handler with severity levels
-- ErrorBoundary component for Svelte
+- ErrorBoundary component for Vue
 - Global error and promise rejection handlers
 - Development vs production error logging
 - Integration ready for error tracking services (Sentry, etc.)
@@ -398,7 +398,7 @@ Built with:
 - [WordPress](https://wordpress.org/)
 - [Timber](https://timber.github.io/docs/)
 - [Vite](https://vitejs.dev/)
-- [Svelte](https://svelte.dev/)
+- [Vue](https://vuejs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [@kucrut/vite-for-wp](https://github.com/kucrut/vite-for-wp)
 

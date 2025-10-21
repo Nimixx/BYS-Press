@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-/// <reference types="svelte" />
+/// <reference types="vue/ref-macros" />
 
 declare module '*.css' {
   const content: string;
@@ -11,9 +11,9 @@ declare module '*.scss' {
   export default content;
 }
 
-declare module '*.svelte' {
-  import type { ComponentType } from 'svelte';
-  const component: ComponentType;
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue';
+  const component: DefineComponent<{}, {}, any>;
   export default component;
 }
 

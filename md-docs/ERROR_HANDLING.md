@@ -1,6 +1,8 @@
 # Error Handling Guide
 
-This theme includes a comprehensive error handling system with error boundaries for Svelte components, centralized error tracking, and user-friendly error displays.
+This theme includes a comprehensive error handling system with error boundaries for Vue components, centralized error tracking, and user-friendly error displays.
+
+> **Note**: This guide contains code examples that are in the process of being updated from Svelte 5 to Vue 3 syntax. While file extensions and imports have been updated, some code examples may still use Svelte-specific syntax patterns. When implementing error handling in Vue components, adapt the patterns to use Vue 3 Composition API with `ref()`, `computed()`, `onMounted()`, etc.
 
 ## Table of Contents
 
@@ -24,8 +26,8 @@ The error handling system consists of:
    - Development vs production logging
    - Integration points for error tracking services
 
-2. **ErrorBoundary Component** (`src/components/ErrorBoundary.svelte`)
-   - Reusable error boundary for Svelte components
+2. **ErrorBoundary Component** (`src/components/ErrorBoundary.vue`)
+   - Reusable error boundary for Vue components
    - Prevents app crashes from component errors
    - User-friendly error UI
    - Automatic error logging
@@ -130,8 +132,8 @@ const safeClickHandler = safeFunction(
   },
 );
 
-// Use in Svelte component
-<button onclick={safeClickHandler}>Click Me</button>
+// Use in Vue component
+<button @click="safeClickHandler">Click Me</button>
 ```
 
 ### Network Error Handling
@@ -180,15 +182,17 @@ logInfo('User logged in', { userId: 123 });
 
 Wrap any component with ErrorBoundary to catch and handle errors:
 
-```svelte
-<script>
-  import ErrorBoundary from '../components/ErrorBoundary.svelte';
-  import MyComponent from './MyComponent.svelte';
+```vue
+<script setup lang="ts">
+import ErrorBoundary from '../components/ErrorBoundary.vue';
+import MyComponent from './MyComponent.vue';
 </script>
 
-<ErrorBoundary componentName="MyComponent">
-  <MyComponent />
-</ErrorBoundary>
+<template>
+  <ErrorBoundary componentName="MyComponent">
+    <MyComponent />
+  </ErrorBoundary>
+</template>
 ```
 
 ### Props
@@ -203,10 +207,10 @@ Wrap any component with ErrorBoundary to catch and handle errors:
 
 ### Custom Fallback UI
 
-```svelte
-<script>
-  import ErrorBoundary from '../components/ErrorBoundary.svelte';
-  import MyComponent from './MyComponent.svelte';
+```vue
+<script setup lang="ts">
+import ErrorBoundary from '../components/ErrorBoundary.vue';
+import MyComponent from './MyComponent.vue';
 
   function customFallback(error: Error, reset: () => void) {
     return `
@@ -226,9 +230,9 @@ Wrap any component with ErrorBoundary to catch and handle errors:
 
 ### With Error Callback
 
-```svelte
+```vue
 <script>
-  import ErrorBoundary from '../components/ErrorBoundary.svelte';
+  import ErrorBoundary from '../components/ErrorBoundary.vue';
   import { ErrorSeverity } from '../js/utils/errorHandler';
 
   function handleError(error: Error, context: ErrorContext) {
@@ -257,9 +261,9 @@ Wrap any component with ErrorBoundary to catch and handle errors:
 
 ```typescript
 // src/js/main.ts
-import { mount } from 'svelte';
-import ErrorBoundary from '../components/ErrorBoundary.svelte';
-import MyComponent from '../components/MyComponent.svelte';
+import { createApp } from 'vue';
+import ErrorBoundary from '../components/ErrorBoundary.vue';
+import MyComponent from '../components/MyComponent.vue';
 import { handleComponentError, ErrorSeverity } from './utils/errorHandler';
 
 function mountComponent(elementId: string, Component: any) {
@@ -294,9 +298,9 @@ mountComponent('app', MyComponent);
 
 ### Example 2: Form with Error Handling
 
-```svelte
-<script lang="ts">
-  import ErrorBoundary from '../components/ErrorBoundary.svelte';
+```vue
+<script setup lang="ts">
+import ErrorBoundary from '../components/ErrorBoundary.vue';
   import { handleComponentError } from '../js/utils/errorHandler';
 
   let formData = $state({ name: '', email: '' });
@@ -364,10 +368,10 @@ mountComponent('app', MyComponent);
 
 ### Example 3: Data Fetching Component
 
-```svelte
+```vue
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import ErrorBoundary from '../components/ErrorBoundary.svelte';
+import { onMounted } from 'vue';
+import ErrorBoundary from '../components/ErrorBoundary.vue';
   import { handleAsyncError } from '../js/utils/errorHandler';
 
   interface User {
@@ -421,7 +425,7 @@ mountComponent('app', MyComponent);
 
 ### 1. Always Use ErrorBoundary for Top-Level Components
 
-```svelte
+```vue
 <!-- Good -->
 <ErrorBoundary componentName="App">
   <App />
@@ -433,7 +437,7 @@ mountComponent('app', MyComponent);
 
 ### 2. Provide Meaningful Component Names
 
-```svelte
+```vue
 <!-- Good -->
 <ErrorBoundary componentName="UserProfile">
   <UserProfile userId={123} />
@@ -501,7 +505,7 @@ fetchData(); // No error handling
 
 ### 6. Don't Overuse Error Boundaries
 
-```svelte
+```vue
 <!-- Good: Error boundary around complex component -->
 <ErrorBoundary componentName="Dashboard">
   <Dashboard />
@@ -524,10 +528,10 @@ fetchData(); // No error handling
 
 Create a test component that throws errors:
 
-```svelte
-<!-- src/components/ErrorTest.svelte -->
-<script lang="ts">
-  import { onMount } from 'svelte';
+```vue
+<!-- src/components/ErrorTest.vue -->
+<script setup lang="ts">
+import { onMounted } from 'vue';
 
   let throwError = false;
 
@@ -551,7 +555,7 @@ Create a test component that throws errors:
 
 Use it with ErrorBoundary:
 
-```svelte
+```vue
 <ErrorBoundary componentName="ErrorTest">
   <ErrorTest />
 </ErrorBoundary>
@@ -562,8 +566,8 @@ Use it with ErrorBoundary:
 ```typescript
 // src/components/ErrorBoundary.test.ts
 import { describe, it, expect, vi } from 'vitest';
-import { render } from '@testing-library/svelte';
-import ErrorBoundary from './ErrorBoundary.svelte';
+import { render } from '@testing-library/vue';
+import ErrorBoundary from './ErrorBoundary.vue';
 
 describe('ErrorBoundary', () => {
   it('should render children when no error', () => {
@@ -688,7 +692,7 @@ function handle_error_log(WP_REST_Request $request) {
 The error handling system provides:
 
 - ✅ Centralized error handling with the Error Handler utility
-- ✅ Reusable ErrorBoundary component for Svelte
+- ✅ Reusable ErrorBoundary component for Vue
 - ✅ Global error handlers for unhandled errors
 - ✅ Development-friendly logging
 - ✅ Production-ready error tracking integration

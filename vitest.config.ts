@@ -1,11 +1,11 @@
 import { defineConfig } from 'vitest/config';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import vue from '@vitejs/plugin-vue';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [svelte({ hot: !process.env.VITEST })],
+  plugins: [vue()],
   test: {
-    // Use jsdom for DOM simulation (better Svelte 5 support)
+    // Use jsdom for DOM simulation (better Vue 3 support)
     environment: 'jsdom',
 
     // Set environment mode to avoid SSR
@@ -14,7 +14,7 @@ export default defineConfig({
     },
 
     // Include test files
-    include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx,svelte}'],
+    include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx,vue}'],
 
     // Exclude patterns
     exclude: ['node_modules', 'dist', 'vendor'],

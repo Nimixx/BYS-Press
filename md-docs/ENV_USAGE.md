@@ -182,13 +182,13 @@ if (isDevelopment) {
 }
 ```
 
-### Example 4: Using in Svelte Components
+### Example 4: Using in Vue Components
 
-```svelte
-<script lang="ts">
-  import { THEME_CONFIG } from '../js/config';
+```vue
+<script setup lang="ts">
+import { THEME_CONFIG } from '../js/config';
 
-  console.log('Theme version:', THEME_CONFIG.version);
+console.log('Theme version:', THEME_CONFIG.version);
 </script>
 ```
 

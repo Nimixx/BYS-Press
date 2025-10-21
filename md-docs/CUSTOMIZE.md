@@ -7,7 +7,7 @@ This guide provides step-by-step instructions for customizing Core Theme. Whethe
 1. [Adding New Pages](#adding-new-pages)
 2. [Adding Custom Styles](#adding-custom-styles)
 3. [Adding Functionality](#adding-functionality)
-4. [Creating Svelte Components](#creating-svelte-components)
+4. [Creating Vue Components](#creating-vue-components)
 5. [Integrating External Libraries](#integrating-external-libraries)
 6. [Installing NPM Packages](#installing-npm-packages)
 7. [Working with Timber/Twig](#working-with-timbertwig)
@@ -443,75 +443,74 @@ export async function customAction(data: string) {
 
 ---
 
-## Creating Svelte Components
+## Creating Vue Components
 
-Svelte 5 components add reactive functionality to your theme.
+Vue 3 components add reactive functionality to your theme using the Composition API.
 
-### Step 1: Create a Svelte Component
+### Step 1: Create a Vue Component
 
-**File**: `src/components/ContactForm.svelte`
+**File**: `src/components/ContactForm.vue`
 
-```svelte
-<script lang="ts">
-  import { writable } from 'svelte/store';
+```vue
+<script setup lang="ts">
+import { ref } from 'vue';
 
-  interface FormData {
-    name: string;
-    email: string;
-    message: string;
-  }
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
 
-  let formData = $state<FormData>({
-    name: '',
-    email: '',
-    message: '',
-  });
+const formData = ref<FormData>({
+  name: '',
+  email: '',
+  message: '',
+});
 
-  let loading = $state(false);
-  let success = $state(false);
-  let error = $state('');
+const loading = ref(false);
+const success = ref(false);
+const error = ref('');
 
-  async function handleSubmit(event: Event) {
-    event.preventDefault();
-    loading = true;
-    error = '';
+async function handleSubmit(event: Event) {
+  event.preventDefault();
+  loading.value = true;
+  error.value = '';
 
-    try {
-      const response = await fetch('/wp-json/custom/v1/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+  try {
+    const response = await fetch('/wp-json/custom/v1/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData.value),
+    });
 
-      if (response.ok) {
-        success = true;
-        formData = { name: '', email: '', message: '' };
-      } else {
-        error = 'Failed to send message. Please try again.';
-      }
-    } catch (err) {
-      error = 'An error occurred. Please try again.';
-    } finally {
-      loading = false;
+    if (response.ok) {
+      success.value = true;
+      formData.value = { name: '', email: '', message: '' };
+    } else {
+      error.value = 'Failed to send message. Please try again.';
     }
+  } catch (err) {
+    error.value = 'An error occurred. Please try again.';
+  } finally {
+    loading.value = false;
   }
+}
 </script>
 
-<div class="contact-form">
-  {#if success}
-    <div class="contact-form__success">
+<template>
+  <div class="contact-form">
+    <div v-if="success" class="contact-form__success">
       Thank you! Your message has been sent.
     </div>
-  {:else}
-    <form onsubmit={handleSubmit} class="contact-form__form">
+    <form v-else @submit="handleSubmit" class="contact-form__form">
       <div class="form-field">
         <label for="name">Name</label>
         <input
           type="text"
           id="name"
-          bind:value={formData.name}
+          v-model="formData.name"
           required
         />
       </div>
@@ -521,7 +520,7 @@ Svelte 5 components add reactive functionality to your theme.
         <input
           type="email"
           id="email"
-          bind:value={formData.email}
+          v-model="formData.email"
           required
         />
       </div>
@@ -530,77 +529,75 @@ Svelte 5 components add reactive functionality to your theme.
         <label for="message">Message</label>
         <textarea
           id="message"
-          bind:value={formData.message}
+          v-model="formData.message"
           rows="5"
           required
         ></textarea>
       </div>
 
-      {#if error}
-        <div class="contact-form__error">{error}</div>
-      {/if}
+      <div v-if="error" class="contact-form__error">{{ error }}</div>
 
-      <button type="submit" disabled={loading}>
-        {loading ? 'Sending...' : 'Send Message'}
+      <button type="submit" :disabled="loading">
+        {{ loading ? 'Sending...' : 'Send Message' }}
       </button>
     </form>
-  {/if}
-</div>
+  </div>
+</template>
 
-<style>
-  .contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-  }
+<style scoped>
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-  .form-field {
-    margin-bottom: 1rem;
-  }
+.form-field {
+  margin-bottom: 1rem;
+}
 
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-  }
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
 
-  input,
-  textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
+input,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
 
-  button {
-    background: var(--color-primary);
-    color: white;
-    padding: 0.75rem 2rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+button {
+  background: var(--color-primary);
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-  button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-  .contact-form__success,
-  .contact-form__error {
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-  }
+.contact-form__success,
+.contact-form__error {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
 
-  .contact-form__success {
-    background: #d4edda;
-    color: #155724;
-  }
+.contact-form__success {
+  background: #d4edda;
+  color: #155724;
+}
 
-  .contact-form__error {
-    background: #f8d7da;
-    color: #721c24;
-  }
+.contact-form__error {
+  background: #f8d7da;
+  color: #721c24;
+}
 </style>
 ```
 
@@ -608,13 +605,13 @@ Svelte 5 components add reactive functionality to your theme.
 
 Core Theme uses a centralized component registry system for better code splitting and maintainability.
 
-**File**: `src/js/config/components.ts`
+**File**: `src/js/config/vueComponents.ts`
 
 ```typescript
-import ContactForm from '../../components/ContactForm.svelte';
-import { pageConditions } from './components'; // Import existing helpers
+import ContactForm from '../../components/ContactForm.vue';
+import { pageConditions } from './vueComponents'; // Import existing helpers
 
-// Add to componentRegistry array
+// Add to vueComponentRegistry array
 {
   component: ContactForm,
   elementId: 'contact-form-mount',
@@ -628,8 +625,8 @@ import { pageConditions } from './components'; // Import existing helpers
 #### Component Configuration Options
 
 ```typescript
-interface ComponentConfig {
-  /** Svelte component to mount */
+interface VueComponentConfig {
+  /** Vue component to mount */
   component: Component;
   /** DOM element ID to mount to */
   elementId: string;
@@ -689,14 +686,14 @@ interface ComponentConfig {
 
 For larger components that should only be loaded when needed:
 
-**File**: `src/js/config/components.ts`
+**File**: `src/js/config/vueComponents.ts`
 
 ```typescript
-// Add to lazyComponentRegistry array
+// Add to lazyVueComponentRegistry array
 {
   elementId: 'data-visualization',
   name: 'DataVisualization',
-  loader: () => import('../../components/DataVisualization.svelte'),
+  loader: () => import('../../components/DataVisualization.vue'),
   condition: () => pageConditions.hasBodyClass('page-dashboard'),
 }
 ```
@@ -1264,7 +1261,7 @@ git commit -m "docs: update customization guide"
 3. Check file extension is `.twig`
 4. Ensure Timber is properly initialized
 
-### Svelte Component Not Mounting
+### Vue Component Not Mounting
 
 1. Check mount point exists in HTML
 2. Verify component import path
@@ -1287,7 +1284,7 @@ git commit -m "docs: update customization guide"
 - [Testing Guide](TESTING.md)
 - [Performance Optimization](PERFORMANCE.md)
 - [Timber Documentation](https://timber.github.io/docs/)
-- [Svelte Documentation](https://svelte.dev/docs)
+- [Vue Documentation](https://vuejs.org/guide/)
 - [Vite Documentation](https://vitejs.dev/guide/)
 
 ---

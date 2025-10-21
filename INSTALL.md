@@ -107,7 +107,7 @@ After activation, verify the theme is working correctly:
 
 The Core Theme includes:
 - Modern asset pipeline with Vite
-- Svelte components support
+- Vue 3 components support
 - Timber/Twig templating
 - Security hardening features
 - Built-in performance optimizations

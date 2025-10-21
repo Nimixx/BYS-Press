@@ -1,6 +1,6 @@
 # Testing Guide for Core Theme
 
-This theme includes comprehensive testing infrastructure for both frontend (TypeScript/Svelte) and backend (PHP) code.
+This theme includes comprehensive testing infrastructure for both frontend (TypeScript/Vue) and backend (PHP) code.
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@ This theme includes comprehensive testing infrastructure for both frontend (Type
 ### Overview
 
 Frontend tests use **Vitest** with:
-- **@testing-library/svelte** for component testing
+- **@testing-library/vue** for component testing
 - **@testing-library/jest-dom** for DOM assertions
 - **happy-dom** for fast DOM simulation
 - Full TypeScript support
@@ -29,7 +29,7 @@ All frontend tests should be placed next to the files they test:
 ```
 src/
 ├── components/
-│   ├── Counter.svelte
+│   ├── Counter.vue
 │   └── Counter.test.ts
 ├── js/
 │   ├── config.ts
@@ -61,8 +61,8 @@ npm run test:watch
 
 ```typescript
 import { describe, it, expect } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/svelte';
-import MyComponent from './MyComponent.svelte';
+import { render, screen, fireEvent } from '@testing-library/vue';
+import MyComponent from './MyComponent.vue';
 
 describe('MyComponent', () => {
   it('renders correctly', () => {
@@ -378,8 +378,8 @@ jobs:
 
 ```
 src/
-├── components/          # Svelte components with tests
-│   ├── Counter.svelte
+├── components/          # Vue components with tests
+│   ├── Counter.vue
 │   └── Counter.test.ts
 ├── js/                 # TypeScript modules with tests
 │   ├── config.ts
@@ -403,7 +403,7 @@ tests/
 
 ### Frontend Issues
 
-**Issue:** `Cannot find module '@testing-library/svelte'`
+**Issue:** `Cannot find module '@testing-library/vue'`
 ```bash
 Solution: npm install
 ```
@@ -414,9 +414,9 @@ Solution: Mock fetch in your test
 global.fetch = vi.fn().mockResolvedValue({});
 ```
 
-**Issue:** Tests fail with Svelte 5 runes
+**Issue:** Tests fail with Vue 3 reactivity
 ```typescript
-Solution: Use $state() and $derived() properly in components
+Solution: Use ref() and computed() properly in components
 ```
 
 ### Backend Issues
@@ -443,8 +443,8 @@ Solution: Add function mock in tests/bootstrap.php
 
 ### Frontend Testing
 - [Vitest Documentation](https://vitest.dev/)
-- [Testing Library](https://testing-library.com/docs/svelte-testing-library/intro/)
-- [Svelte Testing Guide](https://svelte.dev/docs/testing)
+- [Testing Library](https://testing-library.com/docs/vue-testing-library/intro/)
+- [Vue Testing Guide](https://vuejs.org/guide/scaling-up/testing.html)
 
 ### Backend Testing
 - [PHPUnit Documentation](https://phpunit.de/)

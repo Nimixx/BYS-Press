@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Core Theme is a modern WordPress theme built with:
 - **Backend**: PHP 8.1+ with PSR-4 autoloading, Timber (Twig templates), Composer
-- **Frontend**: Vite 7.x, TypeScript 5.x, Svelte 5, CSS Custom Properties
+- **Frontend**: Vite 7.x, TypeScript 5.x, Vue 3, CSS Custom Properties
 - **Testing**: PHPUnit (PHP) and Vitest (JavaScript/TypeScript)
 
 ## Essential Commands
@@ -58,11 +58,11 @@ composer test:coverage   # PHP coverage report
 - **src/js/main.ts** - Main entry point that:
   1. Imports CSS (`src/css/main.css`)
   2. Sets up global error handlers
-  3. Mounts Svelte components from component registry
+  3. Mounts Vue components from component registry
   4. Handles both eager and lazy-loaded components
 
 ### Component Registration System
-- **src/js/config/components.ts** - Central registry for all Svelte components
+- **src/js/config/vueComponents.ts** - Central registry for all Vue components
 - Components are auto-mounted based on:
   - Element ID presence in DOM
   - Optional page conditions (e.g., front page only)
@@ -90,10 +90,10 @@ composer test:coverage   # PHP coverage report
 
 ## Key Development Patterns
 
-### Adding a New Svelte Component
-1. Create component in `src/components/YourComponent.svelte`
-2. Import in `src/js/config/components.ts`
-3. Add to `componentRegistry` array with configuration:
+### Adding a New Vue Component
+1. Create component in `src/components/YourComponent.vue`
+2. Import in `src/js/config/vueComponents.ts`
+3. Add to `vueComponentRegistry` array with configuration:
    ```typescript
    {
      component: YourComponent,
@@ -127,7 +127,7 @@ composer test:coverage   # PHP coverage report
 
 ### JavaScript/TypeScript Tests
 - Location: Co-located with source files in `src/`
-- Framework: Vitest with `@testing-library/svelte`
+- Framework: Vitest with `@testing-library/vue`
 - Test utilities: Available in `src/test-utils/`
 - Run in watch mode during development: `npm test`
 
@@ -139,7 +139,7 @@ composer test:coverage   # PHP coverage report
 
 ### Writing Tests
 - Test PHP classes for WordPress hooks, filters, and functionality
-- Test JavaScript utilities and Svelte components
+- Test JavaScript utilities and Vue components
 - Mock WordPress functions using Brain Monkey
 - Aim for good coverage on critical security and asset loading code
 

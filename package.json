@@ -16,8 +16,8 @@
     "test:all": "npm run test:run && npm run test:php",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,svelte,css,scss,json}\"",
-    "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,svelte,css,scss,json}\"",
+    "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,vue,css,scss,json}\"",
+    "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,vue,css,scss,json}\"",
     "check": "npm run lint && npm run format:check"
   },
   "keywords": [],

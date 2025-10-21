@@ -23,7 +23,6 @@
     "tsconfig.json",
     "vite.config.js",
     "vitest.config.ts",
-    "svelte.config.js",
     "eslint.config.js",
     "bundle.config.json",
     "*.md"

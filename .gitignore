@@ -36,3 +36,7 @@ coverage/
 
 # Test results
 .vitest/
+
+# Translation files
+# Keep .pot files (templates) but ignore compiled .mo files
+*.mo

@@ -31,8 +31,20 @@ class ThemeSetup
      */
     public function setup(): void
     {
+        $this->loadTextDomain();
         $this->addThemeSupports();
         $this->registerMenus();
+    }
+
+    /**
+     * Load theme text domain for translations
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    private function loadTextDomain(): void
+    {
+        load_theme_textdomain('core-theme', get_template_directory() . '/languages');
     }
 
     /**

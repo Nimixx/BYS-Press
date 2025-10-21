@@ -12,7 +12,7 @@ import {
   logInfo,
   getUserFriendlyErrorMessage,
   ErrorSeverity,
-} from './errorHandler';
+} from '../../js/utils/errorHandler';
 
 describe('errorHandler', () => {
   beforeEach(() => {

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { debugLog, getApiEndpoint, fetchFromWP, API_CONFIG } from './config';
+import { debugLog, getApiEndpoint, fetchFromWP, API_CONFIG } from '../../js/config';
 
 describe('Config Module', () => {
   describe('debugLog', () => {

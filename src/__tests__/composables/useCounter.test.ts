@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, vi } from 'vitest';
-import { useCounter, useSimpleCounter } from './useCounter';
+import { useCounter, useSimpleCounter } from '../../composables/useCounter';
 
 describe('useCounter', () => {
   describe('basic functionality', () => {

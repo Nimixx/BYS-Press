@@ -13,10 +13,10 @@ namespace CoreTheme;
 use Timber\Timber;
 use Timber\Site;
 use CoreTheme\Context\ContextProviderInterface;
-use CoreTheme\Context\MenuContextProvider;
-use CoreTheme\Context\RequestContextProvider;
-use CoreTheme\Context\SecurityContextProvider;
-use CoreTheme\Context\AssetsContextProvider;
+use CoreTheme\Context\Providers\MenuContextProvider;
+use CoreTheme\Context\Providers\RequestContextProvider;
+use CoreTheme\Context\Providers\SecurityContextProvider;
+use CoreTheme\Context\Providers\AssetsContextProvider;
 
 class TimberConfig
 {

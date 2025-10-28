@@ -2,41 +2,8 @@
   Header Component
 
   Main site header with logo and navigation menu
-  Handles active states based on current URL path
-  Menu configuration loaded from inc/Config/menu.php
+  Menu items are pre-processed server-side with active states
 #}
-
-{# Process menu items to add active states based on current URL #}
-{% set menu_items = [] %}
-{% for item in menu_config %}
-  {% set item_active = (current_url == item.url) or (current_url starts with item.url and item.url != '/') %}
-  {% set has_active_child = false %}
-  {% set processed_children = [] %}
-
-  {# Process children if they exist #}
-  {% if item.children %}
-    {% for child in item.children %}
-      {% set child_active = (current_url == child.url) or (current_url starts with child.url) %}
-      {% if child_active %}
-        {% set has_active_child = true %}
-      {% endif %}
-      {% set processed_children = processed_children|merge([{
-        title: child.title,
-        url: child.url,
-        current: child_active
-      }]) %}
-    {% endfor %}
-  {% endif %}
-
-  {# Add processed item to menu #}
-  {% set menu_items = menu_items|merge([{
-    title: item.title,
-    url: item.url,
-    current: item_active,
-    has_active_child: has_active_child,
-    children: processed_children|length > 0 ? processed_children : null
-  }]) %}
-{% endfor %}
 
 <header class="site-header" role="banner">
   <div class="site-header__container">
@@ -50,6 +17,8 @@
       {% endif %}
     </div>
 
-    {% include 'Menu/Menu.twig' with { items: menu_items } %}
+    {% if menu_items %}
+      {% include 'Menu/Menu.twig' with { items: menu_items } %}
+    {% endif %}
   </div>
 </header>

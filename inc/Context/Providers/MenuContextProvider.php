@@ -2,14 +2,17 @@
 /**
  * Menu Context Provider
  *
- * Provides menu configuration data to Timber context
- * Loads menu structure from inc/Config/menu.php
+ * Provides processed menu data to Timber context
+ * Loads menu structure from inc/Config/menu.php and processes active states
  *
- * @package CoreTheme\Context
+ * @package CoreTheme\Context\Providers
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context;
+namespace CoreTheme\Context\Providers;
+
+use CoreTheme\Context\ContextProviderInterface;
+use CoreTheme\Context\Processors\MenuProcessor;
 
 class MenuContextProvider implements ContextProviderInterface
 {
@@ -21,6 +24,13 @@ class MenuContextProvider implements ContextProviderInterface
     private string $themeDir;
 
     /**
+     * Menu processor
+     *
+     * @var MenuProcessor
+     */
+    private MenuProcessor $processor;
+
+    /**
      * Constructor
      *
      * @since 1.0.0
@@ -29,10 +39,14 @@ class MenuContextProvider implements ContextProviderInterface
     public function __construct(?string $themeDir = null)
     {
         $this->themeDir = $themeDir ?? get_template_directory();
+
+        // Get current URL for menu processor
+        $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
+        $this->processor = new MenuProcessor($currentUrl);
     }
 
     /**
-     * Add menu configuration to context
+     * Add processed menu to context
      *
      * @since 1.0.0
      * @param array $context Current context array
@@ -43,9 +57,11 @@ class MenuContextProvider implements ContextProviderInterface
         $menuConfigPath = $this->themeDir . '/inc/Config/menu.php';
 
         if (file_exists($menuConfigPath)) {
-            $context['menu_config'] = require $menuConfigPath;
+            $menuConfig = require $menuConfigPath;
+            // Process menu with active states
+            $context['menu_items'] = $this->processor->process($menuConfig);
         } else {
-            $context['menu_config'] = [];
+            $context['menu_items'] = [];
         }
 
         return $context;

@@ -5,12 +5,13 @@
  * Provides security-related data to Timber context
  * Includes CSP nonce for inline scripts/styles
  *
- * @package CoreTheme\Context
+ * @package CoreTheme\Context\Providers
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context;
+namespace CoreTheme\Context\Providers;
 
+use CoreTheme\Context\ContextProviderInterface;
 use CoreTheme\Security;
 
 class SecurityContextProvider implements ContextProviderInterface

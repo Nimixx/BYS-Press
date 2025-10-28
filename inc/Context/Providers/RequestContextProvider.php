@@ -5,11 +5,13 @@
  * Provides current request information to Timber context
  * Includes current URL for menu active state detection
  *
- * @package CoreTheme\Context
+ * @package CoreTheme\Context\Providers
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context;
+namespace CoreTheme\Context\Providers;
+
+use CoreTheme\Context\ContextProviderInterface;
 
 class RequestContextProvider implements ContextProviderInterface
 {

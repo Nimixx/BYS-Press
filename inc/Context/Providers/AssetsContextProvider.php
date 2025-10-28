@@ -5,11 +5,13 @@
  * Provides static asset paths to Timber context
  * Loads asset configuration from inc/Config/assets.php
  *
- * @package CoreTheme\Context
+ * @package CoreTheme\Context\Providers
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context;
+namespace CoreTheme\Context\Providers;
+
+use CoreTheme\Context\ContextProviderInterface;
 
 class AssetsContextProvider implements ContextProviderInterface
 {

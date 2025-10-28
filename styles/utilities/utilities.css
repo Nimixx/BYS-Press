@@ -1,16 +1,19 @@
 /**
  * Utilities
  *
- * Essential utility classes for accessibility and error handling.
+ * Minimal utility classes for common patterns.
  */
 
-/* ============================================
-   Screen Reader Only
-   Hides content visually but keeps it accessible to screen readers
-   ============================================ */
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-lg);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
 
-.sr-only,
-.visually-hidden {
+/* Visually Hidden */
+.sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -19,21 +22,5 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  border-width: 0;
-}
-
-/* ============================================
-   Component Error (Development Only)
-   Used when component fails to mount in development
-   ============================================ */
-
-.component-error {
-  padding: var(--spacing-md, 1.5rem);
-  background: var(--color-error-bg, #fef2f2);
-  border: 2px solid var(--color-error-border, #fecaca);
-  border-radius: var(--border-radius-md, 8px);
-  color: var(--color-error-text, #991b1b);
-  font-family: var(--font-family-sans, system-ui, -apple-system, sans-serif);
-  font-size: var(--font-size-sm, 0.875rem);
-  line-height: 1.5;
+  border: 0;
 }

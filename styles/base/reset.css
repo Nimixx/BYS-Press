@@ -1,35 +1,25 @@
 /**
  * Minimal CSS Reset
  *
- * A modern, minimal CSS reset that provides a clean foundation
- * while respecting browser defaults where appropriate.
+ * Modern, opinionated reset for a clean foundation.
  */
 
-/* ============================================
-   Box Sizing
-   ============================================ */
-
+/* Box sizing */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* ============================================
-   Document & Root
-   ============================================ */
-
+/* Document */
 html {
-  /* Prevent font size inflation on mobile */
   -webkit-text-size-adjust: 100%;
-  /* Improve text rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Smooth scroll behavior */
   scroll-behavior: smooth;
 }
 
-/* Respect user's motion preferences */
+/* Respect motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -41,127 +31,64 @@ html {
   }
 }
 
-/* ============================================
-   Body
-   ============================================ */
-
+/* Body */
 body {
   margin: 0;
   min-height: 100vh;
-  line-height: var(--line-height-normal);
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-  color: var(--color-text-primary);
-  background-color: var(--color-background);
-  /* Improve text rendering */
-  text-rendering: optimizeSpeed;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background: var(--color-bg);
 }
 
-/* ============================================
-   Typography
-   ============================================ */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-}
-
-p,
-blockquote,
-pre,
-address,
-figure {
+/* Remove default margins */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, figure,
+ul, ol, dl, dd {
   margin: 0;
 }
 
-/* Remove default list styles */
-ul,
-ol {
-  margin: 0;
+/* Remove list styles */
+ul, ol {
   padding: 0;
   list-style: none;
 }
 
-/* ============================================
-   Links
-   ============================================ */
-
+/* Links */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-a:not([class]) {
-  text-decoration-skip-ink: auto;
-}
-
-/* ============================================
-   Media Elements
-   ============================================ */
-
-img,
-picture,
-video,
-canvas,
-svg {
+/* Media */
+img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
-/* Remove gaps between images and containers */
-img {
-  vertical-align: middle;
-}
-
-/* ============================================
-   Form Elements
-   ============================================ */
-
-input,
-button,
-textarea,
-select {
+/* Forms */
+input, button, textarea, select {
   margin: 0;
   padding: 0;
   font: inherit;
   color: inherit;
 }
 
-/* Remove default button styles */
 button {
   border: none;
   background: none;
   cursor: pointer;
 }
 
-/* Remove default fieldset styles */
-fieldset {
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-/* ============================================
-   Tables
-   ============================================ */
-
+/* Tables */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* ============================================
-   Interactive Elements
-   ============================================ */
-
-/* Remove default outline and add focus-visible */
+/* Focus */
 :focus {
   outline: none;
 }
@@ -170,4 +97,3 @@ table {
   outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
-

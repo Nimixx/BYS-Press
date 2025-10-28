@@ -9,10 +9,10 @@
   /* Use design tokens */
   display: inline-block;
   padding: var(--space-3) var(--space-6);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
   font-family: inherit;
-  line-height: var(--line-height-tight);
+  line-height: var(--leading-tight);
   text-align: center;
   text-decoration: none;
 
@@ -27,7 +27,7 @@
 
   /* Base colors */
   background: var(--color-primary-500);
-  color: var(--color-text-primary);
+  color: var(--color-text);
 }
 
 .button:hover {
@@ -65,7 +65,7 @@
 
 .button--outline:hover {
   background: var(--color-primary-500);
-  color: var(--color-text-primary);
+  color: var(--color-text);
 }
 
 .button--ghost {
@@ -80,12 +80,12 @@
 /* Sizes */
 .button--small {
   padding: var(--space-2) var(--space-4);
-  font-size: var(--font-size-sm);
+  font-size: var(--text-sm);
 }
 
 .button--large {
   padding: var(--space-4) var(--space-8);
-  font-size: var(--font-size-lg);
+  font-size: var(--text-lg);
 }
 
 /* Modifiers */

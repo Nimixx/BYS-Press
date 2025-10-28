@@ -53,7 +53,7 @@
 .card__title {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text);
   margin: 0;
   line-height: var(--line-height-tight);
 }
@@ -66,9 +66,9 @@
 
 /* Element: card__description */
 .card__description {
-  font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
-  line-height: var(--line-height-relaxed);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
   margin: 0;
 }
 
@@ -90,10 +90,10 @@
   top: var(--space-4);
   right: var(--space-4);
   background: var(--color-primary-500);
-  color: var(--color-text-primary);
+  color: var(--color-text);
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
+  font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
   z-index: var(--z-base, 1);
 }

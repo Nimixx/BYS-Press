@@ -29,7 +29,7 @@ body {
   top: -40px;
   left: 0;
   background: var(--color-bg-primary, #000);
-  color: var(--color-text-primary, #fff);
+  color: var(--color-text, #fff);
   padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
   text-decoration: none;
   z-index: var(--z-modal, 100000);
@@ -40,7 +40,7 @@ body {
 
 .skip-link:focus {
   top: 0;
-  outline: 2px solid var(--color-text-primary, #fff);
+  outline: 2px solid var(--color-text, #fff);
   outline-offset: 2px;
 }
 

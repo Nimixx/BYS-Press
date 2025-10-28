@@ -48,50 +48,46 @@ const decrement = () => {
 .counter {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-6);
-  padding: var(--space-6);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  gap: var(--space-4);
 }
 
 .counter__value {
-  font-size: var(--text-5xl);
+  font-size: var(--text-4xl);
   font-weight: var(--font-light);
   color: var(--color-text);
-  min-width: 4rem;
+  min-width: 3rem;
   text-align: center;
 }
 
 .counter__controls {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-1);
 }
 
 .counter__button {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   padding: 0;
-  font-size: var(--text-xl);
-  font-weight: var(--font-light);
+  font-size: var(--text-lg);
+  font-weight: var(--font-normal);
   font-family: inherit;
   line-height: 1;
-  color: var(--color-text);
+  color: var(--color-text-muted);
   background: transparent;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border: none;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .counter__button:hover {
-  background: var(--color-surface-hover);
-  border-color: var(--color-border-hover);
+  color: var(--color-text);
+  background: var(--color-surface);
 }
 
 .counter__button:active {
-  transform: scale(0.95);
+  transform: scale(0.9);
 }
 
 .counter__button:focus-visible {

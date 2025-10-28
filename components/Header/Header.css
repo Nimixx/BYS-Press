@@ -1,24 +1,22 @@
 /**
  * Site Header
  *
- * Semantic header with site branding and navigation
+ * Minimal header design using light theme tokens
  */
 
 .site-header {
-  position: relative;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .site-header__container {
-  max-width: var(--container-max-width, 1200px);
+  max-width: var(--container-xl);
   margin: 0 auto;
-  padding: var(--spacing-md, 1rem) var(--spacing-lg, 1.5rem);
+  padding: var(--space-4) var(--space-6);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-lg, 1.5rem);
+  gap: var(--space-6);
 }
 
 /**
@@ -27,29 +25,29 @@
 .site-branding {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--space-1);
 }
 
 .site-branding__link {
   text-decoration: none;
   color: inherit;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--transition-fast);
 }
 
 .site-branding__link:hover {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .site-branding__name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-  letter-spacing: -0.02em;
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
 }
 
 .site-branding__description {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -66,7 +64,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: var(--spacing-md, 1rem);
+  gap: var(--space-2);
 }
 
 .site-navigation__menu li {
@@ -75,25 +73,25 @@
 
 .site-navigation__menu a {
   display: block;
-  padding: 0.5rem 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-text-muted);
   text-decoration: none;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
 }
 
 .site-navigation__menu a:hover,
 .site-navigation__menu a:focus {
-  color: rgba(255, 255, 255, 1);
-  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+  background: var(--color-surface-hover);
 }
 
 .site-navigation__menu .current-menu-item > a,
 .site-navigation__menu .current_page_item > a {
-  color: rgba(255, 255, 255, 1);
-  background: rgba(255, 255, 255, 0.15);
+  color: var(--color-text);
+  background: var(--color-surface);
 }
 
 /**
@@ -103,12 +101,12 @@
   .site-header__container {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-md, 1rem);
+    gap: var(--space-4);
   }
 
   .site-navigation__menu {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--space-1);
     width: 100%;
   }
 

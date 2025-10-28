@@ -1,35 +1,34 @@
 /**
  * Site Footer
  *
- * Semantic footer with copyright and optional navigation
+ * Minimal footer design using light theme tokens
  */
 
 .site-footer {
   margin-top: auto;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
 }
 
 .site-footer__container {
-  max-width: var(--container-max-width, 1200px);
+  max-width: var(--container-xl);
   margin: 0 auto;
-  padding: var(--spacing-xl, 2rem) var(--spacing-lg, 1.5rem);
+  padding: var(--space-6);
   text-align: center;
 }
 
 .site-footer__copyright {
   margin: 0;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.6;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
 }
 
 /**
  * Optional Footer Navigation
  */
 .site-footer__navigation {
-  margin-bottom: var(--spacing-md, 1rem);
+  margin-bottom: var(--space-4);
 }
 
 .site-footer__menu {
@@ -39,7 +38,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: var(--spacing-md, 1rem);
+  gap: var(--space-4);
 }
 
 .site-footer__menu li {
@@ -47,13 +46,13 @@
 }
 
 .site-footer__menu a {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-muted);
   text-decoration: none;
-  font-size: 0.875rem;
-  transition: color 0.2s ease;
+  font-size: var(--text-sm);
+  transition: color var(--transition-fast);
 }
 
 .site-footer__menu a:hover,
 .site-footer__menu a:focus {
-  color: rgba(255, 255, 255, 1);
+  color: var(--color-text);
 }

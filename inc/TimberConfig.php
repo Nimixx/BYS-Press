@@ -105,6 +105,9 @@ class TimberConfig
     {
         $context['site'] = new Site();
 
+        // Add current URL for menu active states
+        $context['current_url'] = $_SERVER['REQUEST_URI'] ?? '/';
+
         // Add CSP nonce to context for inline scripts/styles in templates
         if ($this->security !== null) {
             $context['csp_nonce'] = $this->security->getNonce();

@@ -3,19 +3,26 @@
 
   Minimal desktop navigation menu
   Displays horizontal menu with optional submenu support
+  Handles active states with aria-current attribute
 
   @param {array} items - Menu items array with structure:
     - title: Menu item text
     - url: Link URL
-    - current: Boolean for active state (optional)
+    - current: Boolean for active state
+    - has_active_child: Boolean if any child is active
     - children: Array of child items (optional)
 #}
 
 <nav class="menu" role="navigation" aria-label="Primary Navigation">
   <ul class="menu__list">
     {% for item in items %}
-      <li class="menu__item{{ item.current ? ' menu__item--active' : '' }}{{ item.children ? ' menu__item--has-children' : '' }}">
-        <a href="{{ item.url }}" class="menu__link">
+      {% set is_active = item.current or item.has_active_child %}
+      <li class="menu__item{{ is_active ? ' menu__item--active' : '' }}{{ item.children ? ' menu__item--has-children' : '' }}">
+        <a
+          href="{{ item.url }}"
+          class="menu__link"
+          {% if is_active %}aria-current="page"{% endif %}
+        >
           {{ item.title }}
         </a>
 
@@ -24,7 +31,11 @@
           <ul class="menu__submenu">
             {% for child in item.children %}
               <li class="menu__submenu-item{{ child.current ? ' menu__submenu-item--active' : '' }}">
-                <a href="{{ child.url }}" class="menu__submenu-link">
+                <a
+                  href="{{ child.url }}"
+                  class="menu__submenu-link"
+                  {% if child.current %}aria-current="page"{% endif %}
+                >
                   {{ child.title }}
                 </a>
               </li>

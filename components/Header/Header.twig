@@ -1,41 +1,75 @@
 {#
-  Header Layout
+  Header Component
 
   Main site header with logo and hardcoded navigation menu
+  Handles active states based on current URL path
 #}
 
-{% set menu_items = [
+{# Define base menu structure #}
+{% set base_menu_items = [
   {
     title: 'Home',
-    url: site.url,
+    url: '/',
     current: false
   },
   {
     title: 'About',
-    url: site.url ~ '/about',
+    url: '/about',
     current: false
   },
   {
     title: 'Services',
-    url: site.url ~ '/services',
+    url: '/services',
     current: false,
     children: [
-      { title: 'Web Development', url: site.url ~ '/services/web-development' },
-      { title: 'Design', url: site.url ~ '/services/design' },
-      { title: 'Consulting', url: site.url ~ '/services/consulting' }
+      { title: 'Web Development', url: '/services/web-development' },
+      { title: 'Design', url: '/services/design' },
+      { title: 'Consulting', url: '/services/consulting' }
     ]
   },
   {
     title: 'Blog',
-    url: site.url ~ '/blog',
+    url: '/blog',
     current: false
   },
   {
     title: 'Contact',
-    url: site.url ~ '/contact',
+    url: '/contact',
     current: false
   }
 ] %}
+
+{# Process menu items to add active states based on current URL #}
+{% set menu_items = [] %}
+{% for item in base_menu_items %}
+  {% set item_active = (current_url == item.url) or (current_url starts with item.url and item.url != '/') %}
+  {% set has_active_child = false %}
+  {% set processed_children = [] %}
+
+  {# Process children if they exist #}
+  {% if item.children %}
+    {% for child in item.children %}
+      {% set child_active = (current_url == child.url) or (current_url starts with child.url) %}
+      {% if child_active %}
+        {% set has_active_child = true %}
+      {% endif %}
+      {% set processed_children = processed_children|merge([{
+        title: child.title,
+        url: child.url,
+        current: child_active
+      }]) %}
+    {% endfor %}
+  {% endif %}
+
+  {# Add processed item to menu #}
+  {% set menu_items = menu_items|merge([{
+    title: item.title,
+    url: item.url,
+    current: item_active,
+    has_active_child: has_active_child,
+    children: processed_children|length > 0 ? processed_children : null
+  }]) %}
+{% endfor %}
 
 <header class="site-header" role="banner">
   <div class="site-header__container">

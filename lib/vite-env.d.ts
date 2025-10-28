@@ -35,4 +35,12 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
+  readonly glob: <T = any>(
+    pattern: string,
+    options?: {
+      eager?: boolean;
+      import?: string;
+      as?: string;
+    }
+  ) => Record<string, T>;
 }

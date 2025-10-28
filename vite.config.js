@@ -62,13 +62,7 @@ export default defineConfig({
   plugins: [
     vue(),
     v4wp({
-      input: {
-        // Main entry point
-        main: 'lib/main.ts',
-
-        // Auto-discovered assets
-        ...discoverAssets(),
-      },
+      input: 'lib/main.ts',
       outDir: 'dist',
     }),
   ],

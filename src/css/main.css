@@ -1,68 +1,17 @@
 /**
- * Main Stylesheet
+ * Main Stylesheet - Global Base Styles Only
  *
- * Minimal CSS framework built on design tokens and base styles.
- * This framework provides a foundation without prescriptive utility classes.
- *
- * Philosophy:
- * - Use CSS custom properties (variables) for consistent design
- * - Write semantic, component-based CSS
- * - Avoid utility class proliferation
- * - Keep specificity low and maintainable
- *
- * Import Order:
- * 1. Abstracts  - Design tokens (colors, spacing, typography)
- * 2. Base       - Reset and foundational typography
- * 3. Layout     - Layout patterns (header, footer, grid)
- * 4. Components - Semantic component styles
- * 5. Pages      - Page-specific styles
- * 6. Themes     - Theme variations
- * 7. Utilities  - Minimal essential utilities (.sr-only)
- * 8. Vendors    - Third-party CSS
+ * This file contains only global base styles (reset, typography, utilities).
+ * Component, layout, and page styles are auto-discovered by Vite.
  */
 
 /* ============================================
-   1. ABSTRACTS - Design Tokens
-   ============================================ */
-@import './abstracts/tokens.css';
-
-/* ============================================
-   2. BASE - Minimal Reset & Typography
+   BASE - Reset & Typography
    ============================================ */
 @import './base/reset.css';
 @import './base/typography.css';
 
 /* ============================================
-   3. LAYOUT - Structural Patterns
-   ============================================ */
-@import './layout/structure.css';
-@import './layout/header.css';
-@import './layout/footer.css';
-
-/* ============================================
-   4. COMPONENTS - Semantic Components
-   ============================================ */
-/* @import './components/button.css'; */
-/* @import './components/card.css'; */
-/* @import './components/form.css'; */
-
-/* ============================================
-   5. PAGES - Page-Specific Styles
-   ============================================ */
-@import './pages/front-page.css';
-
-/* ============================================
-   6. THEMES - Theme Variations
-   ============================================ */
-/* @import './themes/dark.css'; */
-/* @import './themes/light.css'; */
-
-/* ============================================
-   7. UTILITIES - Essential Only
+   UTILITIES - Essential Only
    ============================================ */
 @import './utilities/utilities.css';
-
-/* ============================================
-   8. VENDORS - Third-Party CSS
-   ============================================ */
-/* @import './vendors/normalize.css'; */

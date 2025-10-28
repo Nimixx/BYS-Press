@@ -58,7 +58,7 @@ class Theme
         $this->themeSetup = $themeSetup ?? new ThemeSetup();
         $this->assets = $assets ?? new Assets();
         $this->security = $security ?? new Security();
-        $this->timberConfig = $timberConfig ?? new TimberConfig(['components', 'layouts', 'pages', 'views'], $this->security);
+        $this->timberConfig = $timberConfig ?? new TimberConfig(['components', 'layouts', 'pages'], $this->security);
     }
 
     /**

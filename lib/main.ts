@@ -10,9 +10,29 @@
  * 3. Components will be automatically mounted on page load
  */
 
-// Import design tokens and styles
+// Import design tokens and global styles
 import '../config/tokens.css';
 import '../src/css/main.css';
+
+/**
+ * CSS Auto-loader
+ *
+ * Automatically imports all CSS files from component-based structure.
+ * Uses Vite's import.meta.glob with eager loading to bundle all styles into main.css.
+ *
+ * When you add a new component with a .css file, it's automatically included!
+ *
+ * Scans:
+ * - components/**\/*.css  (Button, Card, Header, Footer, etc.)
+ * - layouts/**\/*.css     (Base, etc.)
+ * - pages/**\/*.css       (FrontPage, Index, etc.)
+ *
+ * Note: Variables prefixed with _ indicate intentionally unused - the import side-effect
+ * (loading CSS) is what matters, not the returned module objects.
+ */
+const _componentStyles = import.meta.glob('../components/**/*.css', { eager: true });
+const _layoutStyles = import.meta.glob('../layouts/**/*.css', { eager: true });
+const _pageStyles = import.meta.glob('../pages/**/*.css', { eager: true });
 
 // Import configuration
 import { debugLog, THEME_CONFIG, isDevelopment } from './config';

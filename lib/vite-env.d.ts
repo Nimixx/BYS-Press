@@ -35,12 +35,38 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
-  readonly glob: <T = any>(
-    pattern: string,
+  /**
+   * Vite's import.meta.glob for dynamic imports
+   * @see https://vitejs.dev/guide/features.html#glob-import
+   */
+  readonly glob: <T = unknown>(
+    pattern: string | string[],
     options?: {
+      /** Load modules eagerly (default: false) */
       eager?: boolean;
+      /** Import specific export (default: '*') */
       import?: string;
+      /** Import as type: 'raw' | 'url' | 'worker' */
       as?: string;
+      /** Query parameters to append */
+      query?: string | Record<string, string | number | boolean>;
+      /** Include/exclude patterns */
+      exhaustive?: boolean;
     }
   ) => Record<string, T>;
+
+  /**
+   * Vite's hot module replacement API
+   */
+  readonly hot?: {
+    readonly data: Record<string, unknown>;
+    accept(): void;
+    accept(cb: (mod: unknown) => void): void;
+    accept(dep: string, cb: (mod: unknown) => void): void;
+    accept(deps: readonly string[], cb: (mods: unknown[]) => void): void;
+    dispose(cb: (data: Record<string, unknown>) => void): void;
+    prune(cb: () => void): void;
+    invalidate(): void;
+    on(event: string, cb: (...args: unknown[]) => void): void;
+  };
 }

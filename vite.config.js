@@ -26,13 +26,20 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        entryFileNames: 'js/[name].js',
-        chunkFileNames: 'js/[name].js',
+        entryFileNames: (chunkInfo) => {
+          // Convert to lowercase for consistent naming
+          return `js/${chunkInfo.name.toLowerCase()}.js`;
+        },
+        chunkFileNames: (chunkInfo) => {
+          // Convert to lowercase for consistent naming
+          return `js/${chunkInfo.name.toLowerCase()}.js`;
+        },
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name.endsWith('.css')) {
-            return 'css/[name][extname]';
+          const name = assetInfo.name.toLowerCase();
+          if (name.endsWith('.css')) {
+            return `css/${name}`;
           }
-          return 'assets/[name][extname]';
+          return `assets/${name}`;
         },
       },
     },

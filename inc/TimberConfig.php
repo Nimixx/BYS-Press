@@ -12,6 +12,10 @@ namespace CoreTheme;
 
 use Timber\Timber;
 use Timber\Site;
+use CoreTheme\Context\ContextProviderInterface;
+use CoreTheme\Context\MenuContextProvider;
+use CoreTheme\Context\RequestContextProvider;
+use CoreTheme\Context\SecurityContextProvider;
 
 class TimberConfig
 {
@@ -37,6 +41,13 @@ class TimberConfig
     private bool $enableCache = true;
 
     /**
+     * Context providers
+     *
+     * @var ContextProviderInterface[]
+     */
+    private array $contextProviders = [];
+
+    /**
      * Constructor
      *
      * @since 1.0.0
@@ -49,6 +60,29 @@ class TimberConfig
     ) {
         $this->viewsDirs = $viewsDirs;
         $this->security = $security;
+
+        // Register context providers
+        $this->registerContextProviders();
+    }
+
+    /**
+     * Register context providers
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    private function registerContextProviders(): void
+    {
+        // Add menu configuration provider
+        $this->contextProviders[] = new MenuContextProvider();
+
+        // Add request data provider
+        $this->contextProviders[] = new RequestContextProvider();
+
+        // Add security provider if security instance is available
+        if ($this->security !== null) {
+            $this->contextProviders[] = new SecurityContextProvider($this->security);
+        }
     }
 
     /**
@@ -105,16 +139,9 @@ class TimberConfig
     {
         $context['site'] = new Site();
 
-        // Add current URL for menu active states
-        $context['current_url'] = $_SERVER['REQUEST_URI'] ?? '/';
-
-        // Load menu configuration
-        $menuConfig = require get_template_directory() . '/inc/Config/menu.php';
-        $context['menu_config'] = $menuConfig;
-
-        // Add CSP nonce to context for inline scripts/styles in templates
-        if ($this->security !== null) {
-            $context['csp_nonce'] = $this->security->getNonce();
+        // Iterate through all registered context providers
+        foreach ($this->contextProviders as $provider) {
+            $context = $provider->addToContext($context);
         }
 
         return apply_filters('core_theme_timber_context', $context);

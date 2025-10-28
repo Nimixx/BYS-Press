@@ -55,11 +55,11 @@
  *
  * Slide-in sidebar menu for mobile devices.
  * Includes overlay backdrop and Vue transitions.
- * Communicates with MenuToggle via custom DOM events.
+ * Uses useMobileMenu composable for business logic.
  *
  * @component MobileMenu
  */
-import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { useMobileMenu } from '../../composables/useMobileMenu';
 import type { MobileMenuProps } from './MobileMenu.types';
 
 const props = withDefaults(defineProps<MobileMenuProps>(), {
@@ -67,53 +67,16 @@ const props = withDefaults(defineProps<MobileMenuProps>(), {
   items: () => [],
 });
 
-const isOpen = ref(props.isOpen);
-
-/**
- * Handle toggle event from MenuToggle
- */
-const handleToggle = (event: Event) => {
-  const customEvent = event as CustomEvent<{ isOpen: boolean }>;
-  isOpen.value = customEvent.detail.isOpen;
-
-  // Lock/unlock body scroll
-  document.body.style.overflow = isOpen.value ? 'hidden' : '';
-};
-
-/**
- * Close menu and notify MenuToggle
- */
-const closeMenu = () => {
-  isOpen.value = false;
-  document.body.style.overflow = '';
-
-  // Dispatch close event for MenuToggle to listen
-  const event = new CustomEvent('mobile-menu-close');
-  window.dispatchEvent(event);
-};
-
-// Watch for prop changes (if parent controls state)
-watch(
-  () => props.isOpen,
-  (newValue) => {
-    isOpen.value = newValue;
-    document.body.style.overflow = newValue ? 'hidden' : '';
-  }
-);
-
-onMounted(() => {
-  window.addEventListener('mobile-menu-toggle', handleToggle);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('mobile-menu-toggle', handleToggle);
-  // Clean up body scroll on unmount
-  document.body.style.overflow = '';
+// Use composable for all business logic
+const { isOpen, closeMenu } = useMobileMenu({
+  initialOpen: props.isOpen,
+  lockBodyScroll: true,
 });
 
 // Expose methods
 defineExpose({
   closeMenu,
+  isOpen,
 });
 </script>
 

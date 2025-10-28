@@ -4,7 +4,7 @@
     type="button"
     :aria-label="isOpen ? 'Close menu' : 'Open menu'"
     :aria-expanded="isOpen"
-    @click="handleClick"
+    @click="toggle"
   >
     <span class="menu-toggle__bar"></span>
     <span class="menu-toggle__bar"></span>
@@ -18,50 +18,26 @@
  *
  * Hamburger button that toggles the mobile menu.
  * Animates from 3 bars to X when open.
- * Communicates with MobileMenu via custom DOM events.
+ * Uses useMenuToggle composable for business logic.
  *
  * @component MenuToggle
  */
-import { ref, onMounted, onUnmounted } from 'vue';
+import { useMenuToggle } from '../../composables/useMenuToggle';
 import type { MenuToggleProps } from './MenuToggle.types';
 
 const props = withDefaults(defineProps<MenuToggleProps>(), {
   isOpen: false,
 });
 
-const isOpen = ref(props.isOpen);
-
-/**
- * Toggle menu and dispatch custom event
- */
-const handleClick = () => {
-  isOpen.value = !isOpen.value;
-
-  // Dispatch custom DOM event for MobileMenu to listen
-  const event = new CustomEvent('mobile-menu-toggle', {
-    detail: { isOpen: isOpen.value },
-  });
-  window.dispatchEvent(event);
-};
-
-/**
- * Listen for menu close events from MobileMenu
- */
-const handleMenuClose = () => {
-  isOpen.value = false;
-};
-
-onMounted(() => {
-  window.addEventListener('mobile-menu-close', handleMenuClose);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('mobile-menu-close', handleMenuClose);
+// Use composable for all business logic
+const { isOpen, toggle } = useMenuToggle({
+  initialOpen: props.isOpen,
 });
 
 // Expose for external access
 defineExpose({
   isOpen,
+  toggle,
 });
 </script>
 

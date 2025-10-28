@@ -14,11 +14,7 @@
  * @returns True if value is a plain object (not null, not array)
  */
 function isValidPropsObject(value: unknown): value is Record<string, unknown> {
-  return (
-    typeof value === 'object' &&
-    value !== null &&
-    !Array.isArray(value)
-  );
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 /**
@@ -49,7 +45,7 @@ export class PropsParser {
       if (!isValidPropsObject(parsed)) {
         console.warn(`[Vue] Props must be an object for ${componentName}`, {
           propsString,
-          receivedType: Array.isArray(parsed) ? 'array' : typeof parsed
+          receivedType: Array.isArray(parsed) ? 'array' : typeof parsed,
         });
         return {};
       }
@@ -58,7 +54,7 @@ export class PropsParser {
     } catch (error) {
       console.warn(`[Vue] Failed to parse props for ${componentName}`, {
         propsString,
-        error: (error as Error).message
+        error: (error as Error).message,
       });
       return {};
     }

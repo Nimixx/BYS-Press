@@ -94,15 +94,11 @@ class Assets
      */
     public function enqueueAssets(): void
     {
-        Vite\enqueue_asset(
-            $this->themeDir . '/dist',
-            'lib/main.ts',
-            [
-                'handle' => 'core-theme-main',
-                'dependencies' => [],
-                'in-footer' => true,
-            ]
-        );
+        Vite\enqueue_asset($this->themeDir . '/dist', 'lib/main.ts', [
+            'handle' => 'core-theme-main',
+            'dependencies' => [],
+            'in-footer' => true,
+        ]);
     }
 
     /**
@@ -139,9 +135,15 @@ class Assets
     public function optimizeStyleTag(string $tag, string $handle): string
     {
         // Add font-display: swap to font stylesheets
-        if ($this->optimizeFonts && (strpos($handle, 'font') !== false || strpos($tag, 'fonts.googleapis.com') !== false)) {
+        if (
+            $this->optimizeFonts &&
+            (strpos($handle, 'font') !== false || strpos($tag, 'fonts.googleapis.com') !== false)
+        ) {
             // For Google Fonts, add display=swap parameter
-            if (strpos($tag, 'fonts.googleapis.com') !== false && strpos($tag, 'display=swap') === false) {
+            if (
+                strpos($tag, 'fonts.googleapis.com') !== false &&
+                strpos($tag, 'display=swap') === false
+            ) {
                 $tag = str_replace('css?family=', 'css?display=swap&family=', $tag);
             }
         }
@@ -187,7 +189,7 @@ class Assets
                 '<link rel="preload" href="%s" as="%s"%s>' . "\n",
                 esc_url($resource['url']),
                 esc_attr($as),
-                $crossorigin
+                $crossorigin,
             );
         }
     }
@@ -264,12 +266,18 @@ class Assets
      * @param array $options Additional options (as, crossorigin)
      * @return self
      */
-    public function addPreloadResource(string $url, string $type = 'script', array $options = []): self
-    {
-        $this->preloadResources[] = array_merge([
-            'url' => $url,
-            'type' => $type,
-        ], $options);
+    public function addPreloadResource(
+        string $url,
+        string $type = 'script',
+        array $options = [],
+    ): self {
+        $this->preloadResources[] = array_merge(
+            [
+                'url' => $url,
+                'type' => $type,
+            ],
+            $options,
+        );
         return $this;
     }
 

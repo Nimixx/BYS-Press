@@ -269,8 +269,8 @@ class Security
 
         $cspDirectives = [
             "default-src 'self'",
-            "script-src " . implode(' ', $scriptSrc),
-            "style-src " . implode(' ', $styleSrc),
+            'script-src ' . implode(' ', $scriptSrc),
+            'style-src ' . implode(' ', $styleSrc),
             "img-src 'self' data: https:",
             "font-src 'self' data:",
             "connect-src 'self'",
@@ -279,7 +279,7 @@ class Security
             "frame-ancestors 'self'",
             "base-uri 'self'",
             "form-action 'self'",
-            "upgrade-insecure-requests",
+            'upgrade-insecure-requests',
         ];
 
         // Apply CSP filter to allow customization

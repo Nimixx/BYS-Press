@@ -27,10 +27,7 @@ import type { CounterOptions, CounterReturn } from './useCounter.types';
  * });
  * ```
  */
-export function useCounter(
-  initialValue: number = 0,
-  options: CounterOptions = {}
-): CounterReturn {
+export function useCounter(initialValue: number = 0, options: CounterOptions = {}): CounterReturn {
   const {
     min = -Infinity,
     max = Infinity,
@@ -131,7 +128,7 @@ export function useSimpleCounter(initialValue: number = 0) {
 
   const increment = () => count.value++;
   const decrement = () => count.value--;
-  const reset = () => count.value = initialValue;
+  const reset = () => (count.value = initialValue);
 
   return {
     count: readonly(count),

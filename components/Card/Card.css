@@ -85,7 +85,7 @@
 }
 
 .card--featured::before {
-  content: 'Featured';
+  content: "Featured";
   position: absolute;
   top: var(--space-4);
   right: var(--space-4);

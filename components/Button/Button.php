@@ -87,11 +87,13 @@ class Button
      */
     public static function primary(string $text, string $url = '', array $options = []): array
     {
-        return self::context(array_merge($options, [
-            'text' => $text,
-            'url' => $url,
-            'variant' => 'primary',
-        ]));
+        return self::context(
+            array_merge($options, [
+                'text' => $text,
+                'url' => $url,
+                'variant' => 'primary',
+            ]),
+        );
     }
 
     /**
@@ -104,11 +106,13 @@ class Button
      */
     public static function secondary(string $text, string $url = '', array $options = []): array
     {
-        return self::context(array_merge($options, [
-            'text' => $text,
-            'url' => $url,
-            'variant' => 'secondary',
-        ]));
+        return self::context(
+            array_merge($options, [
+                'text' => $text,
+                'url' => $url,
+                'variant' => 'secondary',
+            ]),
+        );
     }
 
     /**
@@ -121,11 +125,13 @@ class Button
      */
     public static function outline(string $text, string $url = '', array $options = []): array
     {
-        return self::context(array_merge($options, [
-            'text' => $text,
-            'url' => $url,
-            'variant' => 'outline',
-        ]));
+        return self::context(
+            array_merge($options, [
+                'text' => $text,
+                'url' => $url,
+                'variant' => 'outline',
+            ]),
+        );
     }
 
     /**
@@ -138,10 +144,12 @@ class Button
      */
     public static function ghost(string $text, string $url = '', array $options = []): array
     {
-        return self::context(array_merge($options, [
-            'text' => $text,
-            'url' => $url,
-            'variant' => 'ghost',
-        ]));
+        return self::context(
+            array_merge($options, [
+                'text' => $text,
+                'url' => $url,
+                'variant' => 'ghost',
+            ]),
+        );
     }
 }

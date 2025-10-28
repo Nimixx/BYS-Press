@@ -30,13 +30,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'dist/',
-        'vendor/',
-        '**/*.config.{js,ts}',
-        '**/*.d.ts',
-      ],
+      exclude: ['node_modules/', 'dist/', 'vendor/', '**/*.config.{js,ts}', '**/*.d.ts'],
     },
 
     // Test timeout

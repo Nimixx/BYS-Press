@@ -43,8 +43,10 @@ class TimberConfig
      * @param array $viewsDirs Optional views directories
      * @param Security|null $security Optional security instance
      */
-    public function __construct(array $viewsDirs = ['components', 'layouts', 'pages'], ?Security $security = null)
-    {
+    public function __construct(
+        array $viewsDirs = ['components', 'layouts', 'pages'],
+        ?Security $security = null,
+    ) {
         $this->viewsDirs = $viewsDirs;
         $this->security = $security;
     }

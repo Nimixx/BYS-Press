@@ -1,31 +1,29 @@
 {
-    "name": "core-theme/wordpress-theme",
-    "description": "Modern WordPress theme with Timber and Vite",
-    "type": "project",
-    "require": {
-        "timber/timber": "^2.3",
-        "kucrut/vite-for-wp": "^0.12.0"
+  "name": "core-theme/wordpress-theme",
+  "description": "Modern WordPress theme with Timber and Vite",
+  "type": "project",
+  "require": {
+    "timber/timber": "^2.3",
+    "kucrut/vite-for-wp": "^0.12.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0",
+    "mockery/mockery": "^1.6",
+    "brain/monkey": "^2.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "CoreTheme\\": "inc/"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^10.0",
-        "mockery/mockery": "^1.6",
-        "brain/monkey": "^2.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "CoreTheme\\": "inc/"
-        },
-        "classmap": [
-            "components/"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "CoreTheme\\Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "test": "phpunit",
-        "test:coverage": "phpunit --coverage-html coverage"
+    "classmap": ["components/"]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "CoreTheme\\Tests\\": "tests/"
     }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "test:coverage": "phpunit --coverage-html coverage"
+  }
 }

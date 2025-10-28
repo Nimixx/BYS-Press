@@ -54,7 +54,7 @@ export class LazyLoader {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.loadComponent(element, componentName, modulePath, props, observer);
           }
@@ -91,10 +91,10 @@ export class LazyLoader {
     const loader = ComponentRegistry.getModuleLoader(modulePath);
 
     loader()
-      .then(module => {
+      .then((module) => {
         ComponentMounter.mount(module.default, element, props, componentName);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(`[Vue] Failed to lazy load ${componentName}:`, error, { modulePath });
       })
       .finally(() => {

@@ -8,10 +8,10 @@
 /* ============================================
    BASE - Reset & Typography
    ============================================ */
-@import './base/reset.css';
-@import './base/typography.css';
+@import "./base/reset.css";
+@import "./base/typography.css";
 
 /* ============================================
    UTILITIES - Essential Only
    ============================================ */
-@import './utilities/utilities.css';
+@import "./utilities/utilities.css";

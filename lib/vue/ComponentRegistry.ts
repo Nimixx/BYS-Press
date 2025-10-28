@@ -13,10 +13,9 @@ import type { ComponentModule } from './types';
  * Auto-discover all Vue components using Vite's glob import
  * Lazy loading by default - components load only when needed
  */
-const componentModules = import.meta.glob<ComponentModule>(
-  '../../components/**/*.vue',
-  { eager: false }
-);
+const componentModules = import.meta.glob<ComponentModule>('../../components/**/*.vue', {
+  eager: false,
+});
 
 /**
  * Component Registry class
@@ -47,8 +46,8 @@ export class ComponentRegistry {
    * @returns Module path if found, undefined otherwise
    */
   static findModulePath(componentName: string): string | undefined {
-    return Object.keys(componentModules).find(path =>
-      this.extractComponentName(path) === componentName
+    return Object.keys(componentModules).find(
+      (path) => this.extractComponentName(path) === componentName
     );
   }
 
@@ -69,7 +68,7 @@ export class ComponentRegistry {
    */
   static getAvailableComponents(): string[] {
     return Object.keys(componentModules)
-      .map(path => this.extractComponentName(path))
+      .map((path) => this.extractComponentName(path))
       .filter(Boolean)
       .sort();
   }

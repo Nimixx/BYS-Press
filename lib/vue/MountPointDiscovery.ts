@@ -78,7 +78,7 @@ export class MountPointDiscovery {
    * @returns Array of mount points for the component
    */
   static findByComponent(componentName: string): MountPoint[] {
-    return this.findAll().filter(point => point.componentName === componentName);
+    return this.findAll().filter((point) => point.componentName === componentName);
   }
 
   /**
@@ -87,7 +87,7 @@ export class MountPointDiscovery {
    * @returns Array of mount points marked with data-eager
    */
   static findEager(): MountPoint[] {
-    return this.findAll().filter(point => point.eager);
+    return this.findAll().filter((point) => point.eager);
   }
 
   /**
@@ -96,6 +96,6 @@ export class MountPointDiscovery {
    * @returns Array of mount points without data-eager
    */
   static findLazy(): MountPoint[] {
-    return this.findAll().filter(point => !point.eager);
+    return this.findAll().filter((point) => !point.eager);
   }
 }

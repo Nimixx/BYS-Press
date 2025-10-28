@@ -1,36 +1,52 @@
 # Core Theme
 
-A modern, secure WordPress theme built with professional development practices and cutting-edge tooling. Core Theme provides a minimal yet powerful foundation for building high-performance WordPress sites with modern JavaScript frameworks, type safety, and developer-friendly workflows.
+A modern, secure WordPress theme built with professional development practices
+and cutting-edge tooling. Core Theme provides a minimal yet powerful foundation
+for building high-performance WordPress sites with modern JavaScript frameworks,
+type safety, and developer-friendly workflows.
 
 ## Philosophy & Vision
 
 Core Theme was designed with a clear philosophy:
 
-**Developer Experience First**: Modern tooling shouldn't be a luxury. This theme brings Vite's lightning-fast HMR, TypeScript's type safety, and Vue's progressive framework to WordPress development.
+**Developer Experience First**: Modern tooling shouldn't be a luxury. This theme
+brings Vite's lightning-fast HMR, TypeScript's type safety, and Vue's
+progressive framework to WordPress development.
 
-**Security by Default**: Security isn't an afterthought. Core Theme implements comprehensive security headers, Content Security Policy, REST API hardening, and WordPress security best practices out of the box.
+**Security by Default**: Security isn't an afterthought. Core Theme implements
+comprehensive security headers, Content Security Policy, REST API hardening, and
+WordPress security best practices out of the box.
 
-**Clean Architecture**: Maintainability matters. With PSR-4 autoloading, modular PHP classes, separation of concerns, and a clear directory structure, the codebase stays organized as it grows.
+**Clean Architecture**: Maintainability matters. With PSR-4 autoloading, modular
+PHP classes, separation of concerns, and a clear directory structure, the
+codebase stays organized as it grows.
 
-**Performance-Focused**: Speed is a feature. Optimized builds, lazy loading, minimal dependencies, and semantic HTML ensure your site loads fast and stays fast.
+**Performance-Focused**: Speed is a feature. Optimized builds, lazy loading,
+minimal dependencies, and semantic HTML ensure your site loads fast and stays
+fast.
 
-**Accessibility-First**: The web should be for everyone. Semantic HTML5, skip navigation, ARIA landmarks, and keyboard navigation support are built into the foundation.
+**Accessibility-First**: The web should be for everyone. Semantic HTML5, skip
+navigation, ARIA landmarks, and keyboard navigation support are built into the
+foundation.
 
 ## Tech Stack
 
 ### Backend
+
 - **WordPress** (6.0+) - Content management system
 - **Timber** (2.3+) - Twig templating engine for clean view separation
 - **PHP 8.1+** - Modern PHP with type declarations and strict typing
 - **Composer** - PHP dependency management and PSR-4 autoloading
 
 ### Frontend
+
 - **Vite** (7.x) - Next-generation frontend tooling with instant HMR
 - **TypeScript** (5.x) - Type safety across JavaScript codebase
 - **Vue 3** - Progressive JavaScript framework with Composition API
 - **CSS Custom Properties** - Modern CSS with BEM methodology
 
 ### Development & Testing
+
 - **Vitest** - Fast unit testing with UI and coverage reports
 - **PHPUnit** - PHP unit testing with Brain Monkey for WordPress mocks
 - **ESLint** - JavaScript/TypeScript linting
@@ -40,6 +56,7 @@ Core Theme was designed with a clear philosophy:
 ## Key Features
 
 ### Modern Development Workflow
+
 - Hot Module Replacement (HMR) for instant updates during development
 - TypeScript for type-safe JavaScript development
 - Vue 3 components with Composition API and reactive state management
@@ -47,6 +64,7 @@ Core Theme was designed with a clear philosophy:
 - Environment-aware configuration with .env support
 
 ### WordPress Integration
+
 - Twig templating via Timber for clean separation of logic and views
 - Modular template structure (layouts, pages, partials)
 - WordPress theme support (menus, thumbnails, feeds, custom logo)
@@ -54,6 +72,7 @@ Core Theme was designed with a clear philosophy:
 - REST API with security hardening
 
 ### Security Implementation
+
 - Comprehensive security headers (CSP, HSTS, X-Frame-Options, etc.)
 - Content Security Policy with nonce-based script execution
 - REST API authentication and endpoint restrictions
@@ -62,6 +81,7 @@ Core Theme was designed with a clear philosophy:
 - Input sanitization and output escaping
 
 ### Code Quality & Testing
+
 - PHPUnit tests for PHP components
 - Vitest tests for JavaScript/TypeScript code
 - Vue component testing with Testing Library
@@ -70,6 +90,7 @@ Core Theme was designed with a clear philosophy:
 - Prettier for consistent formatting
 
 ### Error Handling & Reliability
+
 - Centralized error handler utility with severity levels
 - ErrorBoundary component for Vue applications
 - Global error and promise rejection handlers
@@ -78,6 +99,7 @@ Core Theme was designed with a clear philosophy:
 - User-friendly error messages and fallback UI
 
 ### Performance Optimizations
+
 - Optimized Vite builds with code splitting
 - Lazy loading for images and components
 - Minimal JavaScript footprint
@@ -85,6 +107,7 @@ Core Theme was designed with a clear philosophy:
 - Production asset optimization
 
 ### Accessibility
+
 - Semantic HTML5 structure
 - Skip navigation links
 - ARIA landmarks
@@ -94,6 +117,7 @@ Core Theme was designed with a clear philosophy:
 ## Installation
 
 ### Prerequisites
+
 - PHP 8.1 or higher
 - WordPress 6.0 or higher
 - Node.js 18+ and npm
@@ -102,6 +126,7 @@ Core Theme was designed with a clear philosophy:
 ### Setup Steps
 
 1. **Clone or download the theme**
+
    ```bash
    cd wp-content/themes
    git clone https://github.com/tadeasthelen/core-theme.git
@@ -109,20 +134,25 @@ Core Theme was designed with a clear philosophy:
    ```
 
 2. **Install PHP dependencies**
+
    ```bash
    composer install
    ```
 
 3. **Install Node dependencies**
+
    ```bash
    npm install
    ```
 
 4. **Configure environment**
+
    ```bash
    cp .env.example .env
    ```
+
    Edit `.env` and set your local development URL:
+
    ```
    WP_HOME=http://your-local-site.test
    VITE_DEV_SERVER_URL=http://localhost:5173
@@ -141,6 +171,7 @@ Core Theme was designed with a clear philosophy:
 ### Available Commands
 
 **Development**
+
 ```bash
 npm run dev          # Start Vite dev server with HMR
 npm run build        # Build for production
@@ -148,6 +179,7 @@ npm run preview      # Preview production build
 ```
 
 **Testing**
+
 ```bash
 npm test             # Run Vitest in watch mode
 npm run test:ui      # Launch Vitest UI
@@ -158,6 +190,7 @@ npm run test:all     # Run all tests (Vitest + PHPUnit)
 ```
 
 **Code Quality**
+
 ```bash
 npm run lint         # Check JavaScript/TypeScript code
 npm run lint:fix     # Auto-fix linting issues
@@ -167,6 +200,7 @@ npm run check        # Run lint + format check
 ```
 
 **PHP Testing**
+
 ```bash
 composer test        # Run PHPUnit tests
 composer test:coverage # Generate PHP coverage report
@@ -175,9 +209,11 @@ composer test:coverage # Generate PHP coverage report
 ### Development Workflow
 
 1. **Start development server**
+
    ```bash
    npm run dev
    ```
+
    This starts Vite dev server on `http://localhost:5173` with HMR enabled.
 
 2. **Make your changes**
@@ -309,7 +345,8 @@ All classes are in the `CoreTheme\` namespace and autoloaded via Composer.
 - **Vue Components**: `components/Counter/` - Vue SFC + types
 - **Layouts**: Base templates in `layouts/`
 - **Pages**: Page templates in `pages/`
-- **Auto-discovery**: All CSS, TypeScript, and Vue components automatically loaded
+- **Auto-discovery**: All CSS, TypeScript, and Vue components automatically
+  loaded
 - **Separation**: Logic in PHP/TS, presentation in Twig/Vue
 
 ## Environment Configuration
@@ -324,7 +361,8 @@ WP_HOME=http://your-site.test
 VITE_DEV_SERVER_URL=http://localhost:5173
 ```
 
-See [md-docs/ENV_USAGE.md](md-docs/ENV_USAGE.md) for detailed configuration options.
+See [md-docs/ENV_USAGE.md](md-docs/ENV_USAGE.md) for detailed configuration
+options.
 
 ## Security
 
@@ -342,6 +380,7 @@ See [docs/SECURITY.md](docs/SECURITY.md) for detailed security documentation.
 ## Testing
 
 ### JavaScript/TypeScript Testing
+
 ```bash
 npm test              # Watch mode
 npm run test:ui       # UI interface
@@ -349,6 +388,7 @@ npm run test:coverage # Coverage report
 ```
 
 ### PHP Testing
+
 ```bash
 composer test         # Run PHPUnit
 composer test:coverage # Coverage report
@@ -360,7 +400,8 @@ See [md-docs/TESTING.md](md-docs/TESTING.md) for comprehensive testing guide.
 
 Want to add new pages, styles, functionality, or integrate libraries?
 
-See [md-docs/CUSTOMIZE.md](md-docs/CUSTOMIZE.md) for a complete customization tutorial.
+See [md-docs/CUSTOMIZE.md](md-docs/CUSTOMIZE.md) for a complete customization
+tutorial.
 
 ## Error Handling
 
@@ -372,7 +413,8 @@ Core Theme includes a robust error handling system:
 - Development vs production error logging
 - Integration ready for error tracking services (Sentry, etc.)
 
-See [md-docs/ERROR_HANDLING.md](md-docs/ERROR_HANDLING.md) for the complete error handling guide.
+See [md-docs/ERROR_HANDLING.md](md-docs/ERROR_HANDLING.md) for the complete
+error handling guide.
 
 ## Performance
 
@@ -384,7 +426,8 @@ Core Theme is optimized for performance:
 - Efficient CSS architecture
 - Lazy loading ready
 
-See [md-docs/PERFORMANCE.md](md-docs/PERFORMANCE.md) for optimization techniques.
+See [md-docs/PERFORMANCE.md](md-docs/PERFORMANCE.md) for optimization
+techniques.
 
 ## Browser Support
 
@@ -415,6 +458,7 @@ GNU General Public License v2 or later. See [LICENSE](license.txt).
 ## Credits
 
 Built with:
+
 - [WordPress](https://wordpress.org/)
 - [Timber](https://timber.github.io/docs/)
 - [Vite](https://vitejs.dev/)

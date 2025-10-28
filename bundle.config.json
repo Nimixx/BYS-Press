@@ -41,12 +41,5 @@
     "*.log"
   ],
   "outputDir": "./bundles",
-  "include": [
-    "dist",
-    "inc",
-    "languages",
-    "functions.php",
-    "style.css",
-    "screenshot.png"
-  ]
+  "include": ["dist", "inc", "languages", "functions.php", "style.css", "screenshot.png"]
 }

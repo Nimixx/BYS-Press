@@ -93,10 +93,7 @@ class Card
      */
     public static function fromPosts(array $posts, array $options = []): array
     {
-        return array_map(
-            fn($post) => self::fromPost($post, $options),
-            $posts
-        );
+        return array_map(fn($post) => self::fromPost($post, $options), $posts);
     }
 
     /**
@@ -109,10 +106,12 @@ class Card
      */
     public static function featured(string $title, string $description, array $options = []): array
     {
-        return self::context(array_merge($options, [
-            'title' => $title,
-            'description' => $description,
-            'variant' => 'featured',
-        ]));
+        return self::context(
+            array_merge($options, [
+                'title' => $title,
+                'description' => $description,
+                'variant' => 'featured',
+            ]),
+        );
     }
 }

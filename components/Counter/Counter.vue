@@ -2,18 +2,8 @@
   <div class="counter">
     <div class="counter__value">{{ count }}</div>
     <div class="counter__controls">
-      <button
-        class="counter__button counter__button--decrement"
-        @click="decrement()"
-      >
-        −
-      </button>
-      <button
-        class="counter__button counter__button--increment"
-        @click="increment()"
-      >
-        +
-      </button>
+      <button class="counter__button counter__button--decrement" @click="decrement()">−</button>
+      <button class="counter__button counter__button--increment" @click="increment()">+</button>
     </div>
   </div>
 </template>

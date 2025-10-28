@@ -93,7 +93,7 @@ function mountEagerComponent(
   const loader = ComponentRegistry.getModuleLoader(modulePath);
 
   loader()
-    .then(module => {
+    .then((module) => {
       const success = ComponentMounter.mount(module.default, element, props, componentName);
       if (success) {
         stats.eager++;

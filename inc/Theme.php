@@ -53,12 +53,13 @@ class Theme
         ?ThemeSetup $themeSetup = null,
         ?Assets $assets = null,
         ?Security $security = null,
-        ?TimberConfig $timberConfig = null
+        ?TimberConfig $timberConfig = null,
     ) {
         $this->themeSetup = $themeSetup ?? new ThemeSetup();
         $this->assets = $assets ?? new Assets();
         $this->security = $security ?? new Security();
-        $this->timberConfig = $timberConfig ?? new TimberConfig(['components', 'layouts', 'pages'], $this->security);
+        $this->timberConfig =
+            $timberConfig ?? new TimberConfig(['components', 'layouts', 'pages'], $this->security);
     }
 
     /**

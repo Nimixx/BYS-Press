@@ -1,9 +1,11 @@
 # Dependencies
 node_modules
+vendor
 
 # Build output
 dist
 build
+bundles
 *.min.js
 *.min.css
 
@@ -17,11 +19,25 @@ npm-debug.log*
 
 # WordPress
 *.pot
+*.mo
 
 # Package managers
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+composer.lock
+
+# Test files
+coverage
+.nyc_output
+
+# Generated files
+stats.html
+
+# Twig files (melody parser has issues with dynamic tags)
+*.twig
 
 # Misc
 .DS_Store
+.env
+.env.local

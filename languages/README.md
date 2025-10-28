@@ -9,9 +9,11 @@ This directory contains translation files for the Core Theme.
 
 ## File Types
 
-- **`.pot`** - Portable Object Template (source template for all translations, tracked in git)
+- **`.pot`** - Portable Object Template (source template for all translations,
+  tracked in git)
 - **`.po`** - Portable Object (human-readable translation file, tracked in git)
-- **`.mo`** - Machine Object (compiled translation file, NOT tracked in git, auto-generated)
+- **`.mo`** - Machine Object (compiled translation file, NOT tracked in git,
+  auto-generated)
 
 ## Adding a New Translation
 
@@ -27,7 +29,8 @@ This directory contains translation files for the Core Theme.
 
 ### Method 2: Using Loco Translate Plugin
 
-1. Install the [Loco Translate](https://wordpress.org/plugins/loco-translate/) plugin
+1. Install the [Loco Translate](https://wordpress.org/plugins/loco-translate/)
+   plugin
 2. Go to **Loco Translate → Themes** in WordPress admin
 3. Select **Core Theme**
 4. Click "New language"
@@ -63,6 +66,7 @@ wp i18n make-mo languages/ languages/
 ```
 
 Example translations for Czech:
+
 - "Primary Menu" → "Hlavní menu"
 - "Footer Menu" → "Menu v patičce"
 
@@ -88,10 +92,12 @@ wp i18n update-po languages/core-theme.pot languages/
 ## File Naming Convention
 
 Translation files must follow this naming pattern:
+
 - `core-theme-{locale}.po` - e.g., `core-theme-cs_CZ.po` for Czech
 - `core-theme-{locale}.mo` - e.g., `core-theme-cs_CZ.mo` for Czech
 
 Common locale codes:
+
 - Czech: `cs_CZ`
 - German: `de_DE`
 - French: `fr_FR`

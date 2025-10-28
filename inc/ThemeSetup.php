@@ -80,7 +80,7 @@ class ThemeSetup
     {
         register_nav_menus([
             'primary' => __('Primary Menu', 'core-theme'),
-            'footer'  => __('Footer Menu', 'core-theme'),
+            'footer' => __('Footer Menu', 'core-theme'),
         ]);
     }
 }

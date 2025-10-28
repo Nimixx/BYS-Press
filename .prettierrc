@@ -1,8 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/prettierrc",
   "semi": true,
   "trailingComma": "es5",
   "singleQuote": true,
-  "printWidth": 80,
+  "printWidth": 100,
   "tabWidth": 2,
   "useTabs": false,
   "arrowParens": "always",
@@ -12,13 +13,74 @@
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
   "jsxSingleQuote": false,
+  "plugins": [
+    "@prettier/plugin-php",
+    "prettier-plugin-twig-melody"
+  ],
   "overrides": [
     {
       "files": "*.php",
       "options": {
         "parser": "php",
-        "printWidth": 120,
-        "tabWidth": 4
+        "printWidth": 100,
+        "tabWidth": 4,
+        "phpVersion": "8.0",
+        "trailingCommaPHP": true,
+        "braceStyle": "psr-2"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "options": {
+        "parser": "typescript",
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "es5"
+      }
+    },
+    {
+      "files": "*.vue",
+      "options": {
+        "parser": "vue",
+        "vueIndentScriptAndStyle": false,
+        "singleQuote": true,
+        "semi": true
+      }
+    },
+    {
+      "files": ["*.twig", "*.html.twig"],
+      "options": {
+        "parser": "melody",
+        "printWidth": 100,
+        "tabWidth": 2,
+        "twigSingleQuote": false,
+        "twigAlwaysBreakObjects": false,
+        "twigFollowOfficialCodingStandards": true,
+        "twigOutputEndblockName": false,
+        "twigMultiTags": []
+      }
+    },
+    {
+      "files": "*.json",
+      "options": {
+        "parser": "json",
+        "tabWidth": 2,
+        "trailingComma": "none"
+      }
+    },
+    {
+      "files": "*.css",
+      "options": {
+        "parser": "css",
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "parser": "markdown",
+        "proseWrap": "always",
+        "printWidth": 80
       }
     }
   ]

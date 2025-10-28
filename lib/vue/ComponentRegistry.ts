@@ -56,9 +56,18 @@ export class ComponentRegistry {
    *
    * @param modulePath - Path to component module
    * @returns Loader function that returns a promise
+   * @throws Error if module path doesn't exist
    */
   static getModuleLoader(modulePath: string): () => Promise<ComponentModule> {
-    return componentModules[modulePath];
+    const loader = componentModules[modulePath];
+
+    if (!loader) {
+      throw new Error(
+        `Component module not found: ${modulePath}. Available components: ${this.getAvailableComponents().join(', ')}`
+      );
+    }
+
+    return loader;
   }
 
   /**

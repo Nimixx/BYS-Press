@@ -1,47 +1,14 @@
 {#
   Header Component
 
-  Main site header with logo and hardcoded navigation menu
+  Main site header with logo and navigation menu
   Handles active states based on current URL path
+  Menu configuration loaded from inc/Config/menu.php
 #}
-
-{# Define base menu structure #}
-{% set base_menu_items = [
-  {
-    title: 'Home',
-    url: '/',
-    current: false
-  },
-  {
-    title: 'About',
-    url: '/about',
-    current: false
-  },
-  {
-    title: 'Services',
-    url: '/services',
-    current: false,
-    children: [
-      { title: 'Web Development', url: '/services/web-development' },
-      { title: 'Design', url: '/services/design' },
-      { title: 'Consulting', url: '/services/consulting' }
-    ]
-  },
-  {
-    title: 'Blog',
-    url: '/blog',
-    current: false
-  },
-  {
-    title: 'Contact',
-    url: '/contact',
-    current: false
-  }
-] %}
 
 {# Process menu items to add active states based on current URL #}
 {% set menu_items = [] %}
-{% for item in base_menu_items %}
+{% for item in menu_config %}
   {% set item_active = (current_url == item.url) or (current_url starts with item.url and item.url != '/') %}
   {% set has_active_child = false %}
   {% set processed_children = [] %}

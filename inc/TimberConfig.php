@@ -108,6 +108,10 @@ class TimberConfig
         // Add current URL for menu active states
         $context['current_url'] = $_SERVER['REQUEST_URI'] ?? '/';
 
+        // Load menu configuration
+        $menuConfig = require get_template_directory() . '/inc/Config/menu.php';
+        $context['menu_config'] = $menuConfig;
+
         // Add CSP nonce to context for inline scripts/styles in templates
         if ($this->security !== null) {
             $context['csp_nonce'] = $this->security->getNonce();

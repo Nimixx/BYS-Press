@@ -34,12 +34,3 @@ export interface MountStats {
   notFound: number;
   total: number;
 }
-
-/**
- * Component error context
- */
-export interface ComponentErrorContext {
-  componentName: string;
-  action: string;
-  metadata?: Record<string, unknown>;
-}

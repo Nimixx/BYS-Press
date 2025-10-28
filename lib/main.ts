@@ -18,7 +18,6 @@ import '../styles/main.css';
 import { debugLog, THEME_CONFIG, isDevelopment } from './config';
 
 // Import utilities
-import { setupGlobalErrorHandlers } from './utils/errorHandler';
 import { autoMountVueComponents } from './vue';
 
 /**
@@ -94,9 +93,6 @@ function initComponentBehaviors(): void {
  * Initialize theme
  */
 function initTheme(): void {
-  // Set up global error handlers
-  setupGlobalErrorHandlers();
-
   // Log theme initialization (only in development)
   if (isDevelopment) {
     debugLog('Core Theme loaded!', {

@@ -16,7 +16,6 @@
  */
 
 import { debugLog } from '../config';
-import { logWarning } from '../utils/errorHandler';
 import { ComponentRegistry } from './ComponentRegistry';
 import { ComponentMounter } from './ComponentMounter';
 import { LazyLoader } from './LazyLoader';
@@ -75,11 +74,8 @@ export function autoMountVueComponents(): void {
  * Handle missing component error
  */
 function handleMissingComponent(componentName: string, stats: MountStats): void {
-  logWarning(`Component not found: ${componentName}`, {
-    action: 'Auto-Mount Vue Components',
-    metadata: {
-      availableComponents: ComponentRegistry.getAvailableComponents(),
-    },
+  console.warn(`[Vue] Component not found: ${componentName}`, {
+    availableComponents: ComponentRegistry.getAvailableComponents(),
   });
   stats.notFound++;
 }

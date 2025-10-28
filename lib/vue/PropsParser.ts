@@ -7,8 +7,6 @@
  * @module vue/PropsParser
  */
 
-import { logWarning } from '../utils/errorHandler';
-
 /**
  * Type guard to check if value is a valid props object
  *
@@ -49,24 +47,18 @@ export class PropsParser {
 
       // Validate parsed value is a plain object
       if (!isValidPropsObject(parsed)) {
-        logWarning(`Props must be an object for ${componentName}`, {
-          action: 'Parse Component Props',
-          metadata: {
-            propsString,
-            receivedType: Array.isArray(parsed) ? 'array' : typeof parsed
-          },
+        console.warn(`[Vue] Props must be an object for ${componentName}`, {
+          propsString,
+          receivedType: Array.isArray(parsed) ? 'array' : typeof parsed
         });
         return {};
       }
 
       return parsed;
     } catch (error) {
-      logWarning(`Failed to parse props for ${componentName}`, {
-        action: 'Parse Component Props',
-        metadata: {
-          propsString,
-          error: (error as Error).message
-        },
+      console.warn(`[Vue] Failed to parse props for ${componentName}`, {
+        propsString,
+        error: (error as Error).message
       });
       return {};
     }

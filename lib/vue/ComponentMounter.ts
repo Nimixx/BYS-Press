@@ -9,8 +9,6 @@
 
 import { createApp, type Component as VueComponent } from 'vue';
 import { debugLog, isDevelopment } from '../config';
-import { handleComponentError, ErrorSeverity } from '../utils/errorHandler';
-import type { ComponentErrorContext } from './types';
 
 /**
  * Component Mounter class
@@ -42,37 +40,19 @@ export class ComponentMounter {
       debugLog(`${componentName} mounted successfully`);
       return true;
     } catch (error) {
-      this.handleMountError(error as Error, {
-        componentName,
-        action: 'Mount Vue Component',
-        metadata: { elementId: element.id, props },
-      }, element);
+      console.error(`[Vue] Failed to mount ${componentName}:`, error);
+
+      // Show error feedback only in development
+      if (isDevelopment) {
+        element.className = 'component-error';
+        element.style.padding = 'var(--space-4)';
+        element.style.color = 'var(--color-error)';
+        element.style.border = '1px solid var(--color-error)';
+        element.style.borderRadius = 'var(--radius-sm)';
+        element.textContent = `Failed to load ${componentName}. Check console for details.`;
+      }
+
       return false;
-    }
-  }
-
-  /**
-   * Handle mount errors with appropriate logging and user feedback
-   *
-   * @param error - Error that occurred
-   * @param context - Error context information
-   * @param element - DOM element where error occurred
-   */
-  private static handleMountError(
-    error: Error,
-    context: ComponentErrorContext,
-    element: HTMLElement
-  ): void {
-    handleComponentError(error, context, ErrorSeverity.HIGH);
-
-    // Show error feedback only in development
-    if (isDevelopment) {
-      element.className = 'component-error';
-      element.style.padding = 'var(--space-4)';
-      element.style.color = 'var(--color-error)';
-      element.style.border = '1px solid var(--color-error)';
-      element.style.borderRadius = 'var(--radius-sm)';
-      element.textContent = `Failed to load ${context.componentName}. Check console for details.`;
     }
   }
 }

@@ -8,7 +8,6 @@
  */
 
 import { debugLog } from '../config';
-import { handleComponentError, ErrorSeverity } from '../utils/errorHandler';
 import { ComponentRegistry } from './ComponentRegistry';
 import { ComponentMounter } from './ComponentMounter';
 
@@ -96,15 +95,7 @@ export class LazyLoader {
         ComponentMounter.mount(module.default, element, props, componentName);
       })
       .catch(error => {
-        handleComponentError(
-          error as Error,
-          {
-            componentName,
-            action: 'Lazy Load Vue Component',
-            metadata: { modulePath },
-          },
-          ErrorSeverity.HIGH
-        );
+        console.error(`[Vue] Failed to lazy load ${componentName}:`, error, { modulePath });
       })
       .finally(() => {
         observer.disconnect();

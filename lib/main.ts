@@ -12,7 +12,7 @@
 
 // Import design tokens and global styles
 import '../config/tokens.css';
-import '../src/css/main.css';
+import '../styles/main.css';
 
 // Import configuration (must be before using debugLog)
 import { debugLog, THEME_CONFIG, isDevelopment } from './config';

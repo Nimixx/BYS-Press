@@ -47,11 +47,13 @@ core-theme/
 ├── config/              # Theme configuration
 │   └── tokens.css           # Design tokens
 │
-├── src/                 # Global base styles
-│   └── css/
-│       ├── base/            # Reset, typography
-│       ├── utilities/       # Utility classes
-│       └── main.css         # Global imports
+├── styles/              # Global base styles
+│   ├── base/
+│   │   ├── reset.css        # CSS reset
+│   │   └── typography.css   # Typography styles
+│   ├── utilities/
+│   │   └── utilities.css    # Utility classes
+│   └── main.css             # Global styles entry
 │
 ├── inc/                 # PHP classes
 │   ├── Theme.php

@@ -182,17 +182,17 @@ composer test:coverage # Generate PHP coverage report
 
 2. **Make your changes**
    - Edit PHP files in `inc/` for backend logic
-   - Edit Twig templates in `views/` for markup
-   - Edit TypeScript/JavaScript in `src/js/`
-   - Edit Vue components in `src/components/`
-   - Edit CSS in `src/css/`
+   - Edit Twig templates in `components/`, `layouts/`, or `pages/`
+   - Edit TypeScript/JavaScript in `lib/`
+   - Edit Vue components in `components/`
+   - Edit CSS in component folders (auto-discovered)
 
 3. **See changes instantly**
    - PHP and Twig changes: Refresh the browser
    - JavaScript/CSS/Vue changes: Updates instantly via HMR
 
 4. **Write tests**
-   - Add Vitest tests for JavaScript/TypeScript in `src/`
+   - Add Vitest tests alongside components/composables
    - Add PHPUnit tests for PHP classes in `tests/`
 
 5. **Build for production**
@@ -205,46 +205,66 @@ composer test:coverage # Generate PHP coverage report
 
 ```
 core-theme/
-├── inc/                    # PHP classes (PSR-4 autoloaded as CoreTheme\)
-│   ├── Theme.php          # Main theme orchestrator
-│   ├── ThemeSetup.php     # WordPress theme support
-│   ├── Assets.php         # Asset management (Vite integration)
-│   ├── Security.php       # Security headers and hardening
-│   └── TimberConfig.php   # Timber/Twig configuration
-├── src/                   # Frontend source files
-│   ├── js/               # TypeScript/JavaScript
-│   │   ├── main.ts       # Main entry point
-│   │   └── utils/        # Utility functions
-│   ├── components/       # Vue components
-│   │   └── Counter.vue
-│   ├── css/              # CSS modules
-│   │   ├── base/         # Reset, variables, typography
-│   │   ├── components/   # Component styles
-│   │   ├── layouts/      # Layout styles
-│   │   └── utilities/    # Utility classes
-│   ├── styles/           # Global styles
-│   └── test-utils/       # Testing utilities
-├── views/                # Twig templates
-│   ├── layouts/          # Base layouts
-│   │   └── base.twig
-│   ├── pages/            # Page templates
-│   │   └── front-page.twig
-│   └── partials/         # Reusable components
-│       ├── header.twig
-│       └── footer.twig
+├── components/            # All components (Twig + Vue)
+│   ├── Button/           # Twig component
+│   │   ├── Button.twig   # Template
+│   │   ├── Button.css    # Styles
+│   │   └── Button.php    # Context helper
+│   ├── Counter/          # Vue component
+│   │   ├── Counter.vue   # Component
+│   │   └── Counter.types.ts
+│   ├── Card/
+│   ├── Header/
+│   └── Footer/
+├── composables/          # Vue composables
+│   └── useCounter/
+│       ├── useCounter.ts
+│       ├── useCounter.types.ts
+│       └── index.ts
+├── layouts/              # Page layouts
+│   └── Base/
+│       ├── Base.twig     # Base HTML structure
+│       └── Base.css      # Layout styles
+├── pages/                # Page templates
+│   ├── FrontPage/
+│   │   ├── FrontPage.twig
+│   │   └── FrontPage.css
+│   └── Index/
+│       └── Index.twig
+├── lib/                  # TypeScript/JavaScript source
+│   ├── main.ts          # Main entry point
+│   ├── config.ts        # Theme configuration
+│   ├── vite-env.d.ts    # Type definitions
+│   ├── config/
+│   │   └── vueAutoload.ts  # Vue auto-discovery
+│   └── utils/
+│       └── errorHandler.ts
+├── styles/               # Global base styles
+│   ├── base/
+│   │   ├── reset.css
+│   │   └── typography.css
+│   ├── utilities/
+│   │   └── utilities.css
+│   └── main.css         # Global styles entry
+├── config/               # Theme configuration
+│   └── tokens.css       # Design tokens
+├── inc/                  # PHP classes (PSR-4: CoreTheme\)
+│   ├── Theme.php        # Main orchestrator
+│   ├── ThemeSetup.php   # WordPress support
+│   ├── Assets.php       # Vite integration
+│   ├── Security.php     # Security headers
+│   └── TimberConfig.php # Timber configuration
+├── docs/                 # Documentation
+│   ├── ARCHITECTURE.md  # Architecture guide
+│   ├── COMPONENTS.md    # Component guide
+│   ├── VUE_COMPONENTS.md # Vue guide
+│   ├── AUTOLOADING.md   # Auto-loading guide
+│   └── SECURITY.md      # Security policy
 ├── dist/                 # Built assets (generated)
 ├── tests/                # PHPUnit tests
-├── md-docs/              # Extended documentation
-│   ├── CSS_FRAMEWORK.md  # CSS architecture guide
-│   ├── ENV_USAGE.md      # Environment configuration
-│   ├── TESTING.md        # Testing guide
-│   ├── PERFORMANCE.md    # Performance optimization
-│   ├── CUSTOMIZE.md      # Customization tutorial
-│   └── ERROR_HANDLING.md # Error handling guide
-├── public/               # Public static assets
 ├── vendor/               # PHP dependencies (Composer)
 ├── node_modules/         # Node dependencies (npm)
-├── .env                  # Environment configuration (not in git)
+├── .env                  # Environment config (not in git)
 ├── .env.example          # Environment template
 ├── composer.json         # PHP dependencies
 ├── package.json          # Node dependencies
@@ -252,16 +272,13 @@ core-theme/
 ├── vitest.config.ts      # Vitest configuration
 ├── phpunit.xml           # PHPUnit configuration
 ├── eslint.config.js      # ESLint configuration
-├── .prettierrc           # Prettier configuration
 ├── tsconfig.json         # TypeScript configuration
 ├── functions.php         # Theme bootstrap
 ├── front-page.php        # Front page template
 ├── index.php             # Fallback template
-├── style.css             # Theme header (required by WordPress)
+├── style.css             # Theme header (required)
 ├── screenshot.png        # Theme screenshot
-├── README.md             # This file
-├── SECURITY.md           # Security policy
-└── AUDIT.md              # Security audit documentation
+└── README.md             # This file
 ```
 
 ## Architecture
@@ -317,7 +334,7 @@ Core Theme implements comprehensive security measures:
 - File editing disabled in production
 - Environment-aware security configurations
 
-See [SECURITY.md](SECURITY.md) for detailed security documentation.
+See [docs/SECURITY.md](docs/SECURITY.md) for detailed security documentation.
 
 ## Testing
 

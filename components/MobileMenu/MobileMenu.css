@@ -150,15 +150,3 @@
   color: var(--color-text);
   background-color: var(--color-neutral-100);
 }
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-
-/* Hide on desktop */
-@media (min-width: 769px) {
-  .mobile-menu,
-  .mobile-menu-overlay {
-    display: none;
-  }
-}

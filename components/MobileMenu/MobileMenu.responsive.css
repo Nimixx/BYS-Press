@@ -1,0 +1,13 @@
+/**
+ * MobileMenu Component - Responsive Styles
+ *
+ * Breakpoint-specific styles for the mobile menu sidebar
+ */
+
+/* Hide on desktop */
+@media (min-width: 769px) {
+  .mobile-menu,
+  .mobile-menu-overlay {
+    display: none;
+  }
+}

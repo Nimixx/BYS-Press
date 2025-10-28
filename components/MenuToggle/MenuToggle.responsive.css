@@ -1,0 +1,12 @@
+/**
+ * MenuToggle Component - Responsive Styles
+ *
+ * Breakpoint-specific styles for the hamburger menu toggle
+ */
+
+/* Hide on desktop */
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none;
+  }
+}

@@ -66,3 +66,4 @@ defineExpose({
 </script>
 
 <style src="./MenuToggle.css" scoped></style>
+<style src="./MenuToggle.responsive.css" scoped></style>

@@ -118,3 +118,4 @@ defineExpose({
 </script>
 
 <style src="./MobileMenu.css" scoped></style>
+<style src="./MobileMenu.responsive.css" scoped></style>

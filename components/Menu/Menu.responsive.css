@@ -1,0 +1,12 @@
+/**
+ * Menu Component - Responsive Styles
+ *
+ * Breakpoint-specific styles for the desktop menu
+ */
+
+/* Hide desktop menu on mobile */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+}

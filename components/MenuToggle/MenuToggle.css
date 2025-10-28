@@ -49,10 +49,3 @@
 .menu-toggle[aria-expanded='true'] .menu-toggle__bar:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
-
-/* Hide on desktop */
-@media (min-width: 769px) {
-  .menu-toggle {
-    display: none;
-  }
-}

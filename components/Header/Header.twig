@@ -2,6 +2,8 @@
   Header Component
 
   Main site header with logo and navigation menu
+  - Desktop: Shows Menu.twig (horizontal menu)
+  - Mobile: Shows MenuToggle Vue component + MobileMenu Vue component (sidebar)
   Menu items are pre-processed server-side with active states
 #}
 
@@ -17,8 +19,27 @@
       {% endif %}
     </div>
 
-    {% if menu_items %}
-      {% include 'Menu/Menu.twig' with { items: menu_items } %}
-    {% endif %}
+    <div class="site-header__navigation">
+      {# Desktop Menu - Shows on desktop, hidden on mobile #}
+      {% if menu_items %}
+        {% include 'Menu/Menu.twig' with { items: menu_items } %}
+      {% endif %}
+
+      {# Mobile Menu Toggle - Vue Component (shows on mobile only) #}
+      <div
+        data-vue-component="MenuToggle"
+        data-props='{"isOpen": false}'
+        data-eager
+      ></div>
+    </div>
   </div>
+
+  {# Mobile Menu Sidebar - Vue Component #}
+  {% if menu_items %}
+    <div
+      data-vue-component="MobileMenu"
+      data-props='{"isOpen": false, "items": {{ menu_items|json_encode|raw }}}'
+      data-eager
+    ></div>
+  {% endif %}
 </header>

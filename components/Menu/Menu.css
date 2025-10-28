@@ -113,3 +113,14 @@
   color: var(--color-text);
   background-color: var(--color-neutral-100);
 }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* Hide desktop menu on mobile */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+}

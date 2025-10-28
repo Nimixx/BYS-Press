@@ -16,6 +16,7 @@ use CoreTheme\Context\ContextProviderInterface;
 use CoreTheme\Context\MenuContextProvider;
 use CoreTheme\Context\RequestContextProvider;
 use CoreTheme\Context\SecurityContextProvider;
+use CoreTheme\Context\AssetsContextProvider;
 
 class TimberConfig
 {
@@ -73,6 +74,9 @@ class TimberConfig
      */
     private function registerContextProviders(): void
     {
+        // Add static assets provider (logo, images, etc.)
+        $this->contextProviders[] = new AssetsContextProvider();
+
         // Add menu configuration provider
         $this->contextProviders[] = new MenuContextProvider();
 

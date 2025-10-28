@@ -41,9 +41,9 @@
 <header class="site-header" role="banner">
   <div class="site-header__container">
     <div class="site-header__logo">
-      {% if site.has_logo %}
+      {% if logo %}
         <a href="{{ site.url }}" class="site-logo">
-          <img src="{{ site.theme.link }}/screenshot.png" alt="{{ site.name }}">
+          <img src="{{ logo.url }}" alt="{{ logo.alt }}">
         </a>
       {% else %}
         <a href="{{ site.url }}" class="site-name">{{ site.name }}</a>

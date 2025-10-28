@@ -1,0 +1,164 @@
+/**
+ * MobileMenu Component Styles
+ *
+ * Slide-in sidebar menu for mobile devices
+ * Includes overlay backdrop and Vue transitions
+ * Hidden on desktop, visible on mobile only
+ */
+
+/* ============================================
+   OVERLAY
+   ============================================ */
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: var(--z-modal);
+}
+
+/* Overlay transitions */
+.overlay-enter-active,
+.overlay-leave-active {
+  transition: opacity var(--transition-base);
+}
+
+.overlay-enter-from,
+.overlay-leave-to {
+  opacity: 0;
+}
+
+/* ============================================
+   MOBILE MENU SIDEBAR
+   ============================================ */
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 280px;
+  max-width: 85vw;
+  background: var(--color-bg);
+  border-left: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+  z-index: calc(var(--z-modal) + 1);
+  padding: var(--space-16) var(--space-4) var(--space-4);
+}
+
+/* Slide transitions */
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform var(--transition-base) ease-in-out;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+/* ============================================
+   MENU NAVIGATION
+   ============================================ */
+
+.mobile-menu__nav {
+  width: 100%;
+}
+
+.mobile-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Menu Items */
+.mobile-menu__item {
+  width: 100%;
+  margin: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mobile-menu__item:last-child {
+  border-bottom: none;
+}
+
+/* Menu Links */
+.mobile-menu__link {
+  display: block;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.mobile-menu__link:hover,
+.mobile-menu__link:focus {
+  background-color: var(--color-surface);
+}
+
+/* Active Menu Item */
+.mobile-menu__item--active > .mobile-menu__link,
+.mobile-menu__link[aria-current='page'] {
+  color: var(--color-text);
+  background-color: var(--color-neutral-100);
+}
+
+/* ============================================
+   SUBMENU
+   ============================================ */
+
+.mobile-menu__submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--color-surface);
+}
+
+.mobile-menu__submenu-item {
+  margin: 0;
+}
+
+/* Submenu Links */
+.mobile-menu__submenu-link {
+  display: block;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.mobile-menu__submenu-link:hover,
+.mobile-menu__submenu-link:focus {
+  background-color: var(--color-neutral-100);
+}
+
+/* Active Submenu Item */
+.mobile-menu__submenu-item--active > .mobile-menu__submenu-link,
+.mobile-menu__submenu-link[aria-current='page'] {
+  color: var(--color-text);
+  background-color: var(--color-neutral-100);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* Hide on desktop */
+@media (min-width: 769px) {
+  .mobile-menu,
+  .mobile-menu-overlay {
+    display: none;
+  }
+}

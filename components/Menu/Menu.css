@@ -62,7 +62,7 @@
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px);
@@ -70,7 +70,7 @@
     opacity var(--transition-base),
     transform var(--transition-base),
     visibility 0s var(--transition-base);
-  z-index: 1000;
+  z-index: var(--z-dropdown);
 }
 
 /* Show submenu on hover */

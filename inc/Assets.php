@@ -2,7 +2,8 @@
 /**
  * Assets Class
  *
- * Handles enqueueing of theme assets (scripts and styles) with performance optimizations
+ * Main orchestrator for theme asset management
+ * Delegates to specialized components for different concerns
  *
  * @package CoreTheme
  * @since 1.0.0
@@ -10,51 +11,48 @@
 
 namespace CoreTheme;
 
-use Kucrut\Vite;
+use CoreTheme\Assets\AssetEnqueuer;
+use CoreTheme\Assets\ScriptOptimizer;
+use CoreTheme\Assets\StyleOptimizer;
+use CoreTheme\Assets\CriticalCssHandler;
+use CoreTheme\Assets\ResourceHints;
 
 class Assets
 {
     /**
-     * Theme directory path
+     * Asset enqueuer component
      *
-     * @var string
+     * @var AssetEnqueuer
      */
-    private string $themeDir;
+    private AssetEnqueuer $enqueuer;
 
     /**
-     * Scripts that should be deferred
+     * Script optimizer component
      *
-     * @var array
+     * @var ScriptOptimizer
      */
-    private array $deferredScripts = ['core-theme-main'];
+    private ScriptOptimizer $scriptOptimizer;
 
     /**
-     * Scripts that should be async
+     * Style optimizer component
      *
-     * @var array
+     * @var StyleOptimizer
      */
-    private array $asyncScripts = [];
+    private StyleOptimizer $styleOptimizer;
 
     /**
-     * Critical CSS content
+     * Critical CSS handler component
      *
-     * @var string|null
+     * @var CriticalCssHandler
      */
-    private ?string $criticalCss = null;
+    private CriticalCssHandler $criticalCssHandler;
 
     /**
-     * Enable font optimization
+     * Resource hints component
      *
-     * @var bool
+     * @var ResourceHints
      */
-    private bool $optimizeFonts = true;
-
-    /**
-     * Resources to preload
-     *
-     * @var array
-     */
-    private array $preloadResources = [];
+    private ResourceHints $resourceHints;
 
     /**
      * Constructor
@@ -64,158 +62,29 @@ class Assets
      */
     public function __construct(?string $themeDir = null)
     {
-        $this->themeDir = $themeDir ?? get_template_directory();
+        $themeDir = $themeDir ?? get_template_directory();
+
+        // Initialize components
+        $this->enqueuer = new AssetEnqueuer($themeDir);
+        $this->scriptOptimizer = new ScriptOptimizer();
+        $this->styleOptimizer = new StyleOptimizer();
+        $this->criticalCssHandler = new CriticalCssHandler($themeDir);
+        $this->resourceHints = new ResourceHints();
     }
 
     /**
-     * Initialize asset enqueueing
+     * Initialize all asset components
      *
      * @since 1.0.0
      * @return void
      */
     public function init(): void
     {
-        add_action('wp_enqueue_scripts', [$this, 'enqueueAssets']);
-        add_filter('script_loader_tag', [$this, 'optimizeScriptTag'], 10, 2);
-        add_filter('style_loader_tag', [$this, 'optimizeStyleTag'], 10, 2);
-        add_action('wp_head', [$this, 'inlineCriticalCss'], 1);
-        add_action('wp_head', [$this, 'addResourceHints'], 2);
-
-        if ($this->optimizeFonts) {
-            add_filter('wp_resource_hints', [$this, 'addFontPreconnect'], 10, 2);
-        }
-    }
-
-    /**
-     * Enqueue theme assets
-     *
-     * @since 1.0.0
-     * @return void
-     */
-    public function enqueueAssets(): void
-    {
-        Vite\enqueue_asset($this->themeDir . '/dist', 'lib/main.ts', [
-            'handle' => 'core-theme-main',
-            'dependencies' => [],
-            'in-footer' => true,
-        ]);
-    }
-
-    /**
-     * Optimize script tags with defer/async attributes
-     *
-     * @since 1.0.0
-     * @param string $tag Script tag HTML
-     * @param string $handle Script handle
-     * @return string Modified script tag
-     */
-    public function optimizeScriptTag(string $tag, string $handle): string
-    {
-        // Add defer attribute
-        if (in_array($handle, $this->deferredScripts, true)) {
-            $tag = str_replace(' src', ' defer src', $tag);
-        }
-
-        // Add async attribute
-        if (in_array($handle, $this->asyncScripts, true)) {
-            $tag = str_replace(' src', ' async src', $tag);
-        }
-
-        return $tag;
-    }
-
-    /**
-     * Optimize style tags
-     *
-     * @since 1.0.0
-     * @param string $tag Style tag HTML
-     * @param string $handle Style handle
-     * @return string Modified style tag
-     */
-    public function optimizeStyleTag(string $tag, string $handle): string
-    {
-        // Add font-display: swap to font stylesheets
-        if (
-            $this->optimizeFonts &&
-            (strpos($handle, 'font') !== false || strpos($tag, 'fonts.googleapis.com') !== false)
-        ) {
-            // For Google Fonts, add display=swap parameter
-            if (
-                strpos($tag, 'fonts.googleapis.com') !== false &&
-                strpos($tag, 'display=swap') === false
-            ) {
-                $tag = str_replace('css?family=', 'css?display=swap&family=', $tag);
-            }
-        }
-
-        return $tag;
-    }
-
-    /**
-     * Inline critical CSS
-     *
-     * @since 1.0.0
-     * @return void
-     */
-    public function inlineCriticalCss(): void
-    {
-        if ($this->criticalCss !== null) {
-            echo '<style id="critical-css">' . $this->criticalCss . '</style>' . "\n";
-            return;
-        }
-
-        // Check if critical CSS file exists
-        $criticalCssPath = $this->themeDir . '/dist/critical.css';
-        if (file_exists($criticalCssPath)) {
-            $css = file_get_contents($criticalCssPath);
-            echo '<style id="critical-css">' . $css . '</style>' . "\n";
-        }
-    }
-
-    /**
-     * Add resource hints (preload, prefetch, preconnect)
-     *
-     * @since 1.0.0
-     * @return void
-     */
-    public function addResourceHints(): void
-    {
-        foreach ($this->preloadResources as $resource) {
-            $type = $resource['type'] ?? 'script';
-            $as = $resource['as'] ?? $type;
-            $crossorigin = isset($resource['crossorigin']) ? ' crossorigin' : '';
-
-            echo sprintf(
-                '<link rel="preload" href="%s" as="%s"%s>' . "\n",
-                esc_url($resource['url']),
-                esc_attr($as),
-                $crossorigin,
-            );
-        }
-    }
-
-    /**
-     * Add font preconnect hints
-     *
-     * @since 1.0.0
-     * @param array $urls Resource hint URLs
-     * @param string $relation_type Type of resource hint
-     * @return array Modified URLs
-     */
-    public function addFontPreconnect(array $urls, string $relation_type): array
-    {
-        if ($relation_type === 'preconnect') {
-            $urls[] = [
-                'href' => 'https://fonts.googleapis.com',
-                'crossorigin' => 'anonymous',
-            ];
-            $urls[] = [
-                'href' => 'https://fonts.gstatic.com',
-                'crossorigin' => 'anonymous',
-            ];
-        }
-
-        return $urls;
+        $this->enqueuer->init();
+        $this->scriptOptimizer->init();
+        $this->styleOptimizer->init();
+        $this->criticalCssHandler->init();
+        $this->resourceHints->init();
     }
 
     /**
@@ -227,7 +96,7 @@ class Assets
      */
     public function setCriticalCss(string $css): self
     {
-        $this->criticalCss = $css;
+        $this->criticalCssHandler->setCriticalCss($css);
         return $this;
     }
 
@@ -240,7 +109,7 @@ class Assets
      */
     public function addDeferredScript(string $handle): self
     {
-        $this->deferredScripts[] = $handle;
+        $this->scriptOptimizer->addDeferredScript($handle);
         return $this;
     }
 
@@ -253,7 +122,7 @@ class Assets
      */
     public function addAsyncScript(string $handle): self
     {
-        $this->asyncScripts[] = $handle;
+        $this->scriptOptimizer->addAsyncScript($handle);
         return $this;
     }
 
@@ -271,13 +140,7 @@ class Assets
         string $type = 'script',
         array $options = [],
     ): self {
-        $this->preloadResources[] = array_merge(
-            [
-                'url' => $url,
-                'type' => $type,
-            ],
-            $options,
-        );
+        $this->resourceHints->addPreloadResource($url, $type, $options);
         return $this;
     }
 
@@ -290,7 +153,7 @@ class Assets
      */
     public function setFontOptimization(bool $enable): self
     {
-        $this->optimizeFonts = $enable;
+        $this->styleOptimizer->setFontOptimization($enable);
         return $this;
     }
 
@@ -302,7 +165,7 @@ class Assets
      */
     public function getThemeDir(): string
     {
-        return $this->themeDir;
+        return $this->enqueuer->getThemeDir();
     }
 
     /**
@@ -313,7 +176,7 @@ class Assets
      */
     public function getDeferredScripts(): array
     {
-        return $this->deferredScripts;
+        return $this->scriptOptimizer->getDeferredScripts();
     }
 
     /**
@@ -324,6 +187,6 @@ class Assets
      */
     public function getAsyncScripts(): array
     {
-        return $this->asyncScripts;
+        return $this->scriptOptimizer->getAsyncScripts();
     }
 }

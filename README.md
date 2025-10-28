@@ -297,17 +297,20 @@ All classes are in the `CoreTheme\` namespace and autoloaded via Composer.
 
 ### Frontend Architecture
 
-- **Entry Point**: `src/js/main.ts` imports all necessary modules
-- **Components**: Vue 3 components in `src/components/`
-- **Styles**: Modular CSS with BEM methodology
-- **Build Tool**: Vite compiles everything into `dist/`
+- **Entry Point**: `lib/main.ts` imports all necessary modules
+- **Vue Components**: Auto-discovered from `components/**/*.vue`
+- **Composables**: Reusable logic in `composables/`
+- **Styles**: Component-scoped + global in `styles/`
+- **Build Tool**: Vite with automatic code-splitting into `dist/`
 
-### Template Architecture (Twig/Timber)
+### Component Architecture
 
-- **Layouts**: Base templates with blocks for content
-- **Pages**: Specific page templates
-- **Partials**: Reusable template components
-- **Separation**: Logic in PHP, presentation in Twig
+- **Twig Components**: `components/Button/` - Template + CSS + PHP helper
+- **Vue Components**: `components/Counter/` - Vue SFC + types
+- **Layouts**: Base templates in `layouts/`
+- **Pages**: Page templates in `pages/`
+- **Auto-discovery**: All CSS, TypeScript, and Vue components automatically loaded
+- **Separation**: Logic in PHP/TS, presentation in Twig/Vue
 
 ## Environment Configuration
 

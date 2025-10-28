@@ -1,37 +1,18 @@
 <template>
   <div class="counter">
-    <div class="counter__header">
-      <h3 class="counter__title">{{ title }}</h3>
-      <span class="counter__range">{{ min }} - {{ max }}</span>
-    </div>
-
-    <div class="counter__display">
-      <span class="counter__value">{{ count }}</span>
-      <div class="counter__progress">
-        <div
-          class="counter__progress-bar"
-          :style="{ width: progressPercentage + '%' }"
-        ></div>
-      </div>
-    </div>
-
+    <div class="counter__value">{{ count }}</div>
     <div class="counter__controls">
       <button
-        class="counter__button"
-        :disabled="!canDecrement"
+        class="counter__button counter__button--decrement"
         @click="decrement()"
       >
-        - {{ step }}
-      </button>
-      <button class="counter__button" @click="reset()">
-        Reset
+        −
       </button>
       <button
-        class="counter__button"
-        :disabled="!canIncrement"
+        class="counter__button counter__button--increment"
         @click="increment()"
       >
-        + {{ step }}
+        +
       </button>
     </div>
   </div>
@@ -39,113 +20,82 @@
 
 <script setup lang="ts">
 /**
- * Counter Component
+ * Counter Component - Minimal Design
  *
- * Interactive counter with progress visualization and configurable min/max/step.
- * Uses the useCounter composable for state management.
+ * Simple counter with increment/decrement controls.
  *
  * @component Counter
  */
-import { computed } from 'vue';
-import { useCounter } from '../../composables/useCounter';
+import { ref } from 'vue';
 import type { CounterProps } from './Counter.types';
 
 const props = withDefaults(defineProps<CounterProps>(), {
-  title: 'Counter',
   initialValue: 0,
-  min: 0,
-  max: 100,
-  step: 5,
 });
 
-const { count, canIncrement, canDecrement, increment, decrement, reset } =
-  useCounter(props.initialValue, {
-    min: props.min,
-    max: props.max,
-    step: props.step,
-  });
+const count = ref(props.initialValue);
 
-const progressPercentage = computed(() => {
-  const range = props.max - props.min;
-  const current = count.value - props.min;
-  return (current / range) * 100;
-});
+const increment = () => {
+  count.value++;
+};
+
+const decrement = () => {
+  count.value--;
+};
 </script>
 
 <style scoped>
 .counter {
-  padding: 2rem;
-  border: 1px solid rgba(39, 39, 39, 0.608);
-  border-radius: 8px;
-}
-
-.counter__header {
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
   align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.counter__title {
-  margin: 0;
-  font-size: 1.125rem;
-  font-weight: 500;
-}
-
-.counter__range {
-  font-size: 0.875rem;
-  opacity: 0.6;
-}
-
-.counter__display {
-  margin-bottom: 1.5rem;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
 }
 
 .counter__value {
-  display: block;
-  font-size: 3rem;
-  font-weight: 300;
+  font-size: var(--text-5xl);
+  font-weight: var(--font-light);
+  color: var(--color-text);
+  min-width: 4rem;
   text-align: center;
-  margin-bottom: 1rem;
-}
-
-.counter__progress {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.counter__progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-  transition: width 0.3s ease;
 }
 
 .counter__controls {
   display: flex;
-  gap: 0.5rem;
-  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .counter__button {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--font-light);
+  font-family: inherit;
+  line-height: 1;
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.2s ease;
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-fast);
 }
 
-.counter__button:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+.counter__button:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
 }
 
-.counter__button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+.counter__button:active {
+  transform: scale(0.95);
+}
+
+.counter__button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
 }
 </style>

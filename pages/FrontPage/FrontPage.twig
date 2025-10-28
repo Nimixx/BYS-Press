@@ -3,38 +3,25 @@
 {% block content %}
   <div class="front-page">
     <div class="front-page__content">
-      <h1 class="front-page__title">{{ theme_name }}</h1>
+      <h1 class="front-page__title">This is frontpage</h1>
 
       <div class="front-page__description">
-        <p class="front-page__description-text">{{ description }}</p>
-        <div class="front-page__tech-stack">
-          {% for tech in tech_stack %}
-            <span class="front-page__tech-item">{{ tech }}</span>{% if not loop.last %}<span class="front-page__tech-separator"> / </span>{% endif %}
-          {% endfor %}
-        </div>
+        <p class="front-page__description-text">
+          To edit this page, modify the template at:<br>
+          <code>pages/FrontPage/FrontPage.twig</code>
+        </p>
+        <p class="front-page__description-text">
+          To add or modify content, edit the FrontPage controller at:<br>
+          <code>pages/FrontPage/FrontPage.php</code>
+        </p>
       </div>
 
-      <h2 class="front-page__section-title">Component Auto-Discovery Demo</h2>
-
-      <div class="front-page__counters">
-        <div class="front-page__counter-section">
-          <h3 class="front-page__counter-label">Eager Loaded Counter</h3>
-          <p class="front-page__counter-description">Loaded immediately with main JavaScript bundle</p>
-          <div
-            data-vue-component="Counter"
-            data-eager
-            data-props='{"title": "Eager Counter (Main Bundle)", "initialValue": 0, "min": 0, "max": 50, "step": 1}'
-          ></div>
-        </div>
-
-        <div class="front-page__counter-section">
-          <h3 class="front-page__counter-label">Lazy Loaded Counter</h3>
-          <p class="front-page__counter-description">Code-split, loaded when visible (scroll down to trigger)</p>
-          <div
-            data-vue-component="Counter"
-            data-props='{"title": "Lazy Counter (Code Split)", "initialValue": 25, "min": 0, "max": 100, "step": 5}'
-          ></div>
-        </div>
+      <div class="front-page__counter-wrapper">
+        <div
+          data-vue-component="Counter"
+          data-eager
+          data-props='{"initialValue": 0}'
+        ></div>
       </div>
     </div>
   </div>

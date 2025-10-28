@@ -29,8 +29,9 @@
   "include": [
     "lib/**/*.ts",
     "lib/**/*.d.ts",
-    "src/**/*.vue",
     "components/**/*.ts",
+    "components/**/*.vue",
+    "composables/**/*.ts",
     "layouts/**/*.ts",
     "pages/**/*.ts"
   ],

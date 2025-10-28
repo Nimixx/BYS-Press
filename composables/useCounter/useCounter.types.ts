@@ -1,9 +1,9 @@
 /**
- * Counter Types
+ * Counter Composable Types
  *
- * Type definitions for counter-related components and composables
+ * Type definitions for the useCounter composable.
  *
- * @module types/counter
+ * @module composables/useCounter
  */
 
 import type { Ref, ComputedRef } from 'vue';
@@ -50,35 +50,4 @@ export interface CounterReturn {
   reset: (value?: number) => void;
   /** Set counter to specific value */
   setValue: (value: number) => void;
-}
-
-/**
- * Counter component props
- */
-export interface CounterProps {
-  /** Initial counter value */
-  initialValue?: number;
-  /** Minimum allowed value */
-  min?: number;
-  /** Maximum allowed value */
-  max?: number;
-  /** Step value */
-  step?: number;
-  /** Display label */
-  label?: string;
-  /** Show reset button */
-  showReset?: boolean;
-  /** Disabled state */
-  disabled?: boolean;
-}
-
-/**
- * Counter component emits
- */
-export interface CounterEmits {
-  (e: 'update:modelValue', value: number): void;
-  (e: 'increment', value: number): void;
-  (e: 'decrement', value: number): void;
-  (e: 'reset', value: number): void;
-  (e: 'change', value: number): void;
 }

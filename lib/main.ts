@@ -16,11 +16,10 @@ import '../src/css/main.css';
 
 // Import configuration (must be before using debugLog)
 import { debugLog, THEME_CONFIG, isDevelopment } from './config';
-import { vueComponentRegistry, lazyVueComponentRegistry } from './config/vueComponents';
 
 // Import utilities
 import { setupGlobalErrorHandlers } from './utils/errorHandler';
-import { mountVueComponents, mountVueComponentLazy } from './utils/vueComponentMount';
+import { autoMountVueComponents } from './config/vueAutoload';
 
 /**
  * Auto-loader System
@@ -110,22 +109,8 @@ function initTheme(): void {
   // Initialize component behaviors (auto-discovered .ts files)
   initComponentBehaviors();
 
-  // Mount all registered Vue components
-  mountVueComponents(vueComponentRegistry);
-
-  // Mount lazy-loaded Vue components
-  for (const lazyConfig of lazyVueComponentRegistry) {
-    void mountVueComponentLazy(
-      {
-        elementId: lazyConfig.elementId,
-        name: lazyConfig.name,
-        condition: lazyConfig.condition,
-        required: lazyConfig.required,
-        props: lazyConfig.props,
-      },
-      lazyConfig.loader,
-    );
-  }
+  // Auto-mount all Vue components (auto-discovered from components/**/*.vue)
+  autoMountVueComponents();
 }
 
 // Initialize when DOM is ready

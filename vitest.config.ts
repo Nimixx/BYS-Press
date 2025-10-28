@@ -14,7 +14,11 @@ export default defineConfig({
     },
 
     // Include test files
-    include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx,vue}'],
+    include: [
+      'components/**/*.{test,spec}.{js,ts,jsx,tsx,vue}',
+      'composables/**/*.{test,spec}.{js,ts,jsx,tsx,vue}',
+      'lib/**/*.{test,spec}.{js,ts,jsx,tsx,vue}',
+    ],
 
     // Exclude patterns
     exclude: ['node_modules', 'dist', 'vendor'],
@@ -32,12 +36,8 @@ export default defineConfig({
         'vendor/',
         '**/*.config.{js,ts}',
         '**/*.d.ts',
-        '**/test-utils/**',
       ],
     },
-
-    // Setup files
-    setupFiles: ['./src/test-utils/setup.ts'],
 
     // Test timeout
     testTimeout: 10000,
@@ -52,9 +52,10 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@utils': path.resolve(__dirname, './src/js/utils'),
+      '@': path.resolve(__dirname, './lib'),
+      '@components': path.resolve(__dirname, './components'),
+      '@composables': path.resolve(__dirname, './composables'),
+      '@utils': path.resolve(__dirname, './lib/utils'),
     },
   },
 });

@@ -8,14 +8,23 @@ Modern, component-first WordPress theme built with minimalism, maintainability, 
 
 ```
 core-theme/
-├── components/          # Reusable Twig components
+├── components/          # Reusable components (Twig + Vue)
 │   ├── Button/
-│   │   ├── Button.twig      # Template
+│   │   ├── Button.twig      # Twig template
 │   │   ├── Button.css       # Styles
 │   │   └── Button.php       # Context helper
+│   ├── Counter/
+│   │   ├── Counter.vue      # Vue component
+│   │   └── Counter.types.ts # TypeScript types
 │   ├── Card/
 │   ├── Header/
 │   └── Footer/
+│
+├── composables/         # Vue composable functions
+│   └── useCounter/
+│       ├── useCounter.ts       # Composable logic
+│       ├── useCounter.types.ts # Types
+│       └── index.ts            # Exports
 │
 ├── layouts/             # Page layouts
 │   └── Base/
@@ -30,10 +39,10 @@ core-theme/
 │
 ├── lib/                 # JavaScript/TypeScript
 │   ├── main.ts              # Entry point
-│   ├── composables/         # Vue composables
-│   ├── types/               # TypeScript types
 │   ├── utils/               # Helper functions
-│   └── config/              # Configuration
+│   └── config/
+│       ├── config.ts        # Theme config
+│       └── vueAutoload.ts   # Vue auto-discovery
 │
 ├── config/              # Theme configuration
 │   └── tokens.css           # Design tokens
@@ -52,13 +61,19 @@ core-theme/
 │
 └── dist/                # Build output
     ├── css/
+    │   ├── main.css         # Main styles bundle
+    │   └── Counter.css      # Code-split component styles
     └── js/
+        ├── main.js          # Main JavaScript bundle
+        └── Counter.js       # Code-split component code
 ```
 
 ## Core Principles
 
 ### 1. Component Co-location
 All files related to a component live together:
+
+**Twig Components:**
 ```
 components/Button/
   ├── Button.twig     # Markup
@@ -66,15 +81,40 @@ components/Button/
   └── Button.php      # Logic
 ```
 
-### 2. CSS Auto-loading
-All CSS files are automatically loaded using Vite's `import.meta.glob`:
-- `components/**/*.css` - All component styles
-- `layouts/**/*.css` - All layout styles
-- `pages/**/*.css` - All page styles
+**Vue Components:**
+```
+components/Counter/
+  ├── Counter.vue        # Component (template + script + styles)
+  └── Counter.types.ts   # TypeScript types (optional)
+```
 
-**Add a new component? Its CSS is automatically included!**
+**Composables:**
+```
+composables/useCounter/
+  ├── useCounter.ts       # Logic
+  ├── useCounter.types.ts # Types
+  └── index.ts            # Exports
+```
 
-No manual imports needed - just create `ComponentName.css` next to your `.twig` file.
+### 2. Auto-loading Systems
+
+**CSS Auto-loading** - All CSS files automatically loaded:
+- `components/**/*.css` - Component styles
+- `layouts/**/*.css` - Layout styles
+- `pages/**/*.css` - Page styles
+
+**TypeScript Auto-loading** - Component behaviors auto-discovered:
+- `components/**/*.ts` - Auto-initialized via `initAll()` method
+- `pages/**/*.ts` - Auto-initialized behaviors
+
+**Vue Auto-discovery** - Vue components automatically found and mounted:
+- `components/**/*.vue` - Auto-discovered and code-split
+- Lazy-loaded by default (loads when visible)
+- Use `data-eager` for immediate loading
+
+**Add a new component? Everything is automatically included!**
+
+No manual imports, no configuration - just create the files.
 
 ### 3. Design Tokens
 All design values centralized in `config/tokens.css`:
@@ -340,18 +380,63 @@ $context['button'] = Button::primary('Click', '/page', [
 ### 4. Keep Components Small
 Each component should have a single responsibility.
 
+## Vue Components
+
+Vue components use an **auto-discovery system** with zero configuration required.
+
+### Quick Start
+
+**Create component:**
+```
+components/MyComponent/MyComponent.vue
+```
+
+**Use in template:**
+```twig
+<div data-vue-component="MyComponent" data-props='{"title": "Hello"}'></div>
+```
+
+That's it! No imports, no configuration needed.
+
+### Lazy Loading (Default)
+
+Components are **lazy-loaded by default** - they only load when visible:
+
+```twig
+{# Loads when scrolled into view #}
+<div data-vue-component="PhotoGallery"></div>
+```
+
+### Eager Loading
+
+For critical above-the-fold components:
+
+```twig
+{# Loads immediately with main bundle #}
+<div data-vue-component="Navigation" data-eager></div>
+```
+
+### Full Documentation
+
+See **[VUE_COMPONENTS.md](./VUE_COMPONENTS.md)** for complete guide including:
+- Creating components
+- Using composables
+- TypeScript types
+- Props and events
+- Best practices
+- Examples
+
 ## Performance
 
 ### Auto-discovered Assets
-Components, layouts, and pages are automatically code-split.
+Components, layouts, and pages are automatically code-split by Vite.
 
-### Lazy Loading
-Use Vue lazy loading for heavy components:
-```typescript
-{
-  elementId: 'gallery',
-  loader: () => import('../../src/components/PhotoGallery.vue')
-}
+### Vue Code Splitting
+Each Vue component becomes a separate chunk:
+```
+dist/js/Counter.js      # Lazy-loaded component
+dist/css/Counter.css    # Component styles
+dist/js/main.js         # Main bundle (without lazy components)
 ```
 
 ### CSS Optimization

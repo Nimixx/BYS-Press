@@ -14,13 +14,26 @@
         </div>
       </div>
 
-      <h2 class="front-page__section-title">Component Loading Comparison</h2>
+      <h2 class="front-page__section-title">Component Auto-Discovery Demo</h2>
 
       <div class="front-page__counters">
         <div class="front-page__counter-section">
-          <h3 class="front-page__counter-label">Eager Loaded (Main Bundle)</h3>
+          <h3 class="front-page__counter-label">Eager Loaded Counter</h3>
           <p class="front-page__counter-description">Loaded immediately with main JavaScript bundle</p>
-          <div id="counter-eager"></div>
+          <div
+            data-vue-component="Counter"
+            data-eager
+            data-props='{"title": "Eager Counter (Main Bundle)", "initialValue": 0, "min": 0, "max": 50, "step": 1}'
+          ></div>
+        </div>
+
+        <div class="front-page__counter-section">
+          <h3 class="front-page__counter-label">Lazy Loaded Counter</h3>
+          <p class="front-page__counter-description">Code-split, loaded when visible (scroll down to trigger)</p>
+          <div
+            data-vue-component="Counter"
+            data-props='{"title": "Lazy Counter (Code Split)", "initialValue": 25, "min": 0, "max": 100, "step": 5}'
+          ></div>
         </div>
       </div>
     </div>

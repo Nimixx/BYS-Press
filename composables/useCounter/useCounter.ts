@@ -9,7 +9,7 @@
 
 import { ref, computed, readonly } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
-import type { CounterOptions, CounterReturn } from '../types/counter';
+import type { CounterOptions, CounterReturn } from './useCounter.types';
 
 /**
  * Counter composable with full state management

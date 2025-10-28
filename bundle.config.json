@@ -1,16 +1,24 @@
 {
   "themeName": "core-theme",
+  "version": "1.0.0",
   "exclude": [
     ".git",
     ".github",
     ".claude",
     "node_modules",
     "tests",
-    "src",
-    "md-docs",
+    "lib",
+    "components",
+    "layouts",
+    "pages",
+    "config",
+    "styles",
+    "composables",
     "scripts",
     "bundles",
+    "docs",
     ".env",
+    ".env.local",
     ".env.example",
     ".editorconfig",
     ".eslintignore",
@@ -19,13 +27,26 @@
     ".prettierrc",
     "package.json",
     "package-lock.json",
+    "composer.json",
+    "composer.lock",
     "phpunit.xml",
     "tsconfig.json",
     "vite.config.js",
     "vitest.config.ts",
     "eslint.config.js",
     "bundle.config.json",
-    "*.md"
+    "stats.html",
+    "*.map",
+    "*.md",
+    "*.log"
   ],
-  "outputDir": "./bundles"
+  "outputDir": "./bundles",
+  "include": [
+    "dist",
+    "inc",
+    "languages",
+    "functions.php",
+    "style.css",
+    "screenshot.png"
+  ]
 }

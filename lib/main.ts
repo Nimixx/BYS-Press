@@ -19,7 +19,7 @@ import { debugLog, THEME_CONFIG, isDevelopment } from './config';
 
 // Import utilities
 import { setupGlobalErrorHandlers } from './utils/errorHandler';
-import { autoMountVueComponents } from './config/vueAutoload';
+import { autoMountVueComponents } from './vue';
 
 /**
  * Auto-loader System

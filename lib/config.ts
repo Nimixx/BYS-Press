@@ -66,6 +66,14 @@ export function getApiEndpoint(path: string): string {
 
 /**
  * Example: Fetch data from WordPress REST API
+ *
+ * @param endpoint - API endpoint path
+ * @returns Promise resolving to typed data
+ * @throws Error if fetch fails or response is not ok
+ *
+ * @example
+ * interface Post { id: number; title: string; }
+ * const posts = await fetchFromWP<Post[]>('wp/v2/posts');
  */
 export async function fetchFromWP<T>(endpoint: string): Promise<T> {
   const url = getApiEndpoint(endpoint);
@@ -83,10 +91,12 @@ export async function fetchFromWP<T>(endpoint: string): Promise<T> {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: unknown = await response.json();
     debugLog('Response:', data);
 
-    return data;
+    // Caller is responsible for ensuring T matches the actual response shape
+    // This is a limitation of TypeScript with dynamic API responses
+    return data as T;
   } catch (error) {
     console.error('API Error:', error);
     throw error;

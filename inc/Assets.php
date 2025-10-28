@@ -96,7 +96,7 @@ class Assets
     {
         Vite\enqueue_asset(
             $this->themeDir . '/dist',
-            'src/js/main.ts',
+            'lib/main.ts',
             [
                 'handle' => 'core-theme-main',
                 'dependencies' => [],

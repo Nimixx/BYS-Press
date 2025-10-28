@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html {{ function('language_attributes') }}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="profile" href="http://gmpg.org/xfn/11" />
+  {{ function('wp_head') }}
+</head>
+
+<body {{ function('body_class') }}>
+  {{ function('wp_body_open') }}
+
+  {# Skip link for accessibility #}
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  {% include 'Header/Header.twig' %}
+
+  {# Main Content Area #}
+  <main id="main-content" class="site-main" role="main">
+    {% block content %}
+      {# Page content goes here #}
+    {% endblock %}
+  </main>
+
+  {% include 'Footer/Footer.twig' %}
+
+  {{ function('wp_footer') }}
+</body>
+</html>

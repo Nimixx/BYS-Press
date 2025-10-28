@@ -1,0 +1,100 @@
+/**
+ * Button Component
+ *
+ * Reusable button styles with variants and sizes
+ */
+
+/* Block */
+.button {
+  /* Use design tokens */
+  display: inline-block;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  font-family: inherit;
+  line-height: var(--line-height-tight);
+  text-align: center;
+  text-decoration: none;
+
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+
+  /* Base colors */
+  background: var(--color-primary-500);
+  color: var(--color-text-primary);
+}
+
+.button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+}
+
+/* Variants */
+.button--secondary {
+  background: var(--color-secondary-500);
+}
+
+.button--outline {
+  background: transparent;
+  border: 2px solid var(--color-primary-500);
+  color: var(--color-primary-500);
+}
+
+.button--outline:hover {
+  background: var(--color-primary-500);
+  color: var(--color-text-primary);
+}
+
+.button--ghost {
+  background: transparent;
+  color: var(--color-primary-500);
+}
+
+.button--ghost:hover {
+  background: rgba(var(--color-primary-500-rgb, 102, 126, 234), 0.1);
+}
+
+/* Sizes */
+.button--small {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-sm);
+}
+
+.button--large {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--font-size-lg);
+}
+
+/* Modifiers */
+.button--full {
+  width: 100%;
+  display: block;
+}
+
+.button--icon-only {
+  padding: var(--space-3);
+  aspect-ratio: 1;
+}

@@ -1,0 +1,71 @@
+/**
+ * Base Layout Styles
+ *
+ * Core layout structure for the main template
+ */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * Main Content Area
+ */
+.site-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--container-max-width, 1200px);
+  margin: 0 auto;
+  padding: var(--space-8, 2rem) var(--space-6, 1.5rem);
+}
+
+/**
+ * Skip Link for Accessibility
+ */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-bg-primary, #000);
+  color: var(--color-text-primary, #fff);
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  text-decoration: none;
+  z-index: var(--z-modal, 100000);
+  font-weight: var(--font-weight-semibold, 600);
+  border-radius: 0 0 var(--radius-sm, 4px) 0;
+  transition: top var(--transition-fast, 150ms ease);
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--color-text-primary, #fff);
+  outline-offset: 2px;
+}
+
+/**
+ * Container Utilities
+ */
+.container {
+  max-width: var(--container-max-width, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--space-6, 1.5rem);
+}
+
+.container--narrow {
+  max-width: 800px;
+}
+
+.container--wide {
+  max-width: 1400px;
+}
+
+/**
+ * Responsive Design
+ */
+@media (max-width: 768px) {
+  .site-main {
+    padding: var(--space-6, 1.5rem) var(--space-4, 1rem);
+  }
+}

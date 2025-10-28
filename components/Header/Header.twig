@@ -1,0 +1,31 @@
+{#
+  Header Component
+
+  Site header with branding and navigation
+
+  @param {object} site - Timber Site object
+#}
+
+<header class="site-header" role="banner">
+  <div class="site-header__container">
+    <div class="site-branding">
+      <a href="{{ site.url }}" class="site-branding__link" rel="home">
+        <span class="site-branding__name">{{ site.name }}</span>
+      </a>
+      {% if site.description %}
+        <p class="site-branding__description">{{ site.description }}</p>
+      {% endif %}
+    </div>
+
+    {# Primary Navigation #}
+    {% if function('has_nav_menu', 'primary') %}
+      <nav class="site-navigation" role="navigation" aria-label="Primary navigation">
+        {{ function('wp_nav_menu', {
+          'theme_location': 'primary',
+          'container': false,
+          'menu_class': 'site-navigation__menu'
+        }) }}
+      </nav>
+    {% endif %}
+  </div>
+</header>

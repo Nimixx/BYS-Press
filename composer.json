@@ -13,9 +13,11 @@
     },
     "autoload": {
         "psr-4": {
-            "CoreTheme\\": "inc/",
-            "CoreTheme\\Components\\": "components/"
-        }
+            "CoreTheme\\": "inc/"
+        },
+        "classmap": [
+            "components/"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

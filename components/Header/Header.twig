@@ -1,31 +1,54 @@
 {#
-  Header Component
+  Header Layout
 
-  Site header with branding and navigation
-
-  @param {object} site - Timber Site object
+  Main site header with logo and hardcoded navigation menu
 #}
+
+{% set menu_items = [
+  {
+    title: 'Home',
+    url: site.url,
+    current: false
+  },
+  {
+    title: 'About',
+    url: site.url ~ '/about',
+    current: false
+  },
+  {
+    title: 'Services',
+    url: site.url ~ '/services',
+    current: false,
+    children: [
+      { title: 'Web Development', url: site.url ~ '/services/web-development' },
+      { title: 'Design', url: site.url ~ '/services/design' },
+      { title: 'Consulting', url: site.url ~ '/services/consulting' }
+    ]
+  },
+  {
+    title: 'Blog',
+    url: site.url ~ '/blog',
+    current: false
+  },
+  {
+    title: 'Contact',
+    url: site.url ~ '/contact',
+    current: false
+  }
+] %}
 
 <header class="site-header" role="banner">
   <div class="site-header__container">
-    <div class="site-branding">
-      <a href="{{ site.url }}" class="site-branding__link" rel="home">
-        <span class="site-branding__name">{{ site.name }}</span>
-      </a>
-      {% if site.description %}
-        <p class="site-branding__description">{{ site.description }}</p>
+    <div class="site-header__logo">
+      {% if site.has_logo %}
+        <a href="{{ site.url }}" class="site-logo">
+          <img src="{{ site.theme.link }}/screenshot.png" alt="{{ site.name }}">
+        </a>
+      {% else %}
+        <a href="{{ site.url }}" class="site-name">{{ site.name }}</a>
       {% endif %}
     </div>
 
-    {# Primary Navigation #}
-    {% if function('has_nav_menu', 'primary') %}
-      <nav class="site-navigation" role="navigation" aria-label="Primary navigation">
-        {{ function('wp_nav_menu', {
-          'theme_location': 'primary',
-          'container': false,
-          'menu_class': 'site-navigation__menu'
-        }) }}
-      </nav>
-    {% endif %}
+    {% include 'Menu/Menu.twig' with { items: menu_items } %}
   </div>
 </header>

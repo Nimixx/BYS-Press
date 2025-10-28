@@ -10,6 +10,7 @@
 <body {{ function('body_class') }}>
   {{ function('wp_body_open') }}
 
+  {# Site Header Component #}
   {% include 'Header/Header.twig' %}
 
   {# Main Content Area #}
@@ -19,6 +20,7 @@
     {% endblock %}
   </main>
 
+  {# Site Footer Component #}
   {% include 'Footer/Footer.twig' %}
 
   {{ function('wp_footer') }}

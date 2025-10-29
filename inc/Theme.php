@@ -10,6 +10,11 @@
 
 namespace CoreTheme;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 class Theme
 {
     /**

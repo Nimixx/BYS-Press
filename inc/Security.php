@@ -11,6 +11,11 @@
 
 namespace CoreTheme;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 use CoreTheme\Security\NonceManager;
 use CoreTheme\Security\HeaderSecurity;
 use CoreTheme\Security\PermissionsPolicy;

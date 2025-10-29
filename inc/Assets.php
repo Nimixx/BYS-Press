@@ -11,6 +11,11 @@
 
 namespace CoreTheme;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 use CoreTheme\Assets\AssetEnqueuer;
 use CoreTheme\Assets\ScriptOptimizer;
 use CoreTheme\Assets\StyleOptimizer;

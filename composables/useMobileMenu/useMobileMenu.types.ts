@@ -16,6 +16,8 @@ export interface MobileMenuOptions {
   initialOpen?: boolean;
   /** Enable body scroll lock when open */
   lockBodyScroll?: boolean;
+  /** Enable focus trap for accessibility (default: true) */
+  enableFocusTrap?: boolean;
   /** Callback when menu is opened */
   onOpen?: () => void;
   /** Callback when menu is closed */
@@ -28,6 +30,8 @@ export interface MobileMenuOptions {
 export interface MobileMenuReturn {
   /** Whether menu is currently open */
   isOpen: Ref<boolean>;
+  /** Reference to the menu element (for focus trap) */
+  menuRef: Ref<HTMLElement | undefined>;
   /** Close menu */
   closeMenu: () => void;
 }

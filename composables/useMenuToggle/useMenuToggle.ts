@@ -8,7 +8,6 @@
  */
 
 import { ref, onMounted, onUnmounted } from 'vue';
-import type { Ref } from 'vue';
 import type { MenuToggleOptions, MenuToggleReturn } from './useMenuToggle.types';
 
 /**

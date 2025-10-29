@@ -35,13 +35,3 @@ add_action('wp_dashboard_setup', function () {
     remove_meta_box('wpe_dify_news_feed', 'dashboard', 'normal'); // WP Engine
     remove_meta_box('dashboard_secondary', 'dashboard', 'side'); // Other WordPress News
 });
-
-/**
- * Remove welcome panel preference for all users
- *
- * @since 1.0.0
- * @return void
- */
-add_action('admin_init', function () {
-    remove_action('welcome_panel', 'wp_welcome_panel');
-});

@@ -36,16 +36,22 @@ add_action('init', function () {
     // Remove emoji detection from emails
     remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
 
-    // Disable TinyMCE emojis plugin
-    add_filter('tiny_mce_plugins', function ($plugins) {
-        if (is_array($plugins)) {
-            return array_diff($plugins, ['wpemoji']);
-        }
-        return $plugins;
-    });
-
     // Remove emoji DNS prefetch
-    add_filter('emoji_svg_url', '__return_false');
+    remove_filter('emoji_svg_url', '__return_false');
+});
+
+/**
+ * Disable TinyMCE emojis plugin
+ *
+ * @since 1.0.0
+ * @param array $plugins TinyMCE plugins
+ * @return array Modified plugins
+ */
+add_filter('tiny_mce_plugins', function ($plugins) {
+    if (is_array($plugins)) {
+        return array_diff($plugins, ['wpemoji']);
+    }
+    return $plugins;
 });
 
 /**

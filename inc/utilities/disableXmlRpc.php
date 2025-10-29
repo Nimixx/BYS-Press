@@ -28,7 +28,9 @@ add_filter('xmlrpc_enabled', '__return_false');
  * @since 1.0.0
  * @return void
  */
-remove_action('wp_head', 'rsd_link');
+add_action('init', function () {
+    remove_action('wp_head', 'rsd_link');
+});
 
 /**
  * Remove X-Pingback HTTP header

@@ -27,31 +27,48 @@ add_action('init', function () {
     // Remove oEmbed-specific JavaScript from the front-end and back-end
     remove_action('wp_head', 'wp_oembed_add_host_js');
 
-    // Remove all embeds rewrite rules
-    add_filter('rewrite_rules_array', function ($rules) {
-        foreach ($rules as $rule => $rewrite) {
-            if (strpos($rewrite, 'embed=true') !== false) {
-                unset($rules[$rule]);
-            }
-        }
-        return $rules;
-    });
-
-    // Remove embed query var
-    add_filter('query_vars', function ($vars) {
-        $vars = array_diff($vars, ['embed']);
-        return $vars;
-    });
-
     // Disable oEmbed auto discovery
     remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
 
-    // Turn off oEmbed auto discovery
-    add_filter('embed_oembed_discover', '__return_false');
-
     // Remove filter of the oEmbed result before any HTTP requests are made
     remove_filter('pre_oembed_result', 'wp_filter_pre_oembed_result', 10);
-}, 9999);
+});
+
+/**
+ * Remove all embeds rewrite rules
+ *
+ * @since 1.0.0
+ * @param array $rules Rewrite rules
+ * @return array Modified rules
+ */
+add_filter('rewrite_rules_array', function ($rules) {
+    foreach ($rules as $rule => $rewrite) {
+        if (strpos($rewrite, 'embed=true') !== false) {
+            unset($rules[$rule]);
+        }
+    }
+    return $rules;
+});
+
+/**
+ * Remove embed query var
+ *
+ * @since 1.0.0
+ * @param array $vars Query vars
+ * @return array Modified vars
+ */
+add_filter('query_vars', function ($vars) {
+    $vars = array_diff($vars, ['embed']);
+    return $vars;
+});
+
+/**
+ * Turn off oEmbed auto discovery
+ *
+ * @since 1.0.0
+ * @return bool
+ */
+add_filter('embed_oembed_discover', '__return_false');
 
 /**
  * Dequeue embed script

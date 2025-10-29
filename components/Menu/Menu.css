@@ -39,8 +39,8 @@
   text-decoration: none;
   border-radius: var(--radius-sm);
   transition:
-    color var(--transition-fast),
-    background-color var(--transition-fast);
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Button trigger styling */
@@ -69,7 +69,7 @@
   justify-content: center;
   width: 16px;
   height: 16px;
-  transition: transform var(--transition-base);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .menu__link-icon::after {
@@ -107,6 +107,7 @@
   height: 3px;
   background-color: var(--color-primary-600);
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Submenu Container */
@@ -124,12 +125,16 @@
   box-shadow: var(--shadow-md);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-8px);
+  transform: translateY(-12px);
   transition:
-    opacity var(--transition-base),
-    transform var(--transition-base),
-    visibility 0s var(--transition-base);
+    opacity 0.3s cubic-bezier(0.7, 0, 0.84, 0),
+    transform 0.3s cubic-bezier(0.7, 0, 0.84, 0),
+    visibility 0s 0.3s;
   z-index: var(--z-dropdown);
+
+  /* Performance optimizations */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 /* Show submenu when open (click or hover) */
@@ -138,8 +143,8 @@
   visibility: visible;
   transform: translateY(0);
   transition:
-    opacity var(--transition-base),
-    transform var(--transition-base),
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     visibility 0s 0s;
 }
 
@@ -157,14 +162,15 @@
   color: var(--color-text);
   text-decoration: none;
   transition:
-    background-color var(--transition-fast),
-    color var(--transition-fast);
+    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu__submenu-link:hover,
 .menu__submenu-link:focus {
   background-color: var(--color-surface);
   color: var(--color-text);
+  outline: none;
 }
 
 /* Active Submenu Item - with accent border on left */
@@ -185,4 +191,5 @@
   height: 50%;
   background-color: var(--color-primary-600);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }

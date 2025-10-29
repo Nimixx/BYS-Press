@@ -56,20 +56,3 @@ add_action('admin_enqueue_scripts', function ($hook) {
         wp_deregister_script('heartbeat');
     }
 });
-
-/**
- * Reduce heartbeat frequency on post editor
- *
- * @since 1.0.0
- * @param array $settings Heartbeat settings
- * @param string $screenId Current screen ID
- * @return array Modified settings
- */
-add_filter('heartbeat_settings', function ($settings, $screenId) {
-    // On post editor, increase interval to reduce server load
-    if ($screenId === 'post') {
-        $settings['interval'] = 120; // Check every 2 minutes (instead of 15 seconds)
-    }
-
-    return $settings;
-}, 10, 2);

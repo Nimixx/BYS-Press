@@ -124,6 +124,28 @@ export function useMobileMenu(options: MobileMenuOptions = {}): MobileMenuReturn
   }
 
   /**
+   * Handle navigation with smooth menu close
+   * Provides visual feedback by closing menu before page navigation
+   *
+   * @param event - Click event from the link
+   * @param url - URL to navigate to
+   */
+  function handleNavigation(event: Event, url: string): void {
+    // Prevent default navigation
+    event.preventDefault();
+
+    // Close the menu with animation
+    closeMenu();
+
+    // Wait for close animation to complete (300ms from CSS)
+    // Add small buffer for smooth UX
+    setTimeout(() => {
+      // Navigate to the URL
+      window.location.href = url;
+    }, 350);
+  }
+
+  /**
    * Handle toggle event from MenuToggle
    */
   function handleToggle(event: Event): void {
@@ -179,5 +201,6 @@ export function useMobileMenu(options: MobileMenuOptions = {}): MobileMenuReturn
     isOpen,
     menuRef,
     closeMenu,
+    handleNavigation,
   };
 }

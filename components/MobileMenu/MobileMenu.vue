@@ -29,6 +29,7 @@
               :href="item.url"
               class="mobile-menu__link"
               :aria-current="item.current ? 'page' : undefined"
+              @click="handleNavigation($event, item.url)"
             >
               {{ item.title }}
             </a>
@@ -44,6 +45,7 @@
                   :href="child.url"
                   class="mobile-menu__submenu-link"
                   :aria-current="child.current ? 'page' : undefined"
+                  @click="handleNavigation($event, child.url)"
                 >
                   {{ child.title }}
                 </a>
@@ -74,8 +76,8 @@ const props = withDefaults(defineProps<MobileMenuProps>(), {
   items: () => [],
 });
 
-// Use composable for all business logic (including focus trap)
-const { isOpen, menuRef, closeMenu } = useMobileMenu({
+// Use composable for all business logic (including focus trap and navigation)
+const { isOpen, menuRef, closeMenu, handleNavigation } = useMobileMenu({
   initialOpen: props.isOpen,
   lockBodyScroll: true,
   enableFocusTrap: true,

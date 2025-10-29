@@ -26,3 +26,10 @@
   align-items: center;
   gap: var(--space-4);
 }
+
+/* Hide MenuToggle Vue wrapper on desktop */
+@media (min-width: 769px) {
+  .header-bar__navigation [data-vue-component='MenuToggle'] {
+    display: none;
+  }
+}

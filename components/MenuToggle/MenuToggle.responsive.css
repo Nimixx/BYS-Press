@@ -2,10 +2,17 @@
  * MenuToggle Component - Responsive Styles
  *
  * Breakpoint-specific styles for the hamburger menu toggle
+ * Hides both the Vue wrapper and the button on desktop
  */
 
 /* Hide on desktop */
 @media (min-width: 769px) {
+  /* Hide the Vue component wrapper */
+  [data-vue-component='MenuToggle'] {
+    display: none !important;
+  }
+
+  /* Hide the button itself (in case it's accessed directly) */
   .menu-toggle {
     display: none;
   }

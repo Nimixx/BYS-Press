@@ -53,7 +53,9 @@
 
 .menu__link:hover,
 .menu__link:focus {
-  color: var(--color-text-muted);
+  background-color: var(--color-neutral-100);
+  color: var(--color-text);
+  outline: none;
 }
 
 .menu__link--trigger:focus-visible {
@@ -118,7 +120,7 @@
   min-width: 200px;
   list-style: none;
   margin: 0;
-  padding: var(--space-2) 0;
+  padding: var(--space-2);
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -161,15 +163,19 @@
   font-size: var(--text-sm);
   color: var(--color-text);
   text-decoration: none;
+  border-radius: var(--radius-sm);
+  margin: 0 var(--space-1);
   transition:
     background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    padding-left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu__submenu-link:hover,
 .menu__submenu-link:focus {
-  background-color: var(--color-surface);
+  background-color: var(--color-neutral-100);
   color: var(--color-text);
+  padding-left: var(--space-5);
   outline: none;
 }
 
@@ -178,13 +184,14 @@
 .menu__submenu-link[aria-current="page"] {
   color: var(--color-primary-600);
   background-color: var(--color-primary-50);
+  padding-left: var(--space-5);
 }
 
 .menu__submenu-item--active > .menu__submenu-link::before,
 .menu__submenu-link[aria-current="page"]::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: var(--space-1);
   top: 50%;
   transform: translateY(-50%);
   width: 3px;

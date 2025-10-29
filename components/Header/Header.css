@@ -16,7 +16,7 @@
 }
 
 .site-header__container {
-  max-width: var(--container-2xl);
+  max-width: var(--container-xl);
   margin: 0 auto;
   height: 100%;
   display: flex;

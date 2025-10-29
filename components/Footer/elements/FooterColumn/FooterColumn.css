@@ -1,0 +1,90 @@
+/**
+ * Footer Column Element
+ *
+ * Reusable footer column with title, links, or custom content
+ * Used for navigation columns and brand information
+ */
+
+/* Logo styling */
+.footer-column__logo {
+  margin-bottom: var(--space-4);
+}
+
+.footer-column__logo .site-logo {
+  display: inline-block;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-column__logo .site-logo:hover,
+.footer-column__logo .site-logo:focus {
+  opacity: 0.8;
+  outline: none;
+}
+
+.footer-column__logo .site-logo img {
+  display: block;
+  max-height: 40px;
+  width: auto;
+}
+
+.footer-column__logo .site-name {
+  display: inline-block;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-column__logo .site-name:hover,
+.footer-column__logo .site-name:focus {
+  color: var(--color-primary-600);
+  outline: none;
+}
+
+.footer-column__title {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+}
+
+.footer-column__content {
+  margin: 0;
+}
+
+.footer-column__description {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+/* Column List */
+.footer-column__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footer-column__item {
+  margin: 0;
+}
+
+.footer-column__link {
+  display: inline-block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-column__link:hover,
+.footer-column__link:focus {
+  color: var(--color-primary-600);
+  outline: none;
+}

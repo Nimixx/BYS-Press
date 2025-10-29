@@ -57,7 +57,7 @@
 
           {# Social Links (if provided) #}
           {% if social_links %}
-            {% include 'components/Footer/elements/FooterSocial.twig' with {
+            {% include 'components/Footer/elements/FooterSocial/FooterSocial.twig' with {
               social_links: social_links
             } %}
           {% endif %}
@@ -66,11 +66,11 @@
         {# Dynamic Columns (2-5) #}
         {% if columns %}
           {% for column in columns|slice(0, 4) %}
-            {% include 'components/Footer/elements/FooterColumn.twig' with column %}
+            {% include 'components/Footer/elements/FooterColumn/FooterColumn.twig' with column %}
           {% endfor %}
         {% else %}
           {# Default columns if none provided #}
-          {% include 'components/Footer/elements/FooterColumn.twig' with {
+          {% include 'components/Footer/elements/FooterColumn/FooterColumn.twig' with {
             title: "Company",
             links: [
               { url: "/about", text: "About Us" },
@@ -80,7 +80,7 @@
             ]
           } %}
 
-          {% include 'components/Footer/elements/FooterColumn.twig' with {
+          {% include 'components/Footer/elements/FooterColumn/FooterColumn.twig' with {
             title: "Resources",
             links: [
               { url: "/blog", text: "Blog" },
@@ -90,7 +90,7 @@
             ]
           } %}
 
-          {% include 'components/Footer/elements/FooterColumn.twig' with {
+          {% include 'components/Footer/elements/FooterColumn/FooterColumn.twig' with {
             title: "Legal",
             links: [
               { url: "/privacy", text: "Privacy Policy" },
@@ -105,7 +105,7 @@
   </div>
 
   {# Bottom Bar #}
-  {% include 'components/Footer/elements/FooterBottom.twig' with {
+  {% include 'components/Footer/elements/FooterBottom/FooterBottom.twig' with {
     site: site,
     copyright: copyright,
     links: bottom_links

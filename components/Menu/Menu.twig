@@ -1,14 +1,15 @@
 {#
   Menu Component - Desktop Only
 
-  Minimal desktop navigation menu
-  - Desktop: Horizontal menu with dropdown submenus
+  Accessible desktop navigation menu with dropdown support
+  - Desktop: Horizontal menu with click/hover dropdowns
   - Mobile: Hidden (replaced by MobileMenu Vue component)
-  Handles active states with aria-current attribute
+  - Parent items use <button> for accessibility
+  - Keyboard navigation supported (Escape, Arrow keys)
 
   @param {array} items - Menu items array with structure:
     - title: Menu item text
-    - url: Link URL
+    - url: Link URL (optional for parent items)
     - current: Boolean for active state
     - has_active_child: Boolean if any child is active
     - children: Array of child items (optional)
@@ -18,23 +19,53 @@
   <ul class="menu__list">
     {% for item in items %}
       {% set is_active = item.current or item.has_active_child %}
-      <li class="menu__item{{ is_active ? ' menu__item--active' : '' }}{{ item.children ? ' menu__item--has-children' : '' }}">
-        <a
-          href="{{ item.url }}"
-          class="menu__link"
-          {% if is_active %}aria-current="page"{% endif %}
-        >
-          {{ item.title }}
-        </a>
+      {% set has_children = item.children and item.children|length > 0 %}
+      {% set item_id = 'menu-' ~ loop.index %}
 
-        {# Submenu support #}
-        {% if item.children %}
-          <ul class="menu__submenu">
+      <li
+        class="menu__item{{ is_active ? ' menu__item--active' : '' }}{{ has_children ? ' menu__item--has-children' : '' }}"
+        {% if has_children %}data-dropdown-item="{{ item_id }}"{% endif %}
+      >
+        {% if has_children %}
+          {# Parent item with dropdown - use button #}
+          <button
+            type="button"
+            class="menu__link menu__link--trigger"
+            data-dropdown-trigger="{{ item_id }}"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            {{ item.title }}
+            <span class="menu__link-icon" aria-hidden="true"></span>
+          </button>
+        {% else %}
+          {# Regular link item #}
+          <a
+            href="{{ item.url }}"
+            class="menu__link"
+            {% if is_active %}aria-current="page"{% endif %}
+          >
+            {{ item.title }}
+          </a>
+        {% endif %}
+
+        {# Submenu dropdown #}
+        {% if has_children %}
+          <ul
+            class="menu__submenu"
+            data-dropdown-id="{{ item_id }}"
+            role="menu"
+            aria-label="{{ item.title }} submenu"
+          >
             {% for child in item.children %}
-              <li class="menu__submenu-item{{ child.current ? ' menu__submenu-item--active' : '' }}">
+              <li
+                class="menu__submenu-item{{ child.current ? ' menu__submenu-item--active' : '' }}"
+                role="none"
+              >
                 <a
                   href="{{ child.url }}"
                   class="menu__submenu-link"
+                  role="menuitem"
                   {% if child.current %}aria-current="page"{% endif %}
                 >
                   {{ child.title }}

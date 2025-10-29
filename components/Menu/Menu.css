@@ -28,19 +28,60 @@
 
 /* Menu Link */
 .menu__link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   padding: var(--space-2) var(--space-3);
   font-size: var(--text-base);
   font-weight: var(--font-normal);
   color: var(--color-text);
   text-decoration: none;
-  transition: color var(--transition-fast);
   border-radius: var(--radius-sm);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+/* Button trigger styling */
+.menu__link--trigger {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .menu__link:hover,
 .menu__link:focus {
   color: var(--color-text-muted);
+}
+
+.menu__link--trigger:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Dropdown chevron icon */
+.menu__link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  transition: transform var(--transition-fast);
+}
+
+.menu__link-icon::after {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+}
+
+.is-open .menu__link-icon {
+  transform: rotate(180deg);
 }
 
 /* Active Menu Item */
@@ -73,8 +114,8 @@
   z-index: var(--z-dropdown);
 }
 
-/* Show submenu on hover */
-.menu__item--has-children:hover > .menu__submenu {
+/* Show submenu when open (click or hover) */
+.menu__item.is-open > .menu__submenu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);

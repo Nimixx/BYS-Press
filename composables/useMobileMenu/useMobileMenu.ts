@@ -1,29 +1,31 @@
 /**
  * MobileMenu Composable
  *
- * Reusable mobile menu logic for sidebar navigation.
- * Handles menu state, body scroll locking, focus trap, and event communication with MenuToggle.
+ * Orchestrates mobile menu functionality by composing smaller, focused composables.
+ * Handles menu state and event communication with MenuToggle.
  *
  * @module composables/useMobileMenu
  */
 
-import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue';
-import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { useBodyScrollLock } from './useBodyScrollLock';
+import { useMenuFocusTrap } from './useMenuFocusTrap';
+import { useMenuNavigation } from './useMenuNavigation';
 import type { MobileMenuOptions, MobileMenuReturn } from './useMobileMenu.types';
 
 /**
  * MobileMenu composable
  *
- * Manages mobile menu state, body scroll locking, focus trap for accessibility,
+ * Orchestrates mobile menu state, body scroll locking, focus trap, navigation,
  * and communication with MenuToggle component.
- * Uses custom DOM events for cross-component communication.
+ * Composes smaller, focused composables for clean separation of concerns.
  *
  * @param options - MobileMenu configuration options
  * @returns Mobile menu state, refs, and methods
  *
  * @example
  * ```ts
- * const { isOpen, menuRef, closeMenu } = useMobileMenu({
+ * const { isOpen, menuRef, closeMenu, handleNavigation } = useMobileMenu({
  *   initialOpen: false,
  *   lockBodyScroll: true,
  *   enableFocusTrap: true,
@@ -41,79 +43,25 @@ export function useMobileMenu(options: MobileMenuOptions = {}): MobileMenuReturn
     onClose,
   } = options;
 
-  // Internal state
+  // Menu state
   const isOpen = ref<boolean>(initialOpen);
-
-  // Menu element ref for focus trap
   const menuRef = ref<HTMLElement>();
 
-  /**
-   * Manage body scroll lock
-   */
-  function manageBodyScroll(lock: boolean): void {
-    if (lockBodyScroll) {
-      document.body.style.overflow = lock ? 'hidden' : '';
-    }
-  }
+  // Compose sub-composables for specific functionality
+  const { lockScroll, unlockScroll } = useBodyScrollLock({ enabled: lockBodyScroll });
+
+  const focusTrap = useMenuFocusTrap(menuRef, {
+    enabled: enableFocusTrap,
+    onEscapeDeactivate: () => closeMenu(),
+  });
 
   /**
-   * Setup focus trap for accessibility
-   */
-  let focusTrapActivate: (() => void) | null = null;
-  let focusTrapDeactivate: (() => void) | null = null;
-
-  if (enableFocusTrap) {
-    const { activate, deactivate } = useFocusTrap(menuRef, {
-      // Allow ESC key to close the menu
-      escapeDeactivates: true,
-      // Allow clicking outside to close (handled by overlay)
-      allowOutsideClick: true,
-      // Return focus to the toggle button when closing
-      returnFocusOnDeactivate: true,
-      // Focus the first link when menu opens
-      initialFocus: () => menuRef.value?.querySelector('.mobile-menu__link') as HTMLElement,
-      // Fallback focus to menu container if no links found
-      fallbackFocus: () => menuRef.value as HTMLElement,
-      // Handle ESC key to close menu
-      onDeactivate: () => {
-        closeMenu();
-      },
-    });
-
-    focusTrapActivate = activate;
-    focusTrapDeactivate = deactivate;
-  }
-
-  /**
-   * Activate focus trap with smooth timing
-   */
-  async function activateFocusTrap(): Promise<void> {
-    if (enableFocusTrap && focusTrapActivate) {
-      // Wait for the element to be rendered with v-if
-      await nextTick();
-      // Small delay to ensure transition starts smoothly
-      setTimeout(() => {
-        focusTrapActivate?.();
-      }, 50);
-    }
-  }
-
-  /**
-   * Deactivate focus trap
-   */
-  function deactivateFocusTrap(): void {
-    if (enableFocusTrap && focusTrapDeactivate) {
-      focusTrapDeactivate();
-    }
-  }
-
-  /**
-   * Close menu
+   * Close menu and clean up
    */
   function closeMenu(): void {
     isOpen.value = false;
-    manageBodyScroll(false);
-    deactivateFocusTrap();
+    unlockScroll();
+    focusTrap.deactivate();
 
     // Dispatch close event for MenuToggle to listen
     const event = new CustomEvent('mobile-menu-close');
@@ -123,27 +71,11 @@ export function useMobileMenu(options: MobileMenuOptions = {}): MobileMenuReturn
     onClose?.();
   }
 
-  /**
-   * Handle navigation with smooth menu close
-   * Provides visual feedback by closing menu before page navigation
-   *
-   * @param event - Click event from the link
-   * @param url - URL to navigate to
-   */
-  function handleNavigation(event: Event, url: string): void {
-    // Prevent default navigation
-    event.preventDefault();
-
-    // Close the menu with animation
-    closeMenu();
-
-    // Wait for close animation to complete (300ms from CSS)
-    // Add small buffer for smooth UX
-    setTimeout(() => {
-      // Navigate to the URL
-      window.location.href = url;
-    }, 350);
-  }
+  // Setup navigation handler
+  const { handleNavigation } = useMenuNavigation({
+    navigationDelay: 350,
+    onNavigate: () => closeMenu(),
+  });
 
   /**
    * Handle toggle event from MenuToggle
@@ -153,19 +85,15 @@ export function useMobileMenu(options: MobileMenuOptions = {}): MobileMenuReturn
     const newState = customEvent.detail.isOpen;
 
     isOpen.value = newState;
-    manageBodyScroll(newState);
 
-    // Handle focus trap
+    // Handle side effects based on state
     if (newState) {
-      void activateFocusTrap();
-    } else {
-      deactivateFocusTrap();
-    }
-
-    // Callbacks
-    if (newState) {
+      lockScroll();
+      void focusTrap.activate();
       onOpen?.();
     } else {
+      unlockScroll();
+      focusTrap.deactivate();
       onClose?.();
     }
   }
@@ -174,13 +102,13 @@ export function useMobileMenu(options: MobileMenuOptions = {}): MobileMenuReturn
    * Watch for state changes (if parent controls state via props)
    */
   watch(isOpen, (newValue) => {
-    manageBodyScroll(newValue);
-
-    // Handle focus trap activation/deactivation
+    // Sync body scroll and focus trap with state
     if (newValue) {
-      void activateFocusTrap();
+      lockScroll();
+      void focusTrap.activate();
     } else {
-      deactivateFocusTrap();
+      unlockScroll();
+      focusTrap.deactivate();
     }
   });
 
@@ -191,10 +119,7 @@ export function useMobileMenu(options: MobileMenuOptions = {}): MobileMenuReturn
 
   onUnmounted(() => {
     window.removeEventListener('mobile-menu-toggle', handleToggle);
-    // Clean up body scroll on unmount
-    manageBodyScroll(false);
-    // Clean up focus trap on unmount
-    deactivateFocusTrap();
+    // Sub-composables handle their own cleanup via onUnmounted
   });
 
   return {

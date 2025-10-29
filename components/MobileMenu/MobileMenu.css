@@ -12,23 +12,36 @@
 
 .mobile-menu-overlay {
   position: fixed;
-  top: 0;
+  top: var(--header-height);
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - var(--header-height));
   background-color: rgba(0, 0, 0, 0.5);
   z-index: var(--z-modal);
+
+  /* Performance optimizations */
+  will-change: opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Overlay transitions */
-.overlay-enter-active,
+/* Overlay transitions - Smooth fade coordinated with menu slide */
+.overlay-enter-active {
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .overlay-leave-active {
-  transition: opacity var(--transition-base);
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .overlay-enter-from,
 .overlay-leave-to {
   opacity: 0;
+}
+
+.overlay-enter-to,
+.overlay-leave-from {
+  opacity: 1;
 }
 
 /* ============================================
@@ -37,9 +50,9 @@
 
 .mobile-menu {
   position: fixed;
-  top: 0;
+  top: var(--header-height);
   right: 0;
-  height: 100vh;
+  height: calc(100vh - var(--header-height));
   width: 280px;
   max-width: 85vw;
   background: var(--color-bg);
@@ -47,18 +60,49 @@
   box-shadow: var(--shadow-lg);
   overflow-y: auto;
   z-index: calc(var(--z-modal) + 1);
-  padding: var(--space-16) var(--space-4) var(--space-4);
+  padding: var(--space-6) var(--space-4) var(--space-4);
+
+  /* Performance optimizations for smooth animation */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
-/* Slide transitions */
-.slide-enter-active,
+/* Slide transitions - Smooth and fluid slide from right */
+.slide-enter-active {
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .slide-leave-active {
-  transition: transform var(--transition-base) ease-in-out;
+  transition:
+    transform 0.3s cubic-bezier(0.7, 0, 0.84, 0),
+    opacity 0.3s cubic-bezier(0.7, 0, 0.84, 0);
 }
 
-.slide-enter-from,
+/* Starting position (off-screen right) and ending position when leaving */
+.slide-enter-from {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
 .slide-leave-to {
   transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Final position when entering and starting position when leaving */
+.slide-enter-to {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-leave-from {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 /* ============================================

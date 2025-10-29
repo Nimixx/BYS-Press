@@ -139,6 +139,9 @@
      LAYOUT
      ============================================ */
 
+  /* Header - Responsive height with clamp */
+  --header-height: clamp(60px, 5vw + 40px, 80px);
+
   /* Container */
   --container-sm: 640px;
   --container-md: 768px;

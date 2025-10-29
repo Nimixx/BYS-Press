@@ -49,6 +49,8 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@vueuse/integrations": "^14.0.0",
+    "focus-trap": "^7.6.6",
     "vue": "^3.5.22"
   }
 }

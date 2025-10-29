@@ -6,7 +6,14 @@
 
   <!-- Sidebar Menu -->
   <Transition name="slide">
-    <aside v-if="isOpen" class="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+    <aside
+      v-if="isOpen"
+      ref="menuRef"
+      class="mobile-menu"
+      role="navigation"
+      aria-label="Mobile Navigation"
+      aria-modal="true"
+    >
       <nav class="mobile-menu__nav">
         <ul class="mobile-menu__list">
           <li
@@ -54,11 +61,14 @@
  * MobileMenu Component
  *
  * Slide-in sidebar menu for mobile devices.
- * Includes overlay backdrop and Vue transitions.
+ * Includes overlay backdrop, Vue transitions, and focus trap for accessibility.
  * Uses useMobileMenu composable for business logic.
+ * Uses useFocusTrap for keyboard accessibility.
  *
  * @component MobileMenu
  */
+import { ref, watch, nextTick } from 'vue';
+import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import { useMobileMenu } from '../../composables/useMobileMenu';
 import type { MobileMenuProps } from './MobileMenu.types';
 
@@ -71,6 +81,41 @@ const props = withDefaults(defineProps<MobileMenuProps>(), {
 const { isOpen, closeMenu } = useMobileMenu({
   initialOpen: props.isOpen,
   lockBodyScroll: true,
+});
+
+// Create ref for the menu element
+const menuRef = ref<HTMLElement>();
+
+// Setup focus trap for accessibility
+const { activate, deactivate } = useFocusTrap(menuRef, {
+  // Allow ESC key to close the menu
+  escapeDeactivates: true,
+  // Allow clicking outside to close (handled by overlay)
+  allowOutsideClick: true,
+  // Return focus to the toggle button when closing
+  returnFocusOnDeactivate: true,
+  // Focus the first link when menu opens
+  initialFocus: () => menuRef.value?.querySelector('.mobile-menu__link') as HTMLElement,
+  // Fallback focus to menu container if no links found
+  fallbackFocus: () => menuRef.value as HTMLElement,
+  // Handle ESC key to close menu
+  onDeactivate: () => {
+    closeMenu();
+  },
+});
+
+// Watch isOpen state to activate/deactivate focus trap
+watch(isOpen, async (newValue) => {
+  if (newValue) {
+    // Wait for the element to be rendered with v-if
+    await nextTick();
+    // Small delay to ensure transition starts smoothly
+    setTimeout(() => {
+      activate();
+    }, 50);
+  } else {
+    deactivate();
+  }
 });
 
 // Expose methods

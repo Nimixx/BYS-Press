@@ -2,13 +2,14 @@
  * Menu Component
  *
  * Desktop navigation menu with accessible dropdowns.
- * Orchestrates dropdown state, keyboard navigation, and interactions.
+ * Orchestrates dropdown state, interactions, and security validation.
  *
  * @module components/Menu
  */
 
 import { DropdownState } from './dropdownState';
 import { DropdownInteraction } from './dropdownInteraction';
+import { MenuSecurity } from './menuSecurity';
 
 /**
  * Menu instance
@@ -29,6 +30,10 @@ class Menu {
    * Initialize menu functionality
    */
   private init(): void {
+    // Validate and sanitize all menu URLs for security
+    MenuSecurity.validateMenuLinks(this.element);
+
+    // Initialize interactions
     this.interaction.init();
   }
 

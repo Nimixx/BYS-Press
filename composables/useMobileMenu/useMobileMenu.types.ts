@@ -38,6 +38,6 @@ export interface MobileMenuReturn {
   menuRef: Ref<HTMLElement | undefined>;
   /** Close menu */
   closeMenu: () => void;
-  /** Handle navigation link click with smooth menu close */
-  handleNavigation: (event: Event, url: string) => void;
+  /** Handle navigation link click with smooth menu close and URL validation */
+  handleNavigation: (event: Event, url: string, context?: string) => void;
 }

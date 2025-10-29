@@ -34,6 +34,10 @@ return [
                 'title' => 'Consulting',
                 'url' => '/services/consulting',
             ],
+            [
+                'title' => 'SEO',
+                'url' => '/services/seo',
+            ],
         ],
     ],
     [

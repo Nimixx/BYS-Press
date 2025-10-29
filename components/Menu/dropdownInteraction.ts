@@ -14,6 +14,8 @@ import type { DropdownState } from './dropdownState';
  */
 export class DropdownInteraction {
   private hoverTimeout: number | null = null;
+  private mouseEnterHandlers = new Map<string, () => void>();
+  private mouseLeaveHandlers = new Map<string, () => void>();
 
   constructor(private state: DropdownState) {
     this.handleClick = this.handleClick.bind(this);
@@ -66,9 +68,7 @@ export class DropdownInteraction {
 
     const target = event.target as HTMLElement;
 
-    // Check if click is outside dropdown and trigger
-    const dropdown = document.querySelector(`[data-dropdown-id="${currentId}"]`);
-    const trigger = document.querySelector(`[data-dropdown-trigger="${currentId}"]`);
+    // Check if click is outside dropdown item
     const item = document.querySelector(`[data-dropdown-item="${currentId}"]`);
 
     const isOutside = item && !item.contains(target);
@@ -85,6 +85,8 @@ export class DropdownInteraction {
     // Setup click handlers for triggers
     const triggers = document.querySelectorAll('[data-dropdown-trigger]');
     triggers.forEach((trigger) => {
+      // Method is bound in constructor
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       trigger.addEventListener('click', this.handleClick);
     });
 
@@ -93,12 +95,19 @@ export class DropdownInteraction {
     items.forEach((item) => {
       const dropdownId = (item as HTMLElement).dataset.dropdownItem;
       if (dropdownId) {
-        item.addEventListener('mouseenter', () => this.handleMouseEnter(dropdownId));
-        item.addEventListener('mouseleave', () => this.handleMouseLeave(dropdownId));
+        const enterHandler = (): void => this.handleMouseEnter(dropdownId);
+        const leaveHandler = (): void => this.handleMouseLeave(dropdownId);
+
+        this.mouseEnterHandlers.set(dropdownId, enterHandler);
+        this.mouseLeaveHandlers.set(dropdownId, leaveHandler);
+
+        item.addEventListener('mouseenter', enterHandler);
+        item.addEventListener('mouseleave', leaveHandler);
       }
     });
 
-    // Setup click outside handler
+    // Setup click outside handler - method is bound in constructor
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     document.addEventListener('click', this.handleClickOutside);
   }
 
@@ -109,6 +118,8 @@ export class DropdownInteraction {
     // Clean up click handlers
     const triggers = document.querySelectorAll('[data-dropdown-trigger]');
     triggers.forEach((trigger) => {
+      // Method is bound in constructor
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       trigger.removeEventListener('click', this.handleClick);
     });
 
@@ -117,13 +128,25 @@ export class DropdownInteraction {
     items.forEach((item) => {
       const dropdownId = (item as HTMLElement).dataset.dropdownItem;
       if (dropdownId) {
-        item.removeEventListener('mouseenter', () => this.handleMouseEnter(dropdownId));
-        item.removeEventListener('mouseleave', () => this.handleMouseLeave(dropdownId));
+        const enterHandler = this.mouseEnterHandlers.get(dropdownId);
+        const leaveHandler = this.mouseLeaveHandlers.get(dropdownId);
+
+        if (enterHandler) {
+          item.removeEventListener('mouseenter', enterHandler);
+        }
+        if (leaveHandler) {
+          item.removeEventListener('mouseleave', leaveHandler);
+        }
       }
     });
 
-    // Clean up click outside
+    // Clean up click outside - method is bound in constructor
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     document.removeEventListener('click', this.handleClickOutside);
+
+    // Clear handler maps
+    this.mouseEnterHandlers.clear();
+    this.mouseLeaveHandlers.clear();
 
     // Clear any pending timeout
     if (this.hoverTimeout) {

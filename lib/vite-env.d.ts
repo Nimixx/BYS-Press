@@ -13,7 +13,8 @@ declare module '*.scss' {
 
 declare module '*.vue' {
   import type { DefineComponent } from 'vue';
-  const component: DefineComponent<{}, {}, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const component: DefineComponent<Record<string, never>, Record<string, never>, any>;
   export default component;
 }
 

@@ -5,7 +5,8 @@
   Fully responsive with minimal design
 
   @param {object} site - Timber Site object
-  @param {array} columns - Array of column data (max 5)
+  @param {object} logo - Logo object with url and alt (same as Header)
+  @param {array} columns - Array of column data (max 4)
   @param {array} social_links - Social media links
   @param {string} copyright - Copyright text
   @param {array} bottom_links - Links for bottom bar (Privacy, Terms, etc.)
@@ -30,13 +31,23 @@
   <div class="site-footer__main">
     <div class="site-footer__container">
 
-      {# 5-Column Grid #}
+      {# 5-Column Grid (First column spans 2) #}
       <div class="site-footer__grid">
 
-        {# First Column - Brand/About #}
+        {# First Column - Brand/About (Spans 2 columns on desktop) #}
         <div class="site-footer__brand">
           <div class="footer-column">
-            <h3 class="footer-column__title">{{ site.name }}</h3>
+            {# Dynamic Logo - Same as Header #}
+            <div class="footer-column__logo">
+              {% if logo %}
+                <a href="{{ site.url }}" class="site-logo">
+                  <img src="{{ logo.url }}" alt="{{ logo.alt }}">
+                </a>
+              {% else %}
+                <a href="{{ site.url }}" class="site-name">{{ site.name }}</a>
+              {% endif %}
+            </div>
+
             <div class="footer-column__content">
               <p class="footer-column__description">
                 {{ site.description ?: "Building amazing experiences on the web." }}
@@ -85,15 +96,6 @@
               { url: "/privacy", text: "Privacy Policy" },
               { url: "/terms", text: "Terms of Service" },
               { url: "/cookies", text: "Cookie Policy" }
-            ]
-          } %}
-
-          {% include 'components/Footer/elements/FooterColumn.twig' with {
-            title: "Connect",
-            links: [
-              { url: "/newsletter", text: "Newsletter" },
-              { url: "/events", text: "Events" },
-              { url: "/partners", text: "Partners" }
             ]
           } %}
         {% endif %}

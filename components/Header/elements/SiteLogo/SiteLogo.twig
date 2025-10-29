@@ -1,0 +1,21 @@
+{#
+  Site Logo Element
+
+  Reusable logo component for header and footer
+  Shows either image logo or site name text
+
+  @param {object} logo - Logo object with url and alt
+  @param {object} site - Timber Site object with url and name
+  @param {string} size - Optional size variant: 'header' (default) or 'footer'
+#}
+
+{% set logoSize = size|default('header') %}
+{% set logoClass = 'site-logo site-logo--' ~ logoSize %}
+
+{% if logo %}
+  <a href="{{ site.url }}" class="{{ logoClass }}">
+    <img src="{{ logo.url }}" alt="{{ logo.alt }}">
+  </a>
+{% else %}
+  <a href="{{ site.url }}" class="site-name site-name--{{ logoSize }}">{{ site.name }}</a>
+{% endif %}

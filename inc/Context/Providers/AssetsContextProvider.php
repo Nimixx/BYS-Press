@@ -64,6 +64,18 @@ class AssetsContextProvider implements ContextProviderInterface
                 ];
             }
 
+            // Add topbar configuration if enabled
+            if (
+                isset($assetsConfig['topbar']) &&
+                !empty($assetsConfig['topbar']['enabled'])
+            ) {
+                $context['topbar_phone'] = $assetsConfig['topbar']['phone'] ?? null;
+                $context['topbar_email'] = $assetsConfig['topbar']['email'] ?? null;
+                $context['topbar_message'] = $assetsConfig['topbar']['message'] ?? null;
+                $context['topbar_social_links'] =
+                    $assetsConfig['topbar']['social_links'] ?? null;
+            }
+
             // Store raw config for other uses
             $context['assets_config'] = $assetsConfig;
         } else {

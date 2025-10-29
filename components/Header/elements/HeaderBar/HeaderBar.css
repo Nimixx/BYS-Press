@@ -1,0 +1,28 @@
+/**
+ * Header Bar Element
+ *
+ * Main header bar container with logo and navigation
+ * Flexible layout with space between logo and navigation
+ * Matches Footer container pattern (max-width + padding on container)
+ */
+
+.header-bar__container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+  min-height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.header-bar__logo {
+  flex-shrink: 0;
+}
+
+.header-bar__navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}

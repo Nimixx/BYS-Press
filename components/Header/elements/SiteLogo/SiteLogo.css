@@ -1,0 +1,60 @@
+/**
+ * Site Logo Element
+ *
+ * Reusable logo component with variants for header and footer
+ * Supports both image logos and text-based site names
+ */
+
+/* Logo with Image */
+.site-logo {
+  display: block;
+  line-height: 1;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-logo:hover,
+.site-logo:focus {
+  opacity: 0.8;
+  outline: none;
+}
+
+.site-logo img {
+  display: block;
+  width: auto;
+}
+
+/* Header variant - smaller logo */
+.site-logo--header img {
+  max-height: 30px;
+}
+
+/* Footer variant - larger logo */
+.site-logo--footer img {
+  max-height: 40px;
+}
+
+/* Text-based Site Name */
+.site-name {
+  display: inline-block;
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-name:hover,
+.site-name:focus {
+  color: var(--color-primary-600);
+  outline: none;
+}
+
+/* Header variant - smaller text */
+.site-name--header {
+  font-size: var(--text-xl);
+}
+
+/* Footer variant - larger text */
+.site-name--footer {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+}

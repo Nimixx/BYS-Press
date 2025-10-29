@@ -1,0 +1,61 @@
+{#
+  Top Bar Element
+
+  Small bar above main header with additional information
+  (contact info, social links, announcements, etc.)
+
+  @param {array} social_links - Optional social media links
+  @param {string} phone - Optional phone number
+  @param {string} email - Optional email address
+  @param {string} message - Optional announcement message
+#}
+
+{% if social_links or phone or email or message %}
+  <div class="top-bar">
+    <div class="top-bar__container">
+      <div class="top-bar__left">
+        {% if message %}
+          <span class="top-bar__message">{{ message }}</span>
+        {% endif %}
+
+        {% if phone %}
+          <a href="tel:{{ phone }}" class="top-bar__link">
+            <span class="top-bar__icon">📞</span>
+            <span class="top-bar__text">{{ phone }}</span>
+          </a>
+        {% endif %}
+
+        {% if email %}
+          <a href="mailto:{{ email }}" class="top-bar__link">
+            <span class="top-bar__icon">✉️</span>
+            <span class="top-bar__text">{{ email }}</span>
+          </a>
+        {% endif %}
+      </div>
+
+      {% if social_links %}
+        <div class="top-bar__right">
+          <ul class="top-bar__social">
+            {% for link in social_links %}
+              <li class="top-bar__social-item">
+                <a
+                  href="{{ link.url }}"
+                  class="top-bar__social-link"
+                  aria-label="{{ link.label }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {% if link.icon %}
+                    {{ link.icon|raw }}
+                  {% else %}
+                    {{ link.name }}
+                  {% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

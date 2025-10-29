@@ -1,0 +1,123 @@
+/**
+ * Top Bar Element
+ *
+ * Small bar above main header with additional information
+ * Contact info, social links, or announcements
+ * Visible on all screen sizes
+ * Matches Footer container pattern (max-width + padding on container)
+ */
+
+.top-bar {
+  background: var(--color-neutral-50);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.top-bar__container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.top-bar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.top-bar__right {
+  display: flex;
+  align-items: center;
+}
+
+.top-bar__message {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.top-bar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.top-bar__link:hover,
+.top-bar__link:focus {
+  color: var(--color-primary-600);
+  outline: none;
+}
+
+.top-bar__icon {
+  font-size: var(--text-sm);
+  line-height: 1;
+}
+
+.top-bar__text {
+  font-size: var(--text-xs);
+  line-height: 1;
+}
+
+/* Social Links */
+.top-bar__social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.top-bar__social-item {
+  margin: 0;
+}
+
+.top-bar__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.top-bar__social-link:hover,
+.top-bar__social-link:focus {
+  color: var(--color-primary-600);
+  outline: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .top-bar__container {
+    padding: var(--space-2) var(--space-4);
+    gap: var(--space-2);
+  }
+
+  .top-bar__left {
+    gap: var(--space-3);
+  }
+
+  /* Hide text labels on very small screens, keep icons */
+  .top-bar__text {
+    display: none;
+  }
+
+  .top-bar__link {
+    gap: 0;
+  }
+
+  /* Keep message visible but make it smaller */
+  .top-bar__message {
+    font-size: 10px;
+  }
+}

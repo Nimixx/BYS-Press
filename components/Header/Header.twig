@@ -1,38 +1,37 @@
 {#
   Header Component
 
-  Main site header with logo and navigation menu
+  Complete header with optional top bar and main navigation
+  - TopBar: Small bar with contact info, social links (optional)
+  - HeaderBar: Main bar with logo and navigation
   - Desktop: Shows Menu.twig (horizontal menu)
   - Mobile: Shows MenuToggle Vue component + MobileMenu Vue component (sidebar)
   Menu items are pre-processed server-side with active states
+
+  @param {object} site - Timber Site object
+  @param {object} logo - Logo object with url and alt
+  @param {array} menu_items - Menu items array
+  @param {array} topbar_social_links - Optional social links for top bar
+  @param {string} topbar_phone - Optional phone number for top bar
+  @param {string} topbar_email - Optional email for top bar
+  @param {string} topbar_message - Optional message for top bar
 #}
 
 <header class="site-header" role="banner">
-  <div class="site-header__container">
-    <div class="site-header__logo">
-      {% if logo %}
-        <a href="{{ site.url }}" class="site-logo">
-          <img src="{{ logo.url }}" alt="{{ logo.alt }}">
-        </a>
-      {% else %}
-        <a href="{{ site.url }}" class="site-name">{{ site.name }}</a>
-      {% endif %}
-    </div>
+  {# Top Bar - Small bar with additional info (optional) #}
+  {% include 'components/Header/elements/TopBar/TopBar.twig' with {
+    social_links: topbar_social_links,
+    phone: topbar_phone,
+    email: topbar_email,
+    message: topbar_message
+  } %}
 
-    <div class="site-header__navigation">
-      {# Desktop Menu - Shows on desktop, hidden on mobile #}
-      {% if menu_items %}
-        {% include 'Menu/Menu.twig' with { items: menu_items } %}
-      {% endif %}
-
-      {# Mobile Menu Toggle - Vue Component (shows on mobile only) #}
-      <div
-        data-vue-component="MenuToggle"
-        data-props='{"isOpen": false}'
-        data-eager
-      ></div>
-    </div>
-  </div>
+  {# Header Bar - Main bar with Logo and Navigation #}
+  {% include 'components/Header/elements/HeaderBar/HeaderBar.twig' with {
+    site: site,
+    logo: logo,
+    menu_items: menu_items
+  } %}
 
   {# Mobile Menu Sidebar - Vue Component #}
   {% if menu_items %}

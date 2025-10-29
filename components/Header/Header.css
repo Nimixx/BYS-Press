@@ -1,60 +1,15 @@
 /**
- * Header Layout
+ * Header Component
  *
- * Main site header with logo and navigation
- * Uses fixed height from CSS token with clamp calculation
+ * Main site header with sticky positioning and dynamic height
+ * Contains TopBar (optional) and HeaderBar elements
+ * Element styles are in: elements/TopBar/, elements/HeaderBar/, and elements/SiteLogo/
  */
 
 .site-header {
-  height: var(--header-height);
-  padding: 0 var(--space-4);
   border-bottom: 1px solid var(--color-border);
   background: var(--color-bg);
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-}
-
-.site-header__container {
-  max-width: var(--container-xl);
-  margin: 0 auto;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-8);
-}
-
-.site-header__logo {
-  flex-shrink: 0;
-}
-
-.site-header__navigation {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.site-logo {
-  display: block;
-  line-height: 1;
-}
-
-.site-logo img {
-  display: block;
-  max-height: 30px;
-  width: auto;
-}
-
-.site-name {
-  font-size: var(--text-xl);
-  font-weight: var(--font-semibold);
-  color: var(--color-text);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.site-name:hover,
-.site-name:focus {
-  color: var(--color-text-muted);
 }

@@ -71,6 +71,7 @@
  */
 import { computed } from 'vue';
 import { useMobileMenu } from '../../composables/useMobileMenu';
+import { useHeaderHeight } from '../../composables/useHeaderHeight';
 import { sanitizeUrl, validateMenuUrl } from '../../lib/security/urlValidator';
 import type { MobileMenuProps, MenuItem } from './MobileMenu.types';
 
@@ -78,6 +79,9 @@ const props = withDefaults(defineProps<MobileMenuProps>(), {
   isOpen: false,
   items: () => [],
 });
+
+// Calculate and maintain dynamic header height
+useHeaderHeight();
 
 /**
  * Sanitize menu items recursively

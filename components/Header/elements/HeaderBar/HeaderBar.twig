@@ -1,0 +1,34 @@
+{#
+  Header Bar Element
+
+  Main header bar containing logo and navigation
+  Responsive layout with desktop menu and mobile toggle
+
+  @param {object} site - Timber Site object
+  @param {object} logo - Logo object with url and alt
+  @param {array} menu_items - Menu items array
+#}
+
+<div class="header-bar__container">
+  <div class="header-bar__logo">
+    {% include 'components/Header/elements/SiteLogo/SiteLogo.twig' with {
+      logo: logo,
+      site: site,
+      size: 'header'
+    } %}
+  </div>
+
+  <div class="header-bar__navigation">
+    {# Desktop Menu - Shows on desktop, hidden on mobile #}
+    {% if menu_items %}
+      {% include 'Menu/Menu.twig' with { items: menu_items } %}
+    {% endif %}
+
+    {# Mobile Menu Toggle - Vue Component (shows on mobile only) #}
+    <div
+      data-vue-component="MenuToggle"
+      data-props='{"isOpen": false}'
+      data-eager
+    ></div>
+  </div>
+</div>

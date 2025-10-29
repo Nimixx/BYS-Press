@@ -11,6 +11,7 @@ import { ref, watch, onMounted, onUnmounted } from 'vue';
 import { useBodyScrollLock } from './useBodyScrollLock';
 import { useMenuFocusTrap } from './useMenuFocusTrap';
 import { useMenuNavigation } from './useMenuNavigation';
+import { useResponsiveClose } from './useResponsiveClose';
 import type { MobileMenuOptions, MobileMenuReturn } from './useMobileMenu.types';
 
 /**
@@ -39,6 +40,8 @@ export function useMobileMenu(options: MobileMenuOptions = {}): MobileMenuReturn
     initialOpen = false,
     lockBodyScroll = true,
     enableFocusTrap = true,
+    enableResponsiveClose = true,
+    desktopBreakpoint = 769,
     onOpen,
     onClose,
   } = options;
@@ -76,6 +79,19 @@ export function useMobileMenu(options: MobileMenuOptions = {}): MobileMenuReturn
     navigationDelay: 350,
     onNavigate: () => closeMenu(),
   });
+
+  // Setup responsive close - auto-close menu when switching to desktop view
+  if (enableResponsiveClose) {
+    useResponsiveClose({
+      breakpoint: desktopBreakpoint,
+      onDesktopView: () => {
+        // Only close if menu is currently open
+        if (isOpen.value) {
+          closeMenu();
+        }
+      },
+    });
+  }
 
   /**
    * Handle toggle event from MenuToggle

@@ -7,7 +7,7 @@
  * @module composables/useMobileMenu/useMenuFocusTrap
  */
 
-import { ref, nextTick, onUnmounted } from 'vue';
+import { nextTick, onUnmounted } from 'vue';
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import type { Ref } from 'vue';
 

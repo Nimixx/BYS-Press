@@ -18,6 +18,10 @@ export interface MobileMenuOptions {
   lockBodyScroll?: boolean;
   /** Enable focus trap for accessibility (default: true) */
   enableFocusTrap?: boolean;
+  /** Enable auto-close on desktop view (default: true) */
+  enableResponsiveClose?: boolean;
+  /** Desktop breakpoint in pixels (default: 769) */
+  desktopBreakpoint?: number;
   /** Callback when menu is opened */
   onOpen?: () => void;
   /** Callback when menu is closed */

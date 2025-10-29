@@ -41,6 +41,13 @@ class Theme
     private TimberConfig $timberConfig;
 
     /**
+     * Utilities manager instance
+     *
+     * @var UtilitiesManager
+     */
+    private UtilitiesManager $utilitiesManager;
+
+    /**
      * Constructor with dependency injection
      *
      * @since 1.0.0
@@ -48,18 +55,21 @@ class Theme
      * @param Assets|null $assets
      * @param Security|null $security
      * @param TimberConfig|null $timberConfig
+     * @param UtilitiesManager|null $utilitiesManager
      */
     public function __construct(
         ?ThemeSetup $themeSetup = null,
         ?Assets $assets = null,
         ?Security $security = null,
         ?TimberConfig $timberConfig = null,
+        ?UtilitiesManager $utilitiesManager = null,
     ) {
         $this->themeSetup = $themeSetup ?? new ThemeSetup();
         $this->assets = $assets ?? new Assets();
         $this->security = $security ?? new Security();
         $this->timberConfig =
             $timberConfig ?? new TimberConfig(['components', 'layouts', 'pages'], $this->security);
+        $this->utilitiesManager = $utilitiesManager ?? new UtilitiesManager();
     }
 
     /**
@@ -72,6 +82,9 @@ class Theme
      */
     public function boot(): void
     {
+        // Load utilities first (they might be needed by other components)
+        $this->utilitiesManager->init();
+
         // Initialize security first to generate nonce
         $this->security->init();
 
@@ -127,5 +140,16 @@ class Theme
     public function getTimberConfig(): TimberConfig
     {
         return $this->timberConfig;
+    }
+
+    /**
+     * Get utilities manager instance
+     *
+     * @since 1.0.0
+     * @return UtilitiesManager
+     */
+    public function getUtilitiesManager(): UtilitiesManager
+    {
+        return $this->utilitiesManager;
     }
 }

@@ -1,0 +1,35 @@
+{#
+  Footer Social Links Element
+
+  Social media icons/links
+
+  @param {array} social_links - Array of social link objects:
+    - url: Social media URL
+    - icon: Icon name or SVG
+    - label: Accessible label (e.g., "Facebook")
+    - name: Social network name
+#}
+
+{% if social_links %}
+  <div class="footer-social">
+    <h3 class="footer-social__title">Follow Us</h3>
+    <ul class="footer-social__list">
+      {% for link in social_links %}
+        <li class="footer-social__item">
+          <a
+            href="{{ link.url }}"
+            class="footer-social__link"
+            aria-label="{{ link.label }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {% if link.icon %}
+              <span class="footer-social__icon">{{ link.icon|raw }}</span>
+            {% endif %}
+            <span class="footer-social__name">{{ link.name }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

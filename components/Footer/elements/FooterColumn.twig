@@ -1,0 +1,32 @@
+{#
+  Footer Column Element
+
+  Reusable footer column with title and content
+
+  @param {string} title - Column title/heading
+  @param {string} content - Column content (HTML)
+  @param {array} links - Optional array of link objects with 'url' and 'text'
+  @param {string} modifier - Optional CSS modifier class
+#}
+
+<div class="footer-column{{ modifier ? ' footer-column--' ~ modifier : '' }}">
+  {% if title %}
+    <h3 class="footer-column__title">{{ title }}</h3>
+  {% endif %}
+
+  <div class="footer-column__content">
+    {% if links %}
+      <ul class="footer-column__list">
+        {% for link in links %}
+          <li class="footer-column__item">
+            <a href="{{ link.url }}" class="footer-column__link">
+              {{ link.text }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% elseif content %}
+      {{ content|raw }}
+    {% endif %}
+  </div>
+</div>

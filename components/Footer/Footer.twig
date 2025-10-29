@@ -1,15 +1,111 @@
 {#
   Footer Component
 
-  Site footer with copyright information
+  Modern 5-column grid footer layout with nested elements
+  Fully responsive with minimal design
 
   @param {object} site - Timber Site object
+  @param {array} columns - Array of column data (max 5)
+  @param {array} social_links - Social media links
+  @param {string} copyright - Copyright text
+  @param {array} bottom_links - Links for bottom bar (Privacy, Terms, etc.)
+
+  Example columns structure:
+  [
+    {
+      title: "Company",
+      links: [
+        { url: "/about", text: "About Us" },
+        { url: "/contact", text: "Contact" }
+      ]
+    },
+    {
+      title: "Custom Content",
+      content: "<p>Your custom HTML content</p>"
+    }
+  ]
 #}
 
 <footer class="site-footer" role="contentinfo">
-  <div class="site-footer__container">
-    <p class="site-footer__copyright">
-      &copy; {{ "now"|date("Y") }} {{ site.name }}. All rights reserved.
-    </p>
+  <div class="site-footer__main">
+    <div class="site-footer__container">
+
+      {# 5-Column Grid #}
+      <div class="site-footer__grid">
+
+        {# First Column - Brand/About #}
+        <div class="site-footer__brand">
+          <div class="footer-column">
+            <h3 class="footer-column__title">{{ site.name }}</h3>
+            <div class="footer-column__content">
+              <p class="footer-column__description">
+                {{ site.description ?: "Building amazing experiences on the web." }}
+              </p>
+            </div>
+          </div>
+
+          {# Social Links (if provided) #}
+          {% if social_links %}
+            {% include 'components/Footer/elements/FooterSocial.twig' with {
+              social_links: social_links
+            } %}
+          {% endif %}
+        </div>
+
+        {# Dynamic Columns (2-5) #}
+        {% if columns %}
+          {% for column in columns|slice(0, 4) %}
+            {% include 'components/Footer/elements/FooterColumn.twig' with column %}
+          {% endfor %}
+        {% else %}
+          {# Default columns if none provided #}
+          {% include 'components/Footer/elements/FooterColumn.twig' with {
+            title: "Company",
+            links: [
+              { url: "/about", text: "About Us" },
+              { url: "/team", text: "Our Team" },
+              { url: "/careers", text: "Careers" },
+              { url: "/contact", text: "Contact" }
+            ]
+          } %}
+
+          {% include 'components/Footer/elements/FooterColumn.twig' with {
+            title: "Resources",
+            links: [
+              { url: "/blog", text: "Blog" },
+              { url: "/docs", text: "Documentation" },
+              { url: "/support", text: "Support" },
+              { url: "/faq", text: "FAQ" }
+            ]
+          } %}
+
+          {% include 'components/Footer/elements/FooterColumn.twig' with {
+            title: "Legal",
+            links: [
+              { url: "/privacy", text: "Privacy Policy" },
+              { url: "/terms", text: "Terms of Service" },
+              { url: "/cookies", text: "Cookie Policy" }
+            ]
+          } %}
+
+          {% include 'components/Footer/elements/FooterColumn.twig' with {
+            title: "Connect",
+            links: [
+              { url: "/newsletter", text: "Newsletter" },
+              { url: "/events", text: "Events" },
+              { url: "/partners", text: "Partners" }
+            ]
+          } %}
+        {% endif %}
+
+      </div>
+    </div>
   </div>
+
+  {# Bottom Bar #}
+  {% include 'components/Footer/elements/FooterBottom.twig' with {
+    site: site,
+    copyright: copyright,
+    links: bottom_links
+  } %}
 </footer>

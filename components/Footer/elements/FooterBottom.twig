@@ -1,0 +1,37 @@
+{#
+  Footer Bottom Element
+
+  Bottom bar with copyright and optional links
+
+  @param {string} copyright - Copyright text
+  @param {array} links - Optional array of link objects with 'url' and 'text'
+  @param {object} site - Timber Site object
+#}
+
+<div class="footer-bottom">
+  <div class="footer-bottom__container">
+    <div class="footer-bottom__copyright">
+      <p>
+        {% if copyright %}
+          {{ copyright|raw }}
+        {% else %}
+          &copy; {{ "now"|date("Y") }} {{ site.name }}. All rights reserved.
+        {% endif %}
+      </p>
+    </div>
+
+    {% if links %}
+      <nav class="footer-bottom__nav" aria-label="Footer Bottom Navigation">
+        <ul class="footer-bottom__list">
+          {% for link in links %}
+            <li class="footer-bottom__item">
+              <a href="{{ link.url }}" class="footer-bottom__link">
+                {{ link.text }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+</div>

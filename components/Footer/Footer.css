@@ -1,8 +1,13 @@
 /**
- * Site Footer
+ * Footer Component - Modern 5-Column Grid
  *
- * Minimal footer design using light theme tokens
+ * Minimal, responsive footer design with nested elements
+ * Mobile-first approach with progressive enhancement
  */
+
+/* ============================================
+   FOOTER MAIN
+   ============================================ */
 
 .site-footer {
   margin-top: auto;
@@ -10,49 +15,270 @@
   border-top: 1px solid var(--color-border);
 }
 
+.site-footer__main {
+  padding: var(--space-16) 0 var(--space-12);
+}
+
 .site-footer__container {
   max-width: var(--container-xl);
   margin: 0 auto;
-  padding: var(--space-6);
-  text-align: center;
+  padding: 0 var(--space-4);
 }
 
-.site-footer__copyright {
+/* ============================================
+   GRID LAYOUT - 5 Columns
+   ============================================ */
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 640px) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+  }
+
+  .site-footer__brand {
+    grid-column: span 2;
+  }
+}
+
+/* Desktop: 5 columns */
+@media (min-width: 1024px) {
+  .site-footer__grid {
+    grid-template-columns: 1.5fr repeat(4, 1fr);
+    gap: var(--space-10);
+  }
+
+  .site-footer__brand {
+    grid-column: span 1;
+  }
+}
+
+/* ============================================
+   BRAND COLUMN
+   ============================================ */
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ============================================
+   FOOTER COLUMN ELEMENT
+   ============================================ */
+
+.footer-column__title {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+}
+
+.footer-column__content {
+  margin: 0;
+}
+
+.footer-column__description {
   margin: 0;
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   line-height: var(--leading-relaxed);
 }
 
-/**
- * Optional Footer Navigation
- */
-.site-footer__navigation {
-  margin-bottom: var(--space-4);
-}
-
-.site-footer__menu {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+/* Column List */
+.footer-column__list {
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
-.site-footer__menu li {
+.footer-column__item {
   margin: 0;
 }
 
-.site-footer__menu a {
+.footer-column__link {
+  display: inline-block;
+  font-size: var(--text-sm);
   color: var(--color-text-muted);
   text-decoration: none;
-  font-size: var(--text-sm);
-  transition: color var(--transition-fast);
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.site-footer__menu a:hover,
-.site-footer__menu a:focus {
+.footer-column__link:hover,
+.footer-column__link:focus {
   color: var(--color-text);
+  outline: none;
+}
+
+/* ============================================
+   SOCIAL LINKS ELEMENT
+   ============================================ */
+
+.footer-social {
+  margin-top: var(--space-6);
+}
+
+.footer-social__title {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+}
+
+.footer-social__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.footer-social__item {
+  margin: 0;
+}
+
+.footer-social__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  transition:
+    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-social__link:hover,
+.footer-social__link:focus {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text);
+  outline: none;
+}
+
+.footer-social__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.footer-social__name {
+  font-size: var(--text-sm);
+}
+
+/* Hide name on small screens, show only icon */
+@media (max-width: 639px) {
+  .footer-social__name {
+    display: none;
+  }
+}
+
+/* ============================================
+   FOOTER BOTTOM
+   ============================================ */
+
+.footer-bottom {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.footer-bottom__container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.footer-bottom__copyright {
+  margin: 0;
+}
+
+.footer-bottom__copyright p {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: var(--leading-relaxed);
+}
+
+/* Bottom Navigation */
+.footer-bottom__nav {
+  width: 100%;
+}
+
+.footer-bottom__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.footer-bottom__item {
+  margin: 0;
+}
+
+.footer-bottom__link {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-bottom__link:hover,
+.footer-bottom__link:focus {
+  color: var(--color-text);
+  outline: none;
+}
+
+/* Desktop: Horizontal layout */
+@media (min-width: 768px) {
+  .footer-bottom__container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom__copyright p {
+    text-align: left;
+  }
+
+  .footer-bottom__nav {
+    width: auto;
+  }
+
+  .footer-bottom__list {
+    justify-content: flex-end;
+  }
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+/* Optional: Accent hover for specific links */
+.footer-column__link--accent:hover,
+.footer-column__link--accent:focus {
+  color: var(--color-primary-600);
 }

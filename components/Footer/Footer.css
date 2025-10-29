@@ -153,7 +153,7 @@
 
 .footer-column__link:hover,
 .footer-column__link:focus {
-  color: var(--color-text);
+  color: var(--color-primary-600);
   outline: none;
 }
 
@@ -203,7 +203,7 @@
 .footer-social__link:hover,
 .footer-social__link:focus {
   background-color: var(--color-neutral-100);
-  color: var(--color-text);
+  color: var(--color-primary-600);
   outline: none;
 }
 
@@ -285,7 +285,7 @@
 
 .footer-bottom__link:hover,
 .footer-bottom__link:focus {
-  color: var(--color-text);
+  color: var(--color-primary-600);
   outline: none;
 }
 

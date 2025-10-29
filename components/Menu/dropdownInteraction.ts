@@ -2,7 +2,7 @@
  * Dropdown Interaction Module
  *
  * Handles click, hover, and click-outside interactions for dropdowns.
- * Provides unified interface for both interaction types.
+ * Uses event delegation for optimal performance.
  *
  * @module components/Menu/dropdownInteraction
  */
@@ -10,16 +10,18 @@
 import type { DropdownState } from './dropdownState';
 
 /**
- * Dropdown interaction handler
+ * Dropdown interaction handler with event delegation
  */
 export class DropdownInteraction {
   private hoverTimeout: number | null = null;
-  private mouseEnterHandlers = new Map<string, () => void>();
-  private mouseLeaveHandlers = new Map<string, () => void>();
+  private menuElement: HTMLElement | null = null;
+  private currentHoveredItem: string | null = null;
 
   constructor(private state: DropdownState) {
     this.handleClick = this.handleClick.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOut = this.handleMouseOut.bind(this);
   }
 
   /**
@@ -37,26 +39,75 @@ export class DropdownInteraction {
   }
 
   /**
-   * Handle mouse enter on dropdown item
+   * Find dropdown item from event target
+   * Traverses up the DOM tree to find [data-dropdown-item]
    */
-  private handleMouseEnter(dropdownId: string): void {
-    // Clear any pending hover timeout
-    if (this.hoverTimeout) {
-      window.clearTimeout(this.hoverTimeout);
-      this.hoverTimeout = null;
+  private findDropdownItem(target: EventTarget | null): HTMLElement | null {
+    if (!target || !(target instanceof HTMLElement)) return null;
+
+    // Check if target itself is a dropdown item
+    if (target.dataset.dropdownItem) {
+      return target;
     }
 
-    this.state.open(dropdownId);
+    // Traverse up to find dropdown item (but stop at menu container)
+    let element = target.parentElement;
+    while (element && element !== this.menuElement) {
+      if (element.dataset.dropdownItem) {
+        return element;
+      }
+      element = element.parentElement;
+    }
+
+    return null;
   }
 
   /**
-   * Handle mouse leave on dropdown item
+   * Handle mouse over with event delegation
+   * Uses mouseover (bubbles) instead of mouseenter (doesn't bubble)
    */
-  private handleMouseLeave(dropdownId: string): void {
-    // Delay closing to allow moving to submenu
-    this.hoverTimeout = window.setTimeout(() => {
-      this.state.close(dropdownId);
-    }, 150);
+  private handleMouseOver(event: MouseEvent): void {
+    const dropdownItem = this.findDropdownItem(event.target);
+    const dropdownId = dropdownItem?.dataset.dropdownItem;
+
+    // If we're hovering over a dropdown item
+    if (dropdownId) {
+      // Only process if it's a different item than currently hovered
+      if (dropdownId !== this.currentHoveredItem) {
+        // Clear any pending close timeout
+        if (this.hoverTimeout) {
+          window.clearTimeout(this.hoverTimeout);
+          this.hoverTimeout = null;
+        }
+
+        this.currentHoveredItem = dropdownId;
+        this.state.open(dropdownId);
+      }
+    }
+  }
+
+  /**
+   * Handle mouse out with event delegation
+   * Uses mouseout (bubbles) instead of mouseleave (doesn't bubble)
+   */
+  private handleMouseOut(event: MouseEvent): void {
+    const dropdownItem = this.findDropdownItem(event.target);
+    const dropdownId = dropdownItem?.dataset.dropdownItem;
+
+    if (!dropdownId) return;
+
+    // Check if relatedTarget (where mouse is going) is outside the dropdown item
+    const relatedTarget = event.relatedTarget as HTMLElement | null;
+    const isLeavingDropdown = !dropdownItem.contains(relatedTarget);
+
+    if (isLeavingDropdown) {
+      this.currentHoveredItem = null;
+
+      // Delay closing to allow moving to submenu
+      this.hoverTimeout = window.setTimeout(() => {
+        this.state.close(dropdownId);
+      }, 150);
+    }
   }
 
   /**
@@ -79,10 +130,14 @@ export class DropdownInteraction {
   }
 
   /**
-   * Initialize interaction handlers
+   * Initialize interaction handlers with event delegation
    */
   init(): void {
-    // Setup click handlers for triggers
+    // Get menu container
+    this.menuElement = document.querySelector('.menu');
+    if (!this.menuElement) return;
+
+    // Setup click handlers for triggers (still need individual listeners for click events)
     const triggers = document.querySelectorAll('[data-dropdown-trigger]');
     triggers.forEach((trigger) => {
       // Method is bound in constructor
@@ -90,21 +145,12 @@ export class DropdownInteraction {
       trigger.addEventListener('click', this.handleClick);
     });
 
-    // Setup hover handlers for dropdown items
-    const items = document.querySelectorAll('[data-dropdown-item]');
-    items.forEach((item) => {
-      const dropdownId = (item as HTMLElement).dataset.dropdownItem;
-      if (dropdownId) {
-        const enterHandler = (): void => this.handleMouseEnter(dropdownId);
-        const leaveHandler = (): void => this.handleMouseLeave(dropdownId);
-
-        this.mouseEnterHandlers.set(dropdownId, enterHandler);
-        this.mouseLeaveHandlers.set(dropdownId, leaveHandler);
-
-        item.addEventListener('mouseenter', enterHandler);
-        item.addEventListener('mouseleave', leaveHandler);
-      }
-    });
+    // Setup hover handlers using event delegation (2 listeners instead of N*2)
+    // Methods are bound in constructor
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    this.menuElement.addEventListener('mouseover', this.handleMouseOver);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    this.menuElement.addEventListener('mouseout', this.handleMouseOut);
 
     // Setup click outside handler - method is bound in constructor
     // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -123,34 +169,27 @@ export class DropdownInteraction {
       trigger.removeEventListener('click', this.handleClick);
     });
 
-    // Clean up hover handlers
-    const items = document.querySelectorAll('[data-dropdown-item]');
-    items.forEach((item) => {
-      const dropdownId = (item as HTMLElement).dataset.dropdownItem;
-      if (dropdownId) {
-        const enterHandler = this.mouseEnterHandlers.get(dropdownId);
-        const leaveHandler = this.mouseLeaveHandlers.get(dropdownId);
-
-        if (enterHandler) {
-          item.removeEventListener('mouseenter', enterHandler);
-        }
-        if (leaveHandler) {
-          item.removeEventListener('mouseleave', leaveHandler);
-        }
-      }
-    });
+    // Clean up delegated hover handlers
+    if (this.menuElement) {
+      // Methods are bound in constructor
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      this.menuElement.removeEventListener('mouseover', this.handleMouseOver);
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      this.menuElement.removeEventListener('mouseout', this.handleMouseOut);
+    }
 
     // Clean up click outside - method is bound in constructor
     // eslint-disable-next-line @typescript-eslint/unbound-method
     document.removeEventListener('click', this.handleClickOutside);
 
-    // Clear handler maps
-    this.mouseEnterHandlers.clear();
-    this.mouseLeaveHandlers.clear();
+    // Clear state
+    this.menuElement = null;
+    this.currentHoveredItem = null;
 
     // Clear any pending timeout
     if (this.hoverTimeout) {
       window.clearTimeout(this.hoverTimeout);
+      this.hoverTimeout = null;
     }
   }
 }

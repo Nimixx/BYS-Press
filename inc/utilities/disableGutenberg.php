@@ -4,7 +4,7 @@
  *
  * Disables the Gutenberg block editor and restores the classic editor
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

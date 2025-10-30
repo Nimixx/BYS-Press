@@ -1,5 +1,5 @@
 {
-  "name": "core-theme",
+  "name": "bys-press",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -25,9 +25,9 @@
     "check": "npm run lint && npm run format:check"
   },
   "keywords": ["wordpress", "theme", "timber", "vite", "typescript", "vue3", "modern"],
-  "author": "Core Theme Contributors",
+  "author": "BYS Press Contributors",
   "license": "0BSD",
-  "description": "Modern WordPress theme with Timber, Vite, TypeScript, and Vue 3",
+  "description": "BYS Press - Modern WordPress theme with Timber, Vite, TypeScript, and Vue 3",
   "devDependencies": {
     "@kucrut/vite-for-wp": "^0.12.0",
     "@prettier/plugin-php": "^0.24.0",

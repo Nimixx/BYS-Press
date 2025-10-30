@@ -5,7 +5,7 @@
  * Adds modern security headers that complement the main HeaderSecurity class
  * These headers provide defense-in-depth protection
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

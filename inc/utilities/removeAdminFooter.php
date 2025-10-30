@@ -4,7 +4,7 @@
  *
  * Removes and customizes admin footer text for a cleaner admin interface
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

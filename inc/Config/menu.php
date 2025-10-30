@@ -5,7 +5,7 @@
  * Defines the primary navigation menu structure for the theme.
  * This configuration is loaded into the Timber context and used in Header component.
  *
- * @package CoreTheme\Config
+ * @package BYSPress\Config
  * @since 1.0.0
  */
 

@@ -16,7 +16,7 @@
  *
  * NOTE: Dashicons will still load for logged-in users (for admin bar)
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

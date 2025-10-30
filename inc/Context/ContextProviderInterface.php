@@ -5,11 +5,11 @@
  * Defines the contract for context providers that add data to Timber context.
  * Each provider is responsible for one specific aspect of the global context.
  *
- * @package CoreTheme\Context
+ * @package BYSPress\Context
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context;
+namespace BYSPress\Context;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

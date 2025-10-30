@@ -4,7 +4,7 @@
  *
  * This template is used for the front page of the site
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 
@@ -13,10 +13,10 @@ if (!defined('ABSPATH')) {
     exit();
 }
 
-use CoreTheme\Components\Alert;
+use BYSPress\Components\Alert;
 
 $context = Timber::context();
-$context['theme_name'] = 'Core Theme';
+$context['theme_name'] = 'BYS Press';
 $context['description'] = 'This is modern WordPress theme built with';
 $context['tech_stack'] = ['PHP', 'Timber', 'Twig', 'Vite', 'TypeScript', 'CSS framework'];
 

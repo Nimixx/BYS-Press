@@ -8,7 +8,7 @@
  * NOTE: Test thoroughly after enabling this!
  * If you see JavaScript errors in console, you may need to disable this utility
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

@@ -8,11 +8,11 @@
  * - XML-RPC blocking
  * - Version information hiding
  *
- * @package CoreTheme\Security
+ * @package BYSPress\Security
  * @since 1.0.0
  */
 
-namespace CoreTheme\Security;
+namespace BYSPress\Security;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

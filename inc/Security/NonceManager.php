@@ -4,11 +4,11 @@
  *
  * Handles CSP nonce generation and injection into inline scripts/styles
  *
- * @package CoreTheme\Security
+ * @package BYSPress\Security
  * @since 1.0.0
  */
 
-namespace CoreTheme\Security;
+namespace BYSPress\Security;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

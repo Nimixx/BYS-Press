@@ -1,10 +1,10 @@
-# Core Theme
+# BYS Press
 
 A modern, secure, production-ready WordPress theme boilerplate built with enterprise-grade architecture and performance optimization.
 
 ## 🎯 Concept & Philosophy
 
-**Core Theme is a professional WordPress boilerplate** designed for developers who need:
+**BYS Press is a professional WordPress boilerplate** designed for developers who need:
 
 - **Security-first approach** - Enterprise security headers, CSP, user enumeration prevention
 - **Performance optimization** - ~100KB lighter, 6 fewer HTTP requests, optimized admin
@@ -12,9 +12,9 @@ A modern, secure, production-ready WordPress theme boilerplate built with enterp
 - **Clean architecture** - OOP, dependency injection, PSR-4 autoloading
 - **Easy customization** - 24 modular utilities, clear structure, well-documented
 
-### Why Core Theme?
+### Why BYS Press?
 
-Most WordPress themes are bloated, insecure, and use outdated development practices. Core Theme solves this by providing:
+Most WordPress themes are bloated, insecure, and use outdated development practices. BYS Press solves this by providing:
 
 1. **Modern Tooling** - Vue 3, TypeScript, Vite for fast development with HMR
 2. **Security Hardening** - Built-in CSP, security headers, and 24 optimization utilities
@@ -40,8 +40,8 @@ Most WordPress themes are bloated, insecure, and use outdated development practi
 ```bash
 # 1. Clone the theme
 cd wp-content/themes/
-git clone https://github.com/yourusername/core-theme.git
-cd core-theme
+git clone https://github.com/yourusername/bys-press.git
+cd bys-press
 
 # 2. Install dependencies
 composer install
@@ -75,7 +75,7 @@ npm run check
 
 ### **Separation of Concerns**
 
-Core Theme uses a modular architecture where each concern is isolated:
+BYS Press uses a modular architecture where each concern is isolated:
 
 ```
 ┌──────────────────────────────────────────┐
@@ -181,7 +181,7 @@ inc/utilities/
 ## 📁 Directory Structure
 
 ```
-core-theme/
+bys-press/
 ├── components/              # Reusable components (Twig + Vue)
 │   ├── Button/             # Twig component
 │   ├── MenuToggle/         # Vue component
@@ -346,7 +346,7 @@ See `inc/utilities/README.md` for detailed cron setup instructions.
 
 ```bash
 # Clone for new client
-cp -r core-theme client-theme-name
+cp -r bys-press client-theme-name
 cd client-theme-name
 ```
 
@@ -722,7 +722,7 @@ Contributions welcome! Please follow WordPress coding standards.
 | Modern Stack | 10/10 | ✅ Excellent |
 | Documentation | 9/10 | ✅ Excellent |
 
-**Core Theme is production-ready and battle-tested for client projects.**
+**BYS Press is production-ready and battle-tested for client projects.**
 
 ---
 

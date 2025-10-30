@@ -14,7 +14,7 @@
  * - Simplifies authentication flow
  * - Removes REST API authentication method
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 
@@ -93,7 +93,7 @@ add_action('admin_init', function () {
     global $wpdb;
 
     // Only run once
-    if (get_option('core_theme_app_passwords_cleaned')) {
+    if (get_option('bys_press_app_passwords_cleaned')) {
         return;
     }
 
@@ -104,6 +104,6 @@ add_action('admin_init', function () {
     );
 
     // Mark as cleaned
-    update_option('core_theme_app_passwords_cleaned', true);
+    update_option('bys_press_app_passwords_cleaned', true);
 }, 1);
 */

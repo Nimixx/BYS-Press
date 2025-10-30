@@ -5,7 +5,7 @@
  * Removes WordPress oEmbed functionality and related scripts
  * Improves performance by reducing HTTP requests and script loading
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

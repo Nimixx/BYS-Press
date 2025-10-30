@@ -5,11 +5,11 @@
  * Handles basic security headers (X-Frame-Options, X-Content-Type-Options, etc.)
  * and HSTS (Strict-Transport-Security)
  *
- * @package CoreTheme\Security
+ * @package BYSPress\Security
  * @since 1.0.0
  */
 
-namespace CoreTheme\Security;
+namespace BYSPress\Security;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

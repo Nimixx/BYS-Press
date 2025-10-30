@@ -1,10 +1,10 @@
 <?php
 /**
- * Core Theme Bootstrap
+ * BYS Press Theme Bootstrap
  *
  * This file initializes the theme using an object-oriented architecture
  *
- * @package CoreTheme
+ * @package BYSPress
  */
 
 // Prevent direct access
@@ -16,8 +16,8 @@ if (!defined('ABSPATH')) {
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Bootstrap the theme
-$coreTheme = new CoreTheme\Theme();
-$coreTheme->boot();
+$bysPress = new BYSPress\Theme();
+$bysPress->boot();
 
 /**
  * Get the theme instance
@@ -25,10 +25,10 @@ $coreTheme->boot();
  * Provides global access to the theme instance for extending functionality
  *
  * @since 1.0.0
- * @return CoreTheme\Theme
+ * @return BYSPress\Theme
  */
-function core_theme(): CoreTheme\Theme
+function bys_press(): BYSPress\Theme
 {
-    global $coreTheme;
-    return $coreTheme;
+    global $bysPress;
+    return $bysPress;
 }

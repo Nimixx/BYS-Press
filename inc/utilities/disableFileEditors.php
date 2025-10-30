@@ -5,7 +5,7 @@
  * Disables the theme and plugin file editors in WordPress admin
  * Important security improvement for client sites
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

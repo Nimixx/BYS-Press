@@ -5,7 +5,7 @@
  * Optimizes WordPress heartbeat API to reduce server load and improve admin performance
  * The heartbeat API is used for autosave, post locking, and login expiration warnings
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

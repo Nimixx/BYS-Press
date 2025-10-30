@@ -7,7 +7,7 @@
  * - Spam pingbacks
  * - Server resource abuse
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

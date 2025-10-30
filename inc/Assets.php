@@ -5,22 +5,22 @@
  * Main orchestrator for theme asset management
  * Delegates to specialized components for different concerns
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 
-namespace CoreTheme;
+namespace BYSPress;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit();
 }
 
-use CoreTheme\Assets\AssetEnqueuer;
-use CoreTheme\Assets\ScriptOptimizer;
-use CoreTheme\Assets\StyleOptimizer;
-use CoreTheme\Assets\CriticalCssHandler;
-use CoreTheme\Assets\ResourceHints;
+use BYSPress\Assets\AssetEnqueuer;
+use BYSPress\Assets\ScriptOptimizer;
+use BYSPress\Assets\StyleOptimizer;
+use BYSPress\Assets\CriticalCssHandler;
+use BYSPress\Assets\ResourceHints;
 
 class Assets
 {

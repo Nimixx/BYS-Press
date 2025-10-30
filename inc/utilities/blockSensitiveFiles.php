@@ -8,7 +8,7 @@
  * - Plugin/theme information
  * - Backup files
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

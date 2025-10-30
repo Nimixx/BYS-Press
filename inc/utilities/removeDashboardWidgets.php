@@ -4,7 +4,7 @@
  *
  * Removes unnecessary default WordPress dashboard widgets to clean up the admin
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

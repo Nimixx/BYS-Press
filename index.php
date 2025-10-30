@@ -5,7 +5,7 @@
  * This is the most generic template file in a WordPress theme
  * and is used to display content when no more specific template matches
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

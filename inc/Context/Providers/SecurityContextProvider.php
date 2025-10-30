@@ -5,19 +5,19 @@
  * Provides security-related data to Timber context
  * Includes CSP nonce for inline scripts/styles
  *
- * @package CoreTheme\Context\Providers
+ * @package BYSPress\Context\Providers
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context\Providers;
+namespace BYSPress\Context\Providers;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit();
 }
 
-use CoreTheme\Context\ContextProviderInterface;
-use CoreTheme\Security;
+use BYSPress\Context\ContextProviderInterface;
+use BYSPress\Security;
 
 class SecurityContextProvider implements ContextProviderInterface
 {

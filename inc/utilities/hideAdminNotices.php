@@ -5,7 +5,7 @@
  * Hides plugin/theme update notices for non-administrator users
  * Provides a cleaner admin experience for clients
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

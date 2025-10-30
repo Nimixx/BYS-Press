@@ -5,7 +5,7 @@
  * Completely disables WordPress comments system
  * Good for business/portfolio sites that don't need comments
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

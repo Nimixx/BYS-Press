@@ -5,7 +5,7 @@
  * Removes unnecessary meta tags and links from wp_head
  * Improves security and reduces HTML bloat
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

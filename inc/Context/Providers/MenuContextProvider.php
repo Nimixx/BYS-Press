@@ -5,19 +5,19 @@
  * Provides processed menu data to Timber context
  * Loads menu structure from inc/Config/menu.php and processes active states
  *
- * @package CoreTheme\Context\Providers
+ * @package BYSPress\Context\Providers
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context\Providers;
+namespace BYSPress\Context\Providers;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit();
 }
 
-use CoreTheme\Context\ContextProviderInterface;
-use CoreTheme\Context\Processors\MenuProcessor;
+use BYSPress\Context\ContextProviderInterface;
+use BYSPress\Context\Processors\MenuProcessor;
 
 class MenuContextProvider implements ContextProviderInterface
 {

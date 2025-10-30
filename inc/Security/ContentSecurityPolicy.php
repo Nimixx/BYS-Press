@@ -4,11 +4,11 @@
  *
  * Manages Content-Security-Policy header with nonces and allowed domains
  *
- * @package CoreTheme\Security
+ * @package BYSPress\Security
  * @since 1.0.0
  */
 
-namespace CoreTheme\Security;
+namespace BYSPress\Security;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
@@ -103,7 +103,7 @@ class ContentSecurityPolicy
         ];
 
         // Apply CSP filter to allow customization
-        $cspDirectives = apply_filters('core_theme_csp_directives', $cspDirectives, $nonce);
+        $cspDirectives = apply_filters('bys_press_csp_directives', $cspDirectives, $nonce);
         header('Content-Security-Policy: ' . implode('; ', $cspDirectives));
     }
 

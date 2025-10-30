@@ -4,11 +4,11 @@
  *
  * Handles theme configuration, supports, and menus
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 
-namespace CoreTheme;
+namespace BYSPress;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
@@ -49,7 +49,7 @@ class ThemeSetup
      */
     private function loadTextDomain(): void
     {
-        load_theme_textdomain('core-theme', get_template_directory() . '/languages');
+        load_theme_textdomain('bys-press', get_template_directory() . '/languages');
     }
 
     /**
@@ -84,8 +84,8 @@ class ThemeSetup
     private function registerMenus(): void
     {
         register_nav_menus([
-            'primary' => __('Primary Menu', 'core-theme'),
-            'footer' => __('Footer Menu', 'core-theme'),
+            'primary' => __('Primary Menu', 'bys-press'),
+            'footer' => __('Footer Menu', 'bys-press'),
         ]);
     }
 }

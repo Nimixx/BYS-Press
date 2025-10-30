@@ -1,8 +1,8 @@
 /*
-Theme Name: Core Theme
-Theme URI: https://github.com/core-theme/core-theme
-Author: Core Theme Contributors
-Author URI: https://github.com/core-theme/core-theme
+Theme Name: BYS Press
+Theme URI: https://github.com/bys-press/bys-press
+Author: BYS Press Contributors
+Author URI: https://github.com/bys-press/bys-press
 Description: A modern, secure WordPress theme built with Timber (Twig templating), Vite, TypeScript, and Vue 3. Features comprehensive security headers, modular architecture, environment-aware configuration, and accessibility-first design. Perfect for developers who want a minimal, performant foundation with modern tooling.
 Version: 1.0.0
 Requires at least: 6.0
@@ -10,11 +10,11 @@ Tested up to: 6.8
 Requires PHP: 8.1
 License: BSD Zero Clause License (0BSD)
 License URI: https://opensource.org/licenses/0BSD
-Text Domain: core-theme
+Text Domain: bys-press
 Domain Path: /languages
 Tags: modern, minimal, timber, vite, typescript, vue, security, accessibility, developer-friendly, flexible-header, custom-menu, translation-ready
 
-Core Theme - A modern WordPress development foundation
+BYS Press - A modern WordPress development foundation
 ====================================================
 
 Built With:
@@ -50,5 +50,5 @@ Requirements:
 - Node.js 18+ and npm
 - Timber plugin or Composer autoload
 
-Documentation: https://github.com/tadeasthelen/core-theme
+Documentation: https://github.com/bys-press/bys-press
 */

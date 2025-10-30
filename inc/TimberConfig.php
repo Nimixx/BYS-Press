@@ -4,11 +4,11 @@
  *
  * Handles Timber initialization and configuration
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 
-namespace CoreTheme;
+namespace BYSPress;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
@@ -17,11 +17,11 @@ if (!defined('ABSPATH')) {
 
 use Timber\Timber;
 use Timber\Site;
-use CoreTheme\Context\ContextProviderInterface;
-use CoreTheme\Context\Providers\MenuContextProvider;
-use CoreTheme\Context\Providers\RequestContextProvider;
-use CoreTheme\Context\Providers\SecurityContextProvider;
-use CoreTheme\Context\Providers\AssetsContextProvider;
+use BYSPress\Context\ContextProviderInterface;
+use BYSPress\Context\Providers\MenuContextProvider;
+use BYSPress\Context\Providers\RequestContextProvider;
+use BYSPress\Context\Providers\SecurityContextProvider;
+use BYSPress\Context\Providers\AssetsContextProvider;
 
 class TimberConfig
 {
@@ -153,7 +153,7 @@ class TimberConfig
             $context = $provider->addToContext($context);
         }
 
-        return apply_filters('core_theme_timber_context', $context);
+        return apply_filters('bys_press_timber_context', $context);
     }
 
     /**

@@ -5,7 +5,7 @@
  * Disables WordPress XML-RPC functionality for improved security and performance
  * XML-RPC is often targeted by brute force attacks and is rarely needed
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

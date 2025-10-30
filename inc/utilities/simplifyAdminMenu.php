@@ -11,7 +11,7 @@
  * - Less clutter for content editors
  * - Improved user experience
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

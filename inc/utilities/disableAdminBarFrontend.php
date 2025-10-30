@@ -4,7 +4,7 @@
  *
  * Removes the admin bar from the frontend for all users to improve performance
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

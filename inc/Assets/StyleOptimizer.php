@@ -4,11 +4,11 @@
  *
  * Optimizes style tags with font-display and other performance optimizations
  *
- * @package CoreTheme\Assets
+ * @package BYSPress\Assets
  * @since 1.0.0
  */
 
-namespace CoreTheme\Assets;
+namespace BYSPress\Assets;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

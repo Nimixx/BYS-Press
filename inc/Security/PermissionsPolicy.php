@@ -4,11 +4,11 @@
  *
  * Manages Permissions-Policy header for controlling browser features
  *
- * @package CoreTheme\Security
+ * @package BYSPress\Security
  * @since 1.0.0
  */
 
-namespace CoreTheme\Security;
+namespace BYSPress\Security;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
@@ -52,7 +52,7 @@ class PermissionsPolicy
             'accelerometer=()',
         ];
 
-        $permissions = apply_filters('core_theme_permissions_policy', $permissions);
+        $permissions = apply_filters('bys_press_permissions_policy', $permissions);
         header('Permissions-Policy: ' . implode(', ', $permissions));
     }
 }

@@ -5,18 +5,18 @@
  * Provides static asset paths to Timber context
  * Loads asset configuration from inc/Config/assets.php
  *
- * @package CoreTheme\Context\Providers
+ * @package BYSPress\Context\Providers
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context\Providers;
+namespace BYSPress\Context\Providers;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit();
 }
 
-use CoreTheme\Context\ContextProviderInterface;
+use BYSPress\Context\ContextProviderInterface;
 
 class AssetsContextProvider implements ContextProviderInterface
 {

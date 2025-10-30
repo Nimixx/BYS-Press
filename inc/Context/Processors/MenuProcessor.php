@@ -5,11 +5,11 @@
  * Processes menu configuration and adds active states based on current URL
  * Handles all menu logic server-side to keep templates clean
  *
- * @package CoreTheme\Context\Processors
+ * @package BYSPress\Context\Processors
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context\Processors;
+namespace BYSPress\Context\Processors;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

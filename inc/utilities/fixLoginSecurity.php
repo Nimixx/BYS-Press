@@ -10,7 +10,7 @@
  *
  * This makes brute force attacks much easier. This utility prevents user enumeration.
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

@@ -4,11 +4,11 @@
  *
  * Main class that initializes all theme components
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 
-namespace CoreTheme;
+namespace BYSPress;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
@@ -100,7 +100,7 @@ class Theme
         $this->themeSetup->init();
         $this->assets->init();
 
-        do_action('core_theme_booted', $this);
+        do_action('bys_press_booted', $this);
     }
 
     /**

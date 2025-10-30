@@ -5,22 +5,22 @@
  * Main orchestrator for theme security features
  * Delegates to specialized components for different security concerns
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 
-namespace CoreTheme;
+namespace BYSPress;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit();
 }
 
-use CoreTheme\Security\NonceManager;
-use CoreTheme\Security\HeaderSecurity;
-use CoreTheme\Security\PermissionsPolicy;
-use CoreTheme\Security\ContentSecurityPolicy;
-use CoreTheme\Security\WordPressSecurity;
+use BYSPress\Security\NonceManager;
+use BYSPress\Security\HeaderSecurity;
+use BYSPress\Security\PermissionsPolicy;
+use BYSPress\Security\ContentSecurityPolicy;
+use BYSPress\Security\WordPressSecurity;
 
 class Security
 {

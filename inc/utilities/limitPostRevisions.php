@@ -4,7 +4,7 @@
  *
  * Limits the number of post revisions saved in the database to reduce bloat
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

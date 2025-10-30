@@ -4,11 +4,11 @@
  *
  * Provides a type-safe way to create button component context
  *
- * @package CoreTheme\Components
+ * @package BYSPress\Components
  * @since 1.0.0
  */
 
-namespace CoreTheme\Components;
+namespace BYSPress\Components;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

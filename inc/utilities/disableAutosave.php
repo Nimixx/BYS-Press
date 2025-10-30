@@ -4,7 +4,7 @@
  *
  * Disables automatic post saving while editing to reduce AJAX calls and server load
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

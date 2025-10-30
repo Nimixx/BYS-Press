@@ -5,7 +5,7 @@
  * Removes emoji detection scripts and styles from WordPress
  * Significant performance improvement on both frontend and admin
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

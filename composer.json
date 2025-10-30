@@ -1,6 +1,6 @@
 {
-  "name": "core-theme/wordpress-theme",
-  "description": "Modern WordPress theme with Timber and Vite",
+  "name": "bys-press/wordpress-theme",
+  "description": "BYS Press - Modern WordPress theme with Timber and Vite",
   "type": "project",
   "license": "0BSD",
   "require": {
@@ -14,13 +14,13 @@
   },
   "autoload": {
     "psr-4": {
-      "CoreTheme\\": "inc/"
+      "BYSPress\\": "inc/"
     },
     "classmap": ["components/"]
   },
   "autoload-dev": {
     "psr-4": {
-      "CoreTheme\\Tests\\": "tests/"
+      "BYSPress\\Tests\\": "tests/"
     }
   },
   "scripts": {

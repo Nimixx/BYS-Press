@@ -4,11 +4,11 @@
  *
  * Handles inline critical CSS for above-the-fold content
  *
- * @package CoreTheme\Assets
+ * @package BYSPress\Assets
  * @since 1.0.0
  */
 
-namespace CoreTheme\Assets;
+namespace BYSPress\Assets;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

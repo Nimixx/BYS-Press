@@ -4,7 +4,7 @@
  *
  * Removes Screen Options tab and Help tab from admin pages for cleaner UI
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

@@ -5,7 +5,7 @@
  * Defines paths to static assets (images, logos, etc.)
  * Paths are relative to the theme directory
  *
- * @package CoreTheme\Config
+ * @package BYSPress\Config
  * @since 1.0.0
  */
 

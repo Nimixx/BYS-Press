@@ -19,7 +19,7 @@
  *
  * IMPORTANT: You must set up system cron after enabling this!
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 

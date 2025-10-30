@@ -4,11 +4,11 @@
  *
  * Optimizes script tags with defer/async attributes for performance
  *
- * @package CoreTheme\Assets
+ * @package BYSPress\Assets
  * @since 1.0.0
  */
 
-namespace CoreTheme\Assets;
+namespace BYSPress\Assets;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

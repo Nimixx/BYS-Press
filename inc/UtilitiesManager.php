@@ -4,11 +4,11 @@
  *
  * Manages and auto-loads utility files from the utilities directory
  *
- * @package CoreTheme
+ * @package BYSPress
  * @since 1.0.0
  */
 
-namespace CoreTheme;
+namespace BYSPress;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
@@ -60,7 +60,7 @@ class UtilitiesManager
         // Load all PHP files from utilities directory
         $this->loadUtilities();
 
-        do_action('core_theme_utilities_loaded', $this->loadedUtilities);
+        do_action('bys_press_utilities_loaded', $this->loadedUtilities);
     }
 
     /**
@@ -102,7 +102,7 @@ class UtilitiesManager
         $utilityName = basename($file, '.php');
         $this->loadedUtilities[] = $utilityName;
 
-        do_action('core_theme_utility_loaded', $utilityName, $file);
+        do_action('bys_press_utility_loaded', $utilityName, $file);
     }
 
     /**

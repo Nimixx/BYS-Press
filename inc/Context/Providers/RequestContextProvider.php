@@ -5,18 +5,18 @@
  * Provides current request information to Timber context
  * Includes current URL for menu active state detection
  *
- * @package CoreTheme\Context\Providers
+ * @package BYSPress\Context\Providers
  * @since 1.0.0
  */
 
-namespace CoreTheme\Context\Providers;
+namespace BYSPress\Context\Providers;
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit();
 }
 
-use CoreTheme\Context\ContextProviderInterface;
+use BYSPress\Context\ContextProviderInterface;
 
 class RequestContextProvider implements ContextProviderInterface
 {

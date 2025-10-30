@@ -10,6 +10,11 @@
 
 namespace CoreTheme\Components;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 class Card
 {
     /**

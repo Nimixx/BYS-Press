@@ -11,6 +11,11 @@
 
 namespace CoreTheme\Context\Processors;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 class MenuProcessor
 {
     /**

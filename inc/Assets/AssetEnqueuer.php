@@ -10,6 +10,11 @@
 
 namespace CoreTheme\Assets;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 use Kucrut\Vite;
 
 class AssetEnqueuer

@@ -11,6 +11,11 @@
 
 namespace CoreTheme\Context\Providers;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 use CoreTheme\Context\ContextProviderInterface;
 
 class AssetsContextProvider implements ContextProviderInterface

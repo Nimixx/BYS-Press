@@ -11,6 +11,11 @@
 
 namespace CoreTheme\Context;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 interface ContextProviderInterface
 {
     /**

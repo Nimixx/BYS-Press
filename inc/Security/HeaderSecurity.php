@@ -11,6 +11,11 @@
 
 namespace CoreTheme\Security;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 class HeaderSecurity
 {
     /**

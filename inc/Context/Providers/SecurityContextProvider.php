@@ -11,6 +11,11 @@
 
 namespace CoreTheme\Context\Providers;
 
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 use CoreTheme\Context\ContextProviderInterface;
 use CoreTheme\Security;
 

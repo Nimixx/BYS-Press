@@ -2,6 +2,7 @@
   "name": "core-theme/wordpress-theme",
   "description": "Modern WordPress theme with Timber and Vite",
   "type": "project",
+  "license": "0BSD",
   "require": {
     "timber/timber": "^2.3",
     "kucrut/vite-for-wp": "^0.12.0"

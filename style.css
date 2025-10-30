@@ -1,15 +1,15 @@
 /*
 Theme Name: Core Theme
-Theme URI: https://github.com/tadeasthelen/core-theme
-Author: Tadeas Thelen
-Author URI: https://tadeasthelen.com
+Theme URI: https://github.com/core-theme/core-theme
+Author: Core Theme Contributors
+Author URI: https://github.com/core-theme/core-theme
 Description: A modern, secure WordPress theme built with Timber (Twig templating), Vite, TypeScript, and Vue 3. Features comprehensive security headers, modular architecture, environment-aware configuration, and accessibility-first design. Perfect for developers who want a minimal, performant foundation with modern tooling.
 Version: 1.0.0
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: BSD Zero Clause License (0BSD)
+License URI: https://opensource.org/licenses/0BSD
 Text Domain: core-theme
 Domain Path: /languages
 Tags: modern, minimal, timber, vite, typescript, vue, security, accessibility, developer-friendly, flexible-header, custom-menu, translation-ready

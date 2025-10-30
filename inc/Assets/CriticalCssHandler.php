@@ -62,7 +62,9 @@ class CriticalCssHandler
     public function inlineCriticalCss(): void
     {
         if ($this->criticalCss !== null) {
-            echo '<style id="critical-css">' . $this->criticalCss . '</style>' . "\n";
+            // Strip any HTML tags for security, preserve CSS syntax
+            $safeCss = wp_strip_all_tags($this->criticalCss);
+            echo '<style id="critical-css">' . $safeCss . '</style>' . "\n";
             return;
         }
 
@@ -70,7 +72,9 @@ class CriticalCssHandler
         $criticalCssPath = $this->themeDir . '/dist/critical.css';
         if (file_exists($criticalCssPath)) {
             $css = file_get_contents($criticalCssPath);
-            echo '<style id="critical-css">' . $css . '</style>' . "\n";
+            // Strip any HTML tags for security, preserve CSS syntax
+            $safeCss = wp_strip_all_tags($css);
+            echo '<style id="critical-css">' . $safeCss . '</style>' . "\n";
         }
     }
 

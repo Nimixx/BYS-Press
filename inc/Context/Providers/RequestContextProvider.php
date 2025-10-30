@@ -29,8 +29,8 @@ class RequestContextProvider implements ContextProviderInterface
      */
     public function addToContext(array $context): array
     {
-        // Add current URL for menu active states
-        $context['current_url'] = $_SERVER['REQUEST_URI'] ?? '/';
+        // Add current URL for menu active states (sanitized for XSS protection)
+        $context['current_url'] = esc_url_raw($_SERVER['REQUEST_URI'] ?? '/');
 
         return $context;
     }

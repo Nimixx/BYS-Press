@@ -45,8 +45,8 @@ class MenuContextProvider implements ContextProviderInterface
     {
         $this->themeDir = $themeDir ?? get_template_directory();
 
-        // Get current URL for menu processor
-        $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
+        // Get current URL for menu processor (sanitized for XSS protection)
+        $currentUrl = esc_url_raw($_SERVER['REQUEST_URI'] ?? '/');
         $this->processor = new MenuProcessor($currentUrl);
     }
 

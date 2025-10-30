@@ -1,42 +1,255 @@
+# ===================================
+# BYS Press Theme - Git Ignore File
+# ===================================
+
+# ----------------
 # Dependencies
+# ----------------
 node_modules/
 vendor/
+bower_components/
 
-# Build output
+# ----------------
+# Build Output
+# ----------------
 dist/
+build/
 bundles/
+*.zip
+*.tar
+*.tar.gz
 
-# Editor files
-.DS_Store
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# ----------------
+# Security & Sensitive Files
+# ----------------
+# Environment variables
+.env
+.env.*
+.env.local
+.env.*.local
+!.env.example
 
-# Logs
+# Security keys and credentials
+*.key
+*.pem
+*.p12
+*.pfx
+*.cer
+*.crt
+id_rsa
+id_rsa.pub
+.ssh/
+auth.json
+credentials.json
+secrets.json
+*.secret
+
+# WordPress security
+wp-config.php
+.htaccess
+.htpasswd
+
+# Database exports
+*.sql
+*.sql.gz
+*.sqlite
+*.db
+
+# ----------------
+# Logs & Debug Files
+# ----------------
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+error_log
+debug.log
+php_errors.log
+access.log
 
-# Environment files
-.env
-.env.local
-.env.*.local
+# ----------------
+# WordPress Specific
+# ----------------
+# WordPress core (if theme is in a WP install)
+wp-admin/
+wp-includes/
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/backups/
+wp-content/cache/
+wp-content/w3tc-config/
 
-# Temporary files
-*.tmp
-*.temp
+# WordPress plugins (if tracking theme only)
+# wp-content/plugins/
 
-# Test coverage
+# Advanced Custom Fields sync
+# acf-json/
+
+# ----------------
+# Operating System Files
+# ----------------
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Windows
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ----------------
+# IDE & Editor Files
+# ----------------
+# VSCode
+.vscode/
+.vscode-test/
+*.code-workspace
+
+# PhpStorm / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea_modules/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-commands
+
+# Vim
+*.swp
+*.swo
+*.swn
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+
+# Atom
+.ftpconfig
+.sftpconfig
+
+# Eclipse
+.project
+.buildpath
+.settings/
+
+# NetBeans
+nbproject/
+
+# ----------------
+# Package Manager Files
+# ----------------
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+composer.lock
+Gemfile.lock
+
+# Keep these if you want to lock versions:
+# !package-lock.json
+# !yarn.lock
+# !composer.lock
+
+# ----------------
+# Testing & Coverage
+# ----------------
 coverage/
 .nyc_output/
 .phpunit.cache/
-
-# Test results
+phpunit.xml
+.phpunit.result.cache
 .vitest/
+test-results/
+playwright-report/
+*.coverage
+.coverage
 
-# Translation files
+# ----------------
+# Temporary Files
+# ----------------
+*.tmp
+*.temp
+tmp/
+temp/
+*.bak
+*.backup
+*.swp
+*.cache
+
+# ----------------
+# Translation Files
+# ----------------
 # Keep .pot files (templates) but ignore compiled .mo files
 *.mo
+
+# ----------------
+# Version Control
+# ----------------
+.svn/
+.git/
+.gitattributes
+
+# ----------------
+# CI/CD
+# ----------------
+.gitlab-ci.yml.local
+.travis.yml.local
+
+# ----------------
+# Documentation Build
+# ----------------
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# ----------------
+# Misc
+# ----------------
+*.diff
+*.patch
+*.orig
+.sass-cache
+.cache/
+
+# ----------------
+# Theme Specific
+# ----------------
+# Uncomment if you don't want to track these:
+# RENAME_PLAN.md
